@@ -5,5 +5,4 @@ public interface character{
   public void changeKeybinds();
   public void update();
   public void playerSwap(char keybind);
-  }
 }

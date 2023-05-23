@@ -3,6 +3,8 @@ import java.util.*;
 
 ArrayList<PImage> sprts;
 int counter;
+boolean inward;
+int[][] locations;
 
 void setup(){
   size(500, 500);
@@ -12,17 +14,21 @@ void setup(){
 }
 
 void draw(){
-  try{
-  background(0);
-  image(sprts.get(counter), 0, 0);
-  counter += 1;
-  if (counter >= sprts.size()){
-    counter = 0;
+  background(255);
+  imageMode(CENTER);
+  PImage img = sprts.get(counter);
+  image(img, img.width/2, height - img.height/2);
+  if (counter <= 0){
+    inward = true;
   }
-  Thread.sleep(75);
+  else if (counter >= 3){
+    inward = false;
   }
-  catch(InterruptedException e){
-    print("Why ?");
+  if (inward){
+    counter += 1;
+  }
+  else{
+    counter -= 1;
   }
 }
 

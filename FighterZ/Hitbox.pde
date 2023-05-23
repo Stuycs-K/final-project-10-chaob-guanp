@@ -11,4 +11,8 @@ public class Hitbox implements box{
     posX = posX_;
     posY = posY_;
   }
+  
+  checkCollides(){
+    
+  }
 }

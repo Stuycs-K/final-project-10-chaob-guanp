@@ -18,8 +18,12 @@ public class Goku implements character {
   }
   
   public void setSprites(String keyword){
-    File directory = new File("Mega Pack Extreme Butoden" + File.separator + keyword + " EB");
+    sprites = new ArrayList<PImage>();
+    File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
+    System.out.println(directory.getAbsolutePath());
     File[] files = directory.listFiles();
+    Arrays.sort(files);
+    
     for (int i = 0; i < files.length; i++){
       String path = files[i].getAbsolutePath();
       if (path.endsWith(".png")){

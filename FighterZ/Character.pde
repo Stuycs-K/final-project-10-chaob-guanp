@@ -4,6 +4,6 @@ public interface character{
   public void specialAttack();
   public void changeKeybinds();
   public void update();
-  public void playerSwap(Char keybind);
+  public void playerSwap(char keybind);
   }
 }

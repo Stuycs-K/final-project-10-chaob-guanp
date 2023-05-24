@@ -14,13 +14,6 @@ public class Hurtbox implements box{
     posX = posX_;
     posY = posY_;
     display = false;
-<<<<<<< HEAD
-=======
-  }
-  
-  public box checkCollides(){
-    return null;
->>>>>>> 3fee41c2b1bd1dc7704c22bebddea3ab28faaa14
   }
   
   public boolean checkCollides(box other, int otherXpos, int otherYpos, int Xpos, int Ypos) {

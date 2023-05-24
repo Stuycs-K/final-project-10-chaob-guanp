@@ -4,7 +4,10 @@ public class Hitbox implements box{
   private int posX;
   private int posY;
   public boolean display;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3fee41c2b1bd1dc7704c22bebddea3ab28faaa14
   
   public Hitbox(int posX_, int posY_, int width_, int length_) {
     noFill();
@@ -15,6 +18,7 @@ public class Hitbox implements box{
     posX = posX_;
     posY = posY_;
     display = false;
+<<<<<<< HEAD
 
   }
   
@@ -29,5 +33,11 @@ public class Hitbox implements box{
       }
     }
     return false;
+=======
+  }
+  
+  public box checkCollides(){
+    return null;
+>>>>>>> 3fee41c2b1bd1dc7704c22bebddea3ab28faaa14
   }
 }

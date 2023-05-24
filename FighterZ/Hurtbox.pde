@@ -1,4 +1,4 @@
-public class Hurtbox extends Hitbox implements box{
+public class Hurtbox implements box{
   private int len;
   private int wid;
   private int posX;
@@ -6,7 +6,6 @@ public class Hurtbox extends Hitbox implements box{
   public boolean display;
   
   public Hurtbox(int posX_, int posY_, int width_, int length_) {
-    super(posX_, posY_, width_, length_);
     noFill();
     stroke(255, 0, 0);
     rect(posX_, posY_, width_, length_);
@@ -17,13 +16,17 @@ public class Hurtbox extends Hitbox implements box{
     display = false;
   }
   
-  public boolean checkCollides(Hitbox other, int otherXpos, int otherYpos, int Xpos, int Ypos) {
-    if (Xpos + other.wid == otherXpos && Ypos == otherYpos){
-        return true;
+  public boolean checkCollides(box other, int otherXpos, int otherYpos, int Xpos, int Ypos) {
+    for (int i = Xpos; i < Xpos + wid; i++) {
+      if (i == otherXpos) {
+        for (int j = Ypos; i < Ypos + len; j++) {
+          if (j == otherYpos) {
+            return true;
+          }
+        }
+      }
     }
-    else {
-      return false;
-    }
+    return false;
   }
   
 }

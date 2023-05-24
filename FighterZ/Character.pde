@@ -6,6 +6,7 @@ public class character{
   public int posX; // bottom right X;
   public int posY; // bottom right Y;
   public int ticks;
+  public int tickDelay;
   
   public character(int PlayerNumber){
     up = false;
@@ -20,6 +21,7 @@ public class character{
     inAir = false;
     crouching = false;
     ticks = 0;
+    tickDelay = 75;
     if (PlayerNumber == 1){
       keybinds = new char[] {'w', 'a', 's', 'd', 'e', 'r', 't', 'y'}; // player 1
       posX = 50;

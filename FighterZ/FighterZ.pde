@@ -22,14 +22,8 @@ void setup(){
 }
 
 void draw(){
-  try{
-    Thread.sleep(75);
-    background(255);
-    Player1.update();
-  }
-  catch (InterruptedException e){
-    print("Interrupted exception");
-  }
+  background(255);
+  Player1.update();
 }
 
 public void createArena(){

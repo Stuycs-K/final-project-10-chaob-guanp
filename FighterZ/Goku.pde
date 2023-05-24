@@ -52,6 +52,25 @@ public class Goku extends character {
         img = tempSprites.get(findLastSprite(10)).getImage();
         image(img, posX + (img.width/2), posY + (height - img.width/2));
       }
+      else if(up && !down && !light && !medium && !heavy && !special && !inAir && !stunned){ // Jump, the delays will run in here i guess
+        if (left){
+        }
+        else if (right){
+        }
+        else{
+          int startIndex = findFirstSprite(41);
+          int endIndex = findLastSprite(41);
+          
+          for (int i = 0; i < endIndex - startIndex + 1; i++){
+            if (!stunned){
+              posY = -1 * (-1 * (int) (Math.pow( ( (2 * Math.sqrt(100) / (double) (endIndex-startIndex) ) * i) - Math.sqrt(100), 2) ) + 100);
+              img = tempSprites.get((i % (endIndex - startIndex + 1)) + startIndex).getImage(); // 
+              image(img, posX + (img.width/2), posY + (height - img.width/2)); // the posY coord should also account for jump height. 
+            }
+            Thread.sleep(1);
+          }
+        }
+      }
     
     
       if (posY != 0){

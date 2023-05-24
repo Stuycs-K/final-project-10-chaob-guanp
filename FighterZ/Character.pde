@@ -6,7 +6,6 @@ public class character{
   public int posX; // bottom right X;
   public int posY; // bottom right Y;
   public int ticks;
-  public int tickDelay;
   
   public character(int PlayerNumber){
     up = false;

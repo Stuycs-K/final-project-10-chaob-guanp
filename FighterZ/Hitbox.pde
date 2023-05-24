@@ -15,11 +15,15 @@ public class Hitbox implements box{
   }
   
   public boolean checkCollides(Hitbox other, int otherXpos, int otherYpos, int Xpos, int Ypos){
-    if (Xpos + other.wid == otherXpos && Ypos == otherYpos){
-        return true;
+    for (int i = Xpos; i < Xpos + wid; i++) {
+      if (i == otherXpos) {
+        for (int j = Ypos; i < Ypos + len; j++) {
+          if (j == otherYpos) {
+            return true;
+          }
+        }
+      }
     }
-    else {
-      return false;
-    }
+    return false;
   }
 }

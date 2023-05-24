@@ -14,9 +14,9 @@ void setup(){
   sprts = Player1.getSprites();
   counter = 0;
   posX1 = 0;
-  posY1 = height / 4;
+  posY1 = 250;
   posX2 = width - 25;
-  posY2 = width/4;
+  posY2 = 275;
 }
 
 void draw(){

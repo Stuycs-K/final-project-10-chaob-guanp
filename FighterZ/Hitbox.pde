@@ -3,6 +3,7 @@ public class Hitbox implements box{
   private int wid;
   private int posX;
   private int posY;
+  public boolean display;
   
   public Hitbox(int length_, int width_, int posX_, int posY_) {
     rect(posX_, posY_, width_, length_);
@@ -10,9 +11,10 @@ public class Hitbox implements box{
     wid = width_;
     posX = posX_;
     posY = posY_;
+    display = false;
   }
   
-  checkCollides(){
-    
+  public box checkCollides(){
+    return null;
   }
 }

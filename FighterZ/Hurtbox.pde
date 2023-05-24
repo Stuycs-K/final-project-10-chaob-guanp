@@ -3,6 +3,7 @@ public class Hurtbox implements box{
   private int wid;
   private int posX;
   private int posY;
+  public boolean display;
   
   public Hurtbox(int length_, int width_, int posX_, int posY_) {
     rect(posX_, posY_, width_, length_);
@@ -10,5 +11,10 @@ public class Hurtbox implements box{
     wid = width_;
     posX = posX_;
     posY = posY_;
+    display = false;
+  }
+  
+  public box checkCollides(){
+    return null;
   }
 }

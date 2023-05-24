@@ -2,8 +2,9 @@ public class character{
   private ArrayList<MyPImage> sprites;
   private char[] keybinds;
   public boolean up, left, down, right, light, medium, heavy, special;
-  public int ticks;
-  public int[] location; // location data will be (x,y) coord, coord being at the middle of the bottom of the sprite
+  public boolean stunned;
+  public int posX;
+  public int posY;
   
   public character(int PlayerNumber){
     up = false;
@@ -14,11 +15,16 @@ public class character{
     medium = false;
     heavy = false;
     special = false;
+    stunned = false;
     if (PlayerNumber == 1){
       keybinds = new char[] {'w', 'a', 's', 'd', 'e', 'r', 't', 'y'}; // player 1
+      posX = 50;
+      posY = 0;
     }
     else{
       keybinds = new char[] {'o', 'k', 'l', ';', 'p', '[', ']', '\\'}; // player 2
+      posX = width - 50;
+      posY = 0;
     }
   }
   
@@ -75,12 +81,6 @@ public class character{
   }
   
   public void update(){
-    imageMode(CENTER);
-    if (up == left == down == right == false && location[1] == 0){
-      
-    }
-    PImage img = sprites1.get(counter).getImage();
-    image(img, img.width/2, height - img.height/2); // the y coord should also account for jump height. 
     
   }
   public void playerSwap(char keybind){

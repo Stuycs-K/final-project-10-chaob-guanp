@@ -17,8 +17,8 @@ public class Hurtbox extends Hitbox implements box{
     display = false;
   }
   
-  public boolean checkCollides(Hitbox other) {
-    if (other.posX + other.wid == posX+wid && other.posY + other.len == posY + len){
+  public boolean checkCollides(Hitbox other, int otherXpos, int otherYpos, int Xpos, int Ypos) {
+    if (Xpos + other.wid == otherXpos && Ypos == otherYpos){
         return true;
     }
     else {

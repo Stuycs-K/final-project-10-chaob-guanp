@@ -32,8 +32,8 @@ void draw(){
   
   //testing the color n stuff
     Hitbox test1 = new Hitbox(posX2, posY2, 25, 25);
-  Hurtbox test2 = new Hurtbox(posX1, posY1, 25, 25);
-  if (!test1.checkCollides(test2)) {
+  Hitbox test2 = new Hitbox(posX1, posY1, 25, 25);
+  if (!test1.checkCollides(test2, posX2, posY2, posX1, posY1)) {
       posX1++;
       posX2--;
   }

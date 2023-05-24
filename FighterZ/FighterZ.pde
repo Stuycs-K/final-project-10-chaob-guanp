@@ -14,20 +14,17 @@ public character Player2;
 public ArrayList<MyPImage> sprites1;
 public ArrayList<MyPImage> sprites2;
 public boolean displayHitboxes;
-public int ticks;
 
 void setup(){
-  size(500, 500);
+  size(1000, 500);
   Player1 = new Goku(1);
   sprites1 = Player1.getSprites();
-  ticks = 0;
 }
 
 void draw(){
   try{
     Thread.sleep(75);
     background(255);
-    ticks++;
     Player1.update();
   }
   catch (InterruptedException e){

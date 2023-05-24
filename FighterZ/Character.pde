@@ -2,9 +2,10 @@ public class character{
   private ArrayList<MyPImage> sprites;
   private char[] keybinds;
   public boolean up, left, down, right, light, medium, heavy, special;
-  public boolean stunned;
-  public int posX;
-  public int posY;
+  public boolean stunned, inAir, crouching;
+  public int posX; // bottom right X;
+  public int posY; // bottom right Y;
+  public int ticks;
   
   public character(int PlayerNumber){
     up = false;
@@ -16,6 +17,9 @@ public class character{
     heavy = false;
     special = false;
     stunned = false;
+    inAir = false;
+    crouching = false;
+    ticks = 0;
     if (PlayerNumber == 1){
       keybinds = new char[] {'w', 'a', 's', 'd', 'e', 'r', 't', 'y'}; // player 1
       posX = 50;

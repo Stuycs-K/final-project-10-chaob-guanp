@@ -1,16 +1,20 @@
 import java.io.*;
 import java.util.*;
 
+int UP = 0;
+int LEFT = 1;
+int DOWN = 2;
+int RIGHT = 3;
 character Player1;
 character Player2;
 ArrayList<MyPImage> sprites1;
 ArrayList<MyPImage> sprites2;
-boolean reverse;
 boolean displayHitboxes;
+
+boolean reverse;
 int counter;
 int counterStart;
 int counterLimit;
-int[][] locations;
 
 void setup(){
   size(500, 500);
@@ -18,7 +22,6 @@ void setup(){
   sprites1 = Player1.getSprites();
   counterStart = findFirstSprite(sprites1, 0);
   counterLimit = findLastSprite(sprites1, 0);
-  System.out.println(counterLimit);
   counter = counterStart;
   reverse = false;
 }
@@ -27,7 +30,6 @@ void draw(){
   try{
   background(255);
   imageMode(CENTER);
-  System.out.println(counter);
   PImage img = sprites1.get(counter).getImage();
   image(img, img.width/2, height - img.height/2); // the y coord should also account for jump height. 
   if (!reverse){
@@ -59,18 +61,18 @@ void keyPressed(){
   }
   
   if (Player1 != null){
-    if (key == Player1.keybinds[UP]){
-    Player1.up = true;
-  }
-  if (key == Player1.keybinds[LEFT]){
-    Player1.left = true;
-  }
-  if (key == Player1.keybinds[DOWN]){
-    Player1.down = true;
-  }
-  if (key == Player1.keybinds[RIGHT]){
-    Player1.right = true;
-  }
+    if (key == Player1.getKeybinds()[UP]){
+      Player1.up = true;
+    }
+    if (key == Player1.getKeybinds()[LEFT]){
+      Player1.left = true;
+    }
+    if (key == Player1.getKeybinds()[DOWN]){
+      Player1.down = true;
+    }
+    if (key == Player1.getKeybinds()[RIGHT]){
+      Player1.right = true;
+    }
   }
 }
 

@@ -1,46 +1,30 @@
 import java.io.*;
 import java.util.*;
 
-int UP = 0;
-int LEFT = 1;
-int DOWN = 2;
-int RIGHT = 3;
+final int UP = 0;
+final int LEFT = 1;
+final int DOWN = 2;
+final int RIGHT = 3;
+final int LIGHT = 4;
+final int MEDIUM = 5;
+final int HEAVY = 6;
+final int SPECIAL = 7;
 character Player1;
 character Player2;
 ArrayList<MyPImage> sprites1;
 ArrayList<MyPImage> sprites2;
 boolean displayHitboxes;
 
-boolean reverse;
-int counter;
-int counterStart;
-int counterLimit;
-
 void setup(){
   size(500, 500);
   Player1 = new Goku(1);
   sprites1 = Player1.getSprites();
-  counterStart = findFirstSprite(sprites1, 0);
-  counterLimit = findLastSprite(sprites1, 0);
-  counter = counterStart;
-  reverse = false;
 }
 
 void draw(){
   try{
   background(255);
-  imageMode(CENTER);
-  PImage img = sprites1.get(counter).getImage();
-  image(img, img.width/2, height - img.height/2); // the y coord should also account for jump height. 
-  if (!reverse){
-    counter += 1;
-  }
-  else{
-    counter -= 1;
-  }
-  if (counter >= counterLimit || counter <= counterStart){
-    reverse = !reverse;
-  }
+  Player1.update();
   Thread.sleep(75);
   }
   catch (InterruptedException e){
@@ -73,25 +57,19 @@ void keyPressed(){
     if (key == Player1.getKeybinds()[RIGHT]){
       Player1.right = true;
     }
-  }
-}
-
-public int findFirstSprite(ArrayList<MyPImage> sprites, int value){
-  for (int i = 0; i < sprites.size(); i++){
-    if (sprites.get(i).getName().startsWith(value + "-")){
-      return i;
+    if (key == Player1.getKeybinds()[LIGHT]){
+      Player1.light = true;
+    }
+    if (key == Player1.getKeybinds()[MEDIUM]){
+      Player1.medium = true;
+    }
+    if (key == Player1.getKeybinds()[HEAVY]){
+      Player1.heavy = true;
+    }
+    if (key == Player1.getKeybinds()[SPECIAL]){
+      Player1.special = true;
     }
   }
-  return -1;
-}
-
-public int findLastSprite(ArrayList<MyPImage> sprites, int value){
-  for (int i = sprites.size() - 1; i >= 0; i--){
-    if (sprites.get(i).getName().startsWith(value + "-")){
-      return i;
-    }
-  }
-  return -1;
 }
 
 public void toggleHitboxes(){

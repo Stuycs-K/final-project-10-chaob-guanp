@@ -1,7 +1,7 @@
 public class Goku implements character {
-  private boolean up, left, down, right;
-  private char[] keybinds;
-  private ArrayList<PImage> sprites;
+  private ArrayList<MyPImage> sprites;
+  public boolean up, left, down, right;
+  public char[] keybinds;
   
   public Goku(int PlayerNumber){
     up = false;
@@ -18,22 +18,25 @@ public class Goku implements character {
   }
   
   public void setSprites(String keyword){
-    sprites = new ArrayList<PImage>();
+    sprites = new ArrayList<MyPImage>();
     File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
-    System.out.println(directory.getAbsolutePath());
-    File[] files = directory.listFiles();
+    
+    FileFilter filter = new FileFilter() {
+      public boolean accept(File directory){
+        return directory.getName().endsWith("png");
+      }
+    };
+    
+    File[] files = directory.listFiles(filter);
     Arrays.sort(files);
     
     for (int i = 0; i < files.length; i++){
-      String path = files[i].getAbsolutePath();
-      if (path.endsWith(".png")){
-        PImage image = loadImage(path);
-        sprites.add(image);
-      }
+      MyPImage img = new MyPImage(files[i]);
+      sprites.add(img);
     }
   }
   
-  public ArrayList<PImage> getSprites(){
+  public ArrayList<MyPImage> getSprites(){
     return sprites;
   }
   
@@ -46,7 +49,11 @@ public class Goku implements character {
   public void superAttack(){
   }
   
-  public void changeKeybinds(){
+  public void setKeybinds(){
+  }
+  
+  public char[] getKeybinds(){
+    
   }
   
   public void update(){

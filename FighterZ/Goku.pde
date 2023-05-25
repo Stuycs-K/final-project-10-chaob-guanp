@@ -84,23 +84,23 @@ public class Goku extends character {
       else if(!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching ){ // Left and right walk
         walk();
       }
-    }
     
-    if (posY > 0){
-      inAir = true;
-    }
-    else{
-      inAir = false;
-    }
+      if (posY > 0){
+        inAir = true;
+      }
+      else{
+        inAir = false;
+      }
       
-    if (jumpCD > 0){
-      jumpCD--;
+      if (jumpCD > 0){
+        jumpCD--;
+      }
+      if (crouchCD > 0){
+        crouchCD--;
+      }
+        
+      ticks++;
     }
-    if (crouchCD > 0){
-      crouchCD--;
-    }
-      
-    ticks++;
   }
   
   private void idle(){

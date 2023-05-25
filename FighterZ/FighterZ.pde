@@ -11,7 +11,6 @@ public final int HEAVY = 6;
 public final int SPECIAL = 7;
 public character Player1;
 public character Player2;
-public int tickDelay;
 public boolean displayHitboxes;
 
 void setup(){

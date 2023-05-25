@@ -16,6 +16,7 @@ public boolean displayHitboxes;
 
 void setup(){
   size(1000, 500);
+  frameRate(22);
   Player1 = new Goku(1);
   Player2 = new Goku(2);
 }
@@ -150,4 +151,7 @@ void keyReleased(){
 
 public void toggleHitboxes(){
   displayHitboxes = !displayHitboxes;
+}
+public void reverseImage(){
+  scale(-1.0, 1.0);
 }

@@ -4,6 +4,7 @@ public class character{
   public boolean up, left, down, right, light, medium, heavy, special;
   public boolean stunned, inAir, jumping, crouching;
   public boolean anim;
+  public boolean mirror;
   public int startIndex, endIndex, crouchCD, jumpCD, jumpX;
   public int posX; // bottom right X;
   public int posY; // bottom right Y;
@@ -13,16 +14,17 @@ public class character{
     up = false;left = false;down = false;right = false;light = false;medium = false;heavy = false;special = false;stunned = false;inAir = false;jumping = false;crouching = false;anim = false;
     startIndex = 0;endIndex = 0;crouchCD = 0;jumpCD = 0;jumpX = 0;
     ticks = 0;
-    tickDelay = 75;
     if (PlayerNumber == 1){
       keybinds = new char[] {'w', 'a', 's', 'd', 'e', 'r', 't', 'y'}; // player 1
       posX = 50;
       posY = 0;
+      mirror = false;
     }
     else{
       keybinds = new char[] {'o', 'k', 'l', ';', 'p', '[', ']', '\\'}; // player 2
       posX = width - 50;
       posY = 0;
+      mirror = true;
     }
   }
   

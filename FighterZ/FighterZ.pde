@@ -28,15 +28,11 @@ void setup(){
   size(1000, 500);
   Player1 = new Goku(1);
   sprites1 = Player1.getSprites();
-  Player2 = new Goku(2);
-  sprites2 = Player2.getSprites();
 }
 
 void draw(){
   background(255);
-  new Hitbox(Player1.posX, Player1.posY + 400, 100, 100);
   Player1.update();
-  Player2.update();
 }
 
 public void createArena(){

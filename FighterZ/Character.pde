@@ -7,9 +7,8 @@ public class character{
   public int posY; // bottom right Y;
   public int ticks;
   public int tickDelay;
-  public int health;
+  
   public character(int PlayerNumber){
-    health = 10000;
     up = false;
     left = false;
     down = false;
@@ -62,11 +61,11 @@ public class character{
     return keybinds;
   }
   
-  public void normalAttack(character other){
+  public void normalAttack(){
   }
-  public void superAttack(character other){
+  public void superAttack(){
   }
-  public void specialAttack(character other){
+  public void specialAttack(){
   }
   
   public int findFirstSprite(int value){
@@ -88,7 +87,7 @@ public class character{
   }
   
   public void update(){
-
+    
   }
   public void playerSwap(char keybind){
   }

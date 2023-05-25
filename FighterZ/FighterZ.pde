@@ -30,6 +30,7 @@ void setup(){
   Player2 = new Goku(2);
   sprites1 = Player1.getSprites();
   sprites2 = Player2.getSprites();
+  
 }
 
 void draw(){
@@ -38,11 +39,13 @@ void draw(){
   Hitbox two = new Hitbox(Player2.posX, Player2.posY+400, 100, 100);
   if (!one.checkCollides(two, two.posX, two.posY, one.posX, one.posY)) {
     Player1.update();
-    Player2.update();
+    //Hitbox one = sprites1.get(1).hitboxes[1];
+   Player2.update();
   }
   else {
     Player1.posX -= 10;
   }
+  
 }
 
 public void createArena(){

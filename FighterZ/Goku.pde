@@ -12,10 +12,12 @@ public class Goku extends character {
       imageMode(CENTER);
       PImage img;
       ArrayList<MyPImage> tempSprites = getSprites();
+ //     ArrayList<box> tempBox = getSBox();
+ //     int track = 0;
       if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !crouching && !stunned){ // Idle
         int startIndex = findFirstSprite(0);
         int endIndex = findLastSprite(0);
-      
+
         if (ticks > endIndex - startIndex){
           ticks = 0;
         }

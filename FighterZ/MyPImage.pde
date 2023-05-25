@@ -17,4 +17,8 @@ public class MyPImage{
   public String getName(){
     return name;
   }
+  
+  public Hitbox[] getHitboxes(){
+    return hitboxes;
+  }
 }

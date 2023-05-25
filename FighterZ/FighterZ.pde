@@ -27,12 +27,22 @@ public boolean displayHitboxes;
 void setup(){
   size(1000, 500);
   Player1 = new Goku(1);
+  Player2 = new Goku(2);
   sprites1 = Player1.getSprites();
+  sprites2 = Player2.getSprites();
 }
 
 void draw(){
   background(255);
-  Player1.update();
+  Hitbox one = new Hitbox(Player1.posX, Player1.posY+400, 100, 100);
+  Hitbox two = new Hitbox(Player2.posX, Player2.posY+400, 100, 100);
+  if (!one.checkCollides(two, two.posX, two.posY, one.posX, one.posY)) {
+    Player1.update();
+    Player2.update();
+  }
+  else {
+    Player1.posX -= 10;
+  }
 }
 
 public void createArena(){
@@ -73,6 +83,32 @@ void keyPressed(){
       Player1.special = true;
     }
   }
+    if (Player2 != null){
+    if (key == Player2.getKeybinds()[UP]){
+      Player2.up = true;
+    }
+    if (key == Player2.getKeybinds()[LEFT]){
+      Player2.left = true;
+    }
+    if (key == Player2.getKeybinds()[DOWN]){
+      Player2.down = true;
+    }
+    if (key == Player2.getKeybinds()[RIGHT]){
+      Player2.right = true;
+    }
+    if (key == Player2.getKeybinds()[LIGHT]){
+      Player2.light = true;
+    }
+    if (key == Player2.getKeybinds()[MEDIUM]){
+      Player2.medium = true;
+    }
+    if (key == Player2.getKeybinds()[HEAVY]){
+      Player2.heavy = true;
+    }
+    if (key == Player2.getKeybinds()[SPECIAL]){
+      Player2.special = true;
+    }
+  }
 }
 
 void keyReleased(){
@@ -100,6 +136,32 @@ void keyReleased(){
     }
     if (key == Player1.getKeybinds()[SPECIAL]){
       Player1.special = false;
+    }
+  }
+    if (Player2 != null){
+    if (key == Player2.getKeybinds()[UP]){
+      Player2.up = false;
+    }
+    if (key == Player2.getKeybinds()[LEFT]){
+      Player2.left = false;
+    }
+    if (key == Player2.getKeybinds()[DOWN]){
+      Player2.down = false;
+    }
+    if (key == Player2.getKeybinds()[RIGHT]){
+      Player2.right = false;
+    }
+    if (key == Player2.getKeybinds()[LIGHT]){
+      Player2.light = false;
+    }
+    if (key == Player2.getKeybinds()[MEDIUM]){
+      Player2.medium = false;
+    }
+    if (key == Player2.getKeybinds()[HEAVY]){
+      Player2.heavy = false;
+    }
+    if (key == Player2.getKeybinds()[SPECIAL]){
+      Player2.special = false;
     }
   }
 }

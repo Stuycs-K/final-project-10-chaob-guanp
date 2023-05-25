@@ -1,24 +1,17 @@
 public class character{
-  private ArrayList<MyPImage> sprites;
   private char[] keybinds;
+  public ArrayList<MyPImage> sprites;
   public boolean up, left, down, right, light, medium, heavy, special;
-  public boolean stunned, inAir, crouching;
+  public boolean stunned, inAir, jumping, crouching;
+  public boolean anim;
+  public int startIndex, endIndex, crouchCD, jumpCD, jumpX;
   public int posX; // bottom right X;
   public int posY; // bottom right Y;
   public int ticks;
   
   public character(int PlayerNumber){
-    up = false;
-    left = false;
-    down = false;
-    right = false;
-    light = false;
-    medium = false;
-    heavy = false;
-    special = false;
-    stunned = false;
-    inAir = false;
-    crouching = false;
+    up = false;left = false;down = false;right = false;light = false;medium = false;heavy = false;special = false;stunned = false;inAir = false;jumping = false;crouching = false;anim = false;
+    startIndex = 0;endIndex = 0;crouchCD = 0;jumpCD = 0;jumpX = 0;
     ticks = 0;
     tickDelay = 75;
     if (PlayerNumber == 1){

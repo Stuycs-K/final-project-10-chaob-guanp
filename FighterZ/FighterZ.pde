@@ -17,13 +17,13 @@ public boolean displayHitboxes;
 void setup(){
   size(1000, 500);
   Player1 = new Goku(1);
-  //Player2 = new Goku(2);
+  Player2 = new Goku(2);
 }
 
 void draw(){
   background(255);
   Player1.update();
-  //Player2.update();
+  Player2.update();
 }
 
 public void createArena(){

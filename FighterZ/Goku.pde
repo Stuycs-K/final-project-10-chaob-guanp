@@ -31,37 +31,46 @@ public class Goku extends character {
         }
       
         if (jumping){
-          
-            if (!anim){
-              ticks = 0;
-              anim = true;
-            }
+          if (!anim){
+            ticks = 0;
+            anim = true;
+          }
             
-            startIndex = findFirstSprite(41);
-            endIndex = findLastSprite(41);
-          
-            if (ticks == 0){
-              if (left){
-                jumpX = -15;
-              }
-              else if (right){
-                jumpX = 15;
-              }
-              else{
-                jumpX = 0;
-              }
+          startIndex = findFirstSprite(41);
+          endIndex = findLastSprite(41);
+        
+          if (ticks == 0){
+            if (left){
+              jumpX = -15;
+            }
+            else if (right){
+              jumpX = 15;
+            }
+            else{
+              jumpX = 0;
+            }
           }
           
-            posX += jumpX;
-            posY = -1 * (-1 * (int) (Math.pow( ( (2 * Math.sqrt(100) / (double) (endIndex-startIndex) ) * ticks) - Math.sqrt(100), 2) ) + 100);
-            img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage(); // 
-            image(img, posX + (img.width/2), posY + (height - img.width/2) - 25);
+          posX += jumpX;
+          posY = -1 * (-1 * (int) (Math.pow( ( (2 * Math.sqrt(100) / (double) (endIndex-startIndex) ) * ticks) - Math.sqrt(100), 2) ) + 100);
+          img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage(); 
+          
+          if (posX + img.width >= width){
+            posX = width - img.width;
+          }
+          if (posX <= 0){
+            posX = 0;
+          }
+          if (posY - img.height > height){
+            posY = height - img.height;
+          }
+          image(img, posX + (img.width/2), posY + (height - img.width/2) - 25);
             
-            if (ticks >= endIndex - startIndex){
-              jumping = false;
-              anim = false;
-              jumpCD = 5;
-            }
+          if (ticks >= endIndex - startIndex){
+            jumping = false;
+            anim = false;
+            jumpCD = 4;
+          }
         }
         else if (crouching){
           img = sprites.get(findLastSprite(10)).getImage();

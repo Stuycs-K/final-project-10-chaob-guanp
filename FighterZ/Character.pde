@@ -29,23 +29,28 @@ public class character{
   }
  
   public void setSprites(String keyword){
-  sprites = new ArrayList<MyPImage>();
-  File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
-    
-  FileFilter filter = new FileFilter() {
-    public boolean accept(File directory){
-      return directory.getName().endsWith("png");
+    sprites = new ArrayList<MyPImage>();
+    File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
+      
+    FileFilter filter = new FileFilter() {
+      public boolean accept(File directory){
+        return directory.getName().endsWith("png");
+      }
+    };
+      
+    File[] files = directory.listFiles(filter);
+    Arrays.sort(files);
+      
+    for (int i = 0; i < files.length; i++){
+      MyPImage img = new MyPImage(files[i]); 
+      Hitbox track = new Hitbox(posX, posY+400, 100, 100);
+      sprites.add(img);
+      if (img.getName().substring(0,1).equals("0")) {
+        img.getHitboxes(i) = track;
+      }
     }
-  };
-    
-  File[] files = directory.listFiles(filter);
-  Arrays.sort(files);
-    
-  for (int i = 0; i < files.length; i++){
-    MyPImage img = new MyPImage(files[i]);
-    sprites.add(img);
   }
-  }
+  
   public ArrayList<MyPImage> getSprites(){
   return sprites;
   }

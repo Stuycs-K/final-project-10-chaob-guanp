@@ -18,7 +18,7 @@ public class MyPImage{
     return name;
   }
   
-  public Hitbox[] getHitboxes(){
-    return hitboxes;
+  public Hitbox getHitboxes(int num){
+    return hitboxes[num];
   }
 }

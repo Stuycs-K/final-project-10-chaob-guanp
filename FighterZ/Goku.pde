@@ -62,7 +62,7 @@ public class Goku extends character {
         if (posY - img.height > height){
           posY = height - img.height;
         }
-        image(img, posX + (img.width/2), posY + (height - img.width/2) - 25);
+        image(img, posX + (img.width/2), posY + (height - img.height/2)); // -25
           
         if (ticks >= endIndex - startIndex){
           jumpCD = 4;
@@ -72,7 +72,7 @@ public class Goku extends character {
       }
       else if (crouching){
         img = sprites.get(findLastSprite(10)).getImage();
-        image(img, posX + (img.width/2), posY + (height - img.width/2));
+        image(img, posX + (img.width/2), posY + (height - img.height/2));
         if (!down){
           crouchCD = 4;
           crouching = false;
@@ -113,8 +113,7 @@ public class Goku extends character {
     } 
     
     img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
-    
-    image(img, posX + (img.width/2), posY + (height - img.width/2));
+    image(img, posX + (img.width/2), posY + (height - img.height/2));
   }
   
   private void walk(){
@@ -133,7 +132,7 @@ public class Goku extends character {
     }
     
     img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage(); 
-    image(img, posX + (img.width/2), posY + (height - img.width/2)); 
+    image(img, posX + (img.width/2), posY + (height - img.height/2)); 
    
     if (posX + img.width >= width){
       posX = width - img.width;

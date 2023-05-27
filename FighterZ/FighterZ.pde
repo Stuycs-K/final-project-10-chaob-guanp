@@ -26,13 +26,13 @@ void setup(){
 
 void draw(){
   background(255);
- // if (!Player1.checkCollides(Player2)) {
+  if (!Player1.checkCollides(Player2.posX, Player2.posY, Player1.posX, Player1.posY)) {
     Player1.update();
     Player2.update();
-//  }
-//  else{
-//    Player1.posX-=5;
-//  }
+  }
+  else{
+    Player1.posX-=5;
+  }
 }
 
 public void createArena(){

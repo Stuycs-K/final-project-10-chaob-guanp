@@ -16,8 +16,9 @@ Made the sprite walk with a walking animation. Also created a crouch feature. Ch
 
 ### 5/25/23
 
-Fixes the problem where the game would run exponentially slower when two sprites were on the screen. Also made jumping smoother and made code easier to work with, read,
-and understand from an outside view.
+Jump feature where the character jumps in a parabolic curve.
+
+
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -35,5 +36,5 @@ Created a hitbox around the Goku sprite. Follows the sprite where ever it goes. 
 
 ### 5/25/23
 
-Today I started working on the implementation of having the hitboxes be linked to each Pimage. Since in the MyPImage class there are arrays of both hitboxes and
-hurtboxes, I am figuring out how to link each set of hitboxes to a specific PImage so when it draws that PImage it also draws the corresponding hitboxes with it.
+Made it so that the hitboxes aren't reliant on the draw method but the update() method so it can change due to the characters position. This makes it more
+flexible. Need to include collision to this, its a little different.

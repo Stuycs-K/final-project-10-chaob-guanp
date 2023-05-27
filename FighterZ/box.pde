@@ -1,4 +1,4 @@
 public interface box{
-  public boolean checkCollides(box other, int otherXpos, int otherYpos, int Xpos, int Ypos);
+  public boolean checkCollides(character other);
   //there may be more to add in the future
 }

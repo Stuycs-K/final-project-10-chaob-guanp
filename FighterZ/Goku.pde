@@ -1,6 +1,5 @@
 public class Goku extends character {
   //boxes library?
- 
   public Goku(int PlayerNumber){
   super(PlayerNumber);
   setSprites("Goku");
@@ -51,6 +50,7 @@ public class Goku extends character {
       
       posX += jumpX;
       posY = -1 * (-1 * (int) (Math.pow( ( (2 * Math.sqrt(100) / (double) (endIndex-startIndex) ) * ticks) - Math.sqrt(100), 2) ) + 100);
+      returnHitbox(posX+20, posY+350, 80, 150);
       img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
       
       if (posX + img.width >= width){
@@ -72,6 +72,8 @@ public class Goku extends character {
     }
     else if (crouching){
       img = sprites.get(findLastSprite(10)).getImage();
+      Hitbox temp = new Hitbox(posX+20, posY+420, 75, 75);
+      returnHitbox(posX+20, posY+420, 75, 75);
       image(img, posX + (img.width/2), posY + (height - img.width/2));
       if (!down){
         crouchCD = 4;
@@ -101,6 +103,9 @@ public class Goku extends character {
       
     ticks++;
   }
+  
+  
+
   }
  
   private void idle(){
@@ -113,8 +118,9 @@ public class Goku extends character {
   }
     
   img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
-    
+  returnHitbox(posX, posY+400, 100, 100);
   image(img, posX + (img.width/2), posY + (height - img.width/2));
+ 
   }
  
   private void walk(){
@@ -133,6 +139,7 @@ public class Goku extends character {
   }
     
   img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
+  returnHitbox(posX, posY+400, 100, 100);
   image(img, posX + (img.width/2), posY + (height - img.width/2));
    
   if (posX + img.width >= width){

@@ -13,6 +13,10 @@ public character Player1;
 public character Player2;
 public boolean displayHitboxes;
 
+
+
+
+
 void setup(){
   size(1000, 500);
   frameRate(22);
@@ -22,8 +26,13 @@ void setup(){
 
 void draw(){
   background(255);
-  Player1.update();
-  Player2.update();
+ // if (!Player1.checkCollides(Player2)) {
+    Player1.update();
+    Player2.update();
+//  }
+//  else{
+//    Player1.posX-=5;
+//  }
 }
 
 public void createArena(){
@@ -147,6 +156,8 @@ void keyReleased(){
   }
   }
 }
+
+
 
 public void toggleHitboxes(){
   displayHitboxes = !displayHitboxes;

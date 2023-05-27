@@ -43,11 +43,11 @@ public class character{
       
     for (int i = 0; i < files.length; i++){
       MyPImage img = new MyPImage(files[i]); 
-      Hitbox track = new Hitbox(posX, posY+400, 100, 100);
+    //  Hitbox track = new Hitbox(posX, posY+400, 100, 100);
       sprites.add(img);
-      if (img.getName().substring(0,1).equals("0")) {
-        img.getHitboxes(i) = track;
-      }
+   /*   if (img.getName().substring(0,1).equals("0")) {
+        img.getHitboxes()[i] = track;
+      } */
     }
   }
   
@@ -89,5 +89,10 @@ public class character{
     
   }
   public void playerSwap(char keybind){
+  }
+    public void returnHitbox(int pX, int pY, int w, int l) {
+      noFill();
+      stroke(0);
+    rect(pX, pY, w, l);
   }
 }

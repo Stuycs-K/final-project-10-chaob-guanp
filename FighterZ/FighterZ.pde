@@ -11,7 +11,6 @@ public final int HEAVY = 6;
 public final int SPECIAL = 7;
 public character Player1;
 public character Player2;
-public boolean displayHitboxes;
 
 void setup(){
   size(1000, 500);
@@ -38,14 +37,14 @@ public void createArena(){
 }
 
 public void createResult(){
-  
+ 
 }
 
 void keyPressed(){
   if (key == '='){
     toggleHitboxes();
   }
-  
+ 
   if (Player1 != null){
     if (key == Player1.getKeybinds()[UP]){
       Player1.up = true;
@@ -72,7 +71,7 @@ void keyPressed(){
       Player1.special = true;
     }
   }
-  
+ 
   if (Player2 != null){
     if (key == Player2.getKeybinds()[UP]){
       Player2.up = true;
@@ -128,6 +127,7 @@ void keyReleased(){
       Player1.special = false;
     }
   }
+  
   if (Player2 != null){
     if (key == Player2.getKeybinds()[UP]){
       Player2.up = false;
@@ -157,5 +157,4 @@ void keyReleased(){
 }
 
 public void toggleHitboxes(){
-  displayHitboxes = !displayHitboxes;
 }

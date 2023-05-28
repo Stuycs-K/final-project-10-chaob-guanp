@@ -9,10 +9,24 @@ Began the process on implementing the sprites into processing. Got the sprites t
 ### 5/23/23
 
 Began working on the implementation of a moving sprite.
+<<<<<<< HEAD
+=======
 
 ### 5/24/23
 
 Made the sprite walk with a walking animation. Also created a crouch feature. Changed the Character interface into a class which Goku extends.
+
+### 5/25/23
+
+Jump feature where the character jumps in a parabolic curve.
+>>>>>>> 7b7ca7a2c5e1501a2f1a5b0a60333fbdd9597c28
+
+### 5/24/23
+
+<<<<<<< HEAD
+Made the sprite walk with a walking animation. Also created a crouch feature. Changed the Character interface into a class which Goku extends.
+=======
+>>>>>>> 7b7ca7a2c5e1501a2f1a5b0a60333fbdd9597c28
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -27,3 +41,11 @@ Began the implementation of hitboxes and hurtboxes. Tested the checkCollides() m
 ### 5/24/23
 
 Created a hitbox around the Goku sprite. Follows the sprite where ever it goes. Working on the implentation of two sprites not being able to walk through each other.
+<<<<<<< HEAD
+=======
+
+### 5/25/23
+
+Made it so that the hitboxes aren't reliant on the draw method but the update() method so it can change due to the characters position. This makes it more
+flexible. Need to include collision to this, its a little different.
+>>>>>>> 7b7ca7a2c5e1501a2f1a5b0a60333fbdd9597c28

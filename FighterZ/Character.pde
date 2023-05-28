@@ -27,41 +27,46 @@ public class character{
       mirror = true;
     }
   }
-  
+ 
   public void setSprites(String keyword){
     sprites = new ArrayList<MyPImage>();
     File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
-    
+      
     FileFilter filter = new FileFilter() {
       public boolean accept(File directory){
         return directory.getName().endsWith("png");
       }
     };
-    
+      
     File[] files = directory.listFiles(filter);
     Arrays.sort(files);
-    
+      
     for (int i = 0; i < files.length; i++){
-      MyPImage img = new MyPImage(files[i]);
+      MyPImage img = new MyPImage(files[i]); 
+    //  Hitbox track = new Hitbox(posX, posY+400, 100, 100);
       sprites.add(img);
+   /*   if (img.getName().substring(0,1).equals("0")) {
+        img.getHitboxes()[i] = track;
+      } */
     }
   }
+  
   public ArrayList<MyPImage> getSprites(){
-    return sprites;
+  return sprites;
   }
   public void setKeybinds(){
   }
   public char[] getKeybinds(){
-    return keybinds;
+  return keybinds;
   }
-  
+ 
   public void normalAttack(){
   }
   public void superAttack(){
   }
   public void specialAttack(){
   }
-  
+ 
   public int findFirstSprite(int value){
     for (int i = 0; i < sprites.size(); i++){
       if (sprites.get(i).getName().startsWith(value + "-")){
@@ -79,7 +84,7 @@ public class character{
     }
     return -1;
   }
-  
+ 
   public void update(){
     
   }
@@ -101,5 +106,11 @@ public class character{
   }
 
   public void playerSwap(char keybind){
+  }
+  
+  public void returnHitbox(int pX, int pY, int w, int l) {
+    noFill();
+    stroke(0);
+    rect(pX, pY, w, l);
   }
 }

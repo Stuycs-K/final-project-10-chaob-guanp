@@ -11,7 +11,6 @@ public final int HEAVY = 6;
 public final int SPECIAL = 7;
 public character Player1;
 public character Player2;
-public boolean displayHitboxes;
 
 
 
@@ -19,7 +18,7 @@ public boolean displayHitboxes;
 
 void setup(){
   size(1000, 500);
-  frameRate(22);
+  frameRate(21);
   Player1 = new Goku(1);
   Player2 = new Goku(2);
 }
@@ -160,7 +159,6 @@ void keyReleased(){
 
 
 public void toggleHitboxes(){
-  displayHitboxes = !displayHitboxes;
 }
 public void reverseImage(){
   scale(-1.0, 1.0);

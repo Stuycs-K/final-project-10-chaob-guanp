@@ -18,11 +18,11 @@ public class Hitbox implements box{
 
   }
   
-  public static boolean checkCollides(int otherXpos, int otherYpos, int Xpos, int Ypos){
-    for (int i = Xpos; i < Xpos + wid; i++) {
-      if (i == otherXpos) {
-        for (int j = Ypos; i < Ypos + len; j++) {
-          if (j == otherYpos) {
+  public boolean checkCollides(character other){
+    for (int i = posX; i < posX + wid; i++) {
+      if (i == other.posX) {
+        for (int j = posY; i < posY + len; j++) {
+          if (j == other.posY) {
             return true;
           }
         }

@@ -159,6 +159,3 @@ void keyReleased(){
 public void toggleHitboxes(){
   displayHitboxes = !displayHitboxes;
 }
-public void reverseImage(){
-  scale(-1.0, 1.0);
-}

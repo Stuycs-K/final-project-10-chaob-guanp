@@ -22,7 +22,7 @@ public class character{
     }
     else{
       keybinds = new char[] {'o', 'k', 'l', ';', 'p', '[', ']', '\\'}; // player 2
-      posX = width - 50;
+      posX = width - 150;
       posY = 0;
       mirror = true;
     }
@@ -84,15 +84,22 @@ public class character{
     
   }
   
-  public PImage getReversePImage( PImage image ) {
-    PImage reverse = new PImage( image.width, image.height );
-    for( int i=0; i < image.width; i++ ){
+  public PImage getMirrorPImage(PImage image) {
+    PImage reverse;
+    reverse = createImage(image.width, image.height, ARGB);
+    for(int i=0; i < image.width; i++){
       for(int j=0; j < image.height; j++){
-        reverse.set( image.width - 1 - i, j, image.get(i, j) );
-      }   
+        int xPixel = image.width - i - 1;
+        int yPixel = j;
+        reverse.pixels[yPixel*image.width+xPixel] = image.pixels[j*image.width+i] ;
+      }
     }
     return reverse;
   }
+  
+  public void setMirrorBoxes(){
+  }
+
   public void playerSwap(char keybind){
   }
 }

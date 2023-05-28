@@ -15,7 +15,7 @@ public boolean displayHitboxes;
 
 void setup(){
   size(1000, 500);
-  frameRate(22);
+  frameRate(21);
   Player1 = new Goku(1);
   Player2 = new Goku(2);
 }
@@ -24,6 +24,14 @@ void draw(){
   background(255);
   Player1.update();
   Player2.update();
+  if (Player1.posX > Player2.posX && Player1.mirror == false){
+    Player1.mirror = true;
+    Player2.mirror = false;
+  }
+  else if (Player1.posX <= Player2.posX && Player1.mirror == true){
+    Player1.mirror = false;
+    Player2.mirror = true;
+  }
 }
 
 public void createArena(){

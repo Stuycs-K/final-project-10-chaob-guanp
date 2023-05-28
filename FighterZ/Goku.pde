@@ -29,54 +29,10 @@ public class Goku extends character {
       }
     
       if (jumping){
-        if (!anim){
-          ticks = 0;
-          anim = true;
-        }
-          
-        startIndex = findFirstSprite(41);
-        endIndex = findLastSprite(41);
-      
-        if (ticks == 0){
-          if (left){
-            jumpX = -15;
-          }
-          else if (right){
-            jumpX = 15;
-          }
-          else{
-            jumpX = 0;
-          }
-        }
-        
-        posX += jumpX;
-        posY = -1 * (-1 * (int) (Math.pow( ( (2 * Math.sqrt(100) / (double) (endIndex-startIndex) ) * ticks) - Math.sqrt(100), 2) ) + 100);
-        img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage(); 
-        
-        if (posX + img.width >= width){
-          posX = width - img.width;
-        }
-        if (posX <= 0){
-          posX = 0;
-        }
-        if (posY - img.height > height){
-          posY = height - img.height;
-        }
-        image(img, posX + (img.width/2), posY + (height - img.height/2)); // -25
-          
-        if (ticks >= endIndex - startIndex){
-          jumpCD = 4;
-          jumping = false;
-          anim = false;
-        }
+        jump();
       }
       else if (crouching){
-        img = sprites.get(findLastSprite(10)).getImage();
-        image(img, posX + (img.width/2), posY + (height - img.height/2));
-        if (!down){
-          crouchCD = 4;
-          crouching = false;
-        }
+        crouch();
       }
       else if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Idle
         idle();
@@ -112,7 +68,13 @@ public class Goku extends character {
       ticks = 0;
     } 
     
-    img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
+    if (mirror){
+      img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
+      //set mirror hitboxes too
+    }
+    else{
+      img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
+    }
     image(img, posX + (img.width/2), posY + (height - img.height/2));
   }
   
@@ -131,7 +93,13 @@ public class Goku extends character {
       ticks = 0;
     }
     
-    img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage(); 
+    if (mirror){
+      img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
+      //set mirror hitboxes too
+    }
+    else{
+      img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
+    }
     image(img, posX + (img.width/2), posY + (height - img.height/2)); 
    
     if (posX + img.width >= width){
@@ -139,6 +107,74 @@ public class Goku extends character {
     }
     if (posX <= 0){
       posX = 0;
+    }
+  }
+  
+  private void jump(){
+    PImage img;
+    if (!anim){
+      ticks = 0;
+      anim = true;
+    }
+          
+    startIndex = findFirstSprite(41);
+    endIndex = findLastSprite(41);
+  
+    if (ticks == 0){
+      if (left && !right){
+        jumpX = -18;
+      }
+      else if (right && !left){
+        jumpX = 18;
+      }
+      else{
+        jumpX = 0;
+      }
+    }
+     
+    int jumpHeight = 150;
+    posX += jumpX;
+    posY = -1 * (-1 * (int) (Math.pow( ( (2 * Math.sqrt(jumpHeight) / (double) (endIndex-startIndex) ) * ticks) - Math.sqrt(jumpHeight), 2) ) + jumpHeight);
+    
+    if (mirror){
+      img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
+      //set mirror hitboxes too
+    }
+    else{
+      img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
+    }
+    
+    if (posX + img.width >= width){
+      posX = width - img.width;
+    }
+    if (posX <= 0){
+      posX = 0;
+    }
+    if (posY - img.height > height){
+      posY = height - img.height;
+    }
+    image(img, posX + (img.width/2), posY + (height - img.height/2)); // -25
+       
+    if (ticks >= endIndex - startIndex){
+      jumpCD = 4;
+      jumping = false;
+      anim = false;
+    }
+  }
+  
+  private void crouch(){
+    PImage img;
+    if (mirror){
+      img = getMirrorPImage(sprites.get(findLastSprite(10)).getImage());
+      //set mirror hitboxes too
+    }
+    else{
+      img = sprites.get(findLastSprite(10)).getImage();
+    }
+    image(img, posX + (img.width/2), posY + (height - img.height/2));
+    if (!down){
+      crouchCD = 4;
+      crouching = false;
     }
   }
 }

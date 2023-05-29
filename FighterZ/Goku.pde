@@ -69,14 +69,12 @@ public class Goku extends character {
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
       //set mirror hitboxes too
-
     }
     else{
       img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
-      
+
     }
     image(img, posX + (img.width/2), posY + (height - img.height/2));
-
   }
   
   private void walk(){

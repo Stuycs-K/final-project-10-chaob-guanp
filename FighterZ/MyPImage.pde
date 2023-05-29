@@ -8,6 +8,8 @@ public class MyPImage{
     String path = img.getAbsolutePath();
     name = path.substring(path.lastIndexOf(File.separator) + 1);
     image = loadImage(path);
+    hitboxes = new ArrayList<Hitbox>();
+    hurtboxes = new ArrayList<Hurtbox>(); 
   }
   
   public PImage getImage(){
@@ -18,15 +20,19 @@ public class MyPImage{
     return name;
   }
   
-  public void returnHitbox(int pX, int pY, int w, int l) {
-    Hitbox one = new Hitbox(pX, pY, w, l);
+  public void drawHitbox(int pX, int pY, int w, int l) {
+    Hitbox one = new Hitbox(pX, height - pY, pX + w, (height-pY) - l);
     hitboxes.add(one);
-    rect(pX, pY, w, l);
+    noFill();
+    stroke(255, 0, 0);
+    rect(pX, height - pY, pX + w, (height-pY) - l);
   }
-  public void returnHurtbox(int pX, int pY, int w, int l) {
-    Hurtbox one = new Hurtbox(pX, pY, w, l);
+  public void drawHurtbox(int pX, int pY, int w, int l) {
+    Hurtbox one = new Hurtbox(pX, height - pY, pX + w, (height-pY) - l);
     hurtboxes.add(one);
-    rect(pX, pY, w, l);
+    noFill();
+    stroke(100, 100, 100);
+    rect(pX, height - pY, pX + w, (height-pY) - l);
   }
   
 }

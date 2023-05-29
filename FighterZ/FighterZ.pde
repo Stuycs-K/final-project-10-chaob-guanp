@@ -9,6 +9,7 @@ public final int LIGHT = 4;
 public final int MEDIUM = 5;
 public final int HEAVY = 6;
 public final int SPECIAL = 7;
+public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
@@ -176,4 +177,10 @@ void keyReleased(){
 }
 
 public void toggleHitboxes(){
+   if (display == false) {
+     display = true;
+   }
+   else {
+     display = false;
+   }
 }

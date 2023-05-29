@@ -69,11 +69,21 @@ public class Goku extends character {
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
       //set mirror hitboxes too
+      image(img, posX + (img.width/2), posY + (height - img.height/2));
+      if (display == true) {
+        drawHitbox(posX+5, posY, 100, 100);    
+      }
+
     }
     else{
       img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
+      image(img, posX + (img.width/2), posY + (height - img.height/2));
+      if (display == true) {
+        drawHitbox(posX, posY, 100, 100);    
+      }
+      
     }
-    image(img, posX + (img.width/2), posY + (height - img.height/2));
+
   }
   
   private void walk(){
@@ -94,13 +104,19 @@ public class Goku extends character {
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
       //set mirror hitboxes too
-       image(img, posX + (img.width/2), posY + (height - img.height/2)); 
-       drawHitbox(posX+5, posY, 100, 100);
+      image(img, posX + (img.width/2), posY + (height - img.height/2)); 
+      if (display == true) {
+        drawHitbox(posX+5, posY, 100, 100);    
+      }
+       
     }
     else{
       img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
       image(img, posX + (img.width/2), posY + (height - img.height/2)); 
-      drawHitbox(posX, posY, 100, 100);
+      if (display == true) {
+        drawHitbox(posX, posY, 100, 100);   
+      }
+      
     }
 
     if (posX + img.width >= width){
@@ -170,14 +186,20 @@ public class Goku extends character {
       img = getMirrorPImage(sprites.get(findLastSprite(10)).getImage());
       //set mirror hitboxes too
       image(img, posX + (img.width/2), posY + (height - img.height/2));
-      drawHitbox(posX+13, posY, 76, 83);
-      drawHitbox(posX+53, posY+83, 45, 19);
+      if (display == true) {
+        drawHitbox(posX+13, posY, 76, 83);
+        drawHitbox(posX+53, posY+83, 45, 19); 
+      }
+      
     }
     else{
       img = sprites.get(findLastSprite(10)).getImage();
       image(img, posX + (img.width/2), posY + (height - img.height/2));
-      drawHitbox(posX+15, posY, 76, 83);
-      drawHitbox(posX+5, posY+83, 45, 19);
+      if (display == true) {
+        drawHitbox(posX+15, posY, 76, 83);
+        drawHitbox(posX+5, posY+83, 45, 19);
+      }
+      
     }
 
     if (!down){

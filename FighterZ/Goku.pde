@@ -11,7 +11,7 @@ public class Goku extends character {
     if (!stunned){
       if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Jump
         if (jumpCD == 0){
-          jumping = true;
+          jumping = true; 
         }
         else{
           idle();
@@ -94,12 +94,15 @@ public class Goku extends character {
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
       //set mirror hitboxes too
+       image(img, posX + (img.width/2), posY + (height - img.height/2)); 
+       drawHitbox(posX+5, posY, 100, 100);
     }
     else{
       img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
+      image(img, posX + (img.width/2), posY + (height - img.height/2)); 
+      drawHitbox(posX, posY, 100, 100);
     }
-    image(img, posX + (img.width/2), posY + (height - img.height/2)); 
-   
+
     if (posX + img.width >= width){
       posX = width - img.width;
     }
@@ -152,6 +155,7 @@ public class Goku extends character {
       posY = height - img.height;
     }
     image(img, posX + (img.width/2), posY + (height - img.height/2)); // -25
+   // drawHitbox(posX, posY + posY - height + posY, 100, 100);
        
     if (ticks >= endIndex - startIndex){
       jumpCD = 4;
@@ -165,11 +169,17 @@ public class Goku extends character {
     if (mirror){
       img = getMirrorPImage(sprites.get(findLastSprite(10)).getImage());
       //set mirror hitboxes too
+      image(img, posX + (img.width/2), posY + (height - img.height/2));
+      drawHitbox(posX+13, posY, 76, 83);
+      drawHitbox(posX+53, posY+83, 45, 19);
     }
     else{
       img = sprites.get(findLastSprite(10)).getImage();
+      image(img, posX + (img.width/2), posY + (height - img.height/2));
+      drawHitbox(posX+15, posY, 76, 83);
+      drawHitbox(posX+5, posY+83, 45, 19);
     }
-    image(img, posX + (img.width/2), posY + (height - img.height/2));
+
     if (!down){
       crouchCD = 4;
       crouching = false;

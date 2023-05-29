@@ -108,9 +108,12 @@ public class character{
   public void playerSwap(char keybind){
   }
   
-  public void returnHitbox(int pX, int pY, int w, int l) {
+  public void drawHitbox(int pX, int pY, int w, int l) {
+    Hitbox one = new Hitbox(pX, height - pY, pX + w, (height-pY) - l);
+   // img.hitboxes.add(one); 
     noFill();
     stroke(0);
-    rect(pX, pY, w, l);
+    rectMode(CORNERS);
+    rect(pX, height - pY, pX + w, (height-pY) - l);
   }
 }

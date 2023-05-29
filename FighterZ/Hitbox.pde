@@ -6,5 +6,4 @@ public class Hitbox extends Box{
     stroke(100, 100, 100);
     rect(posX_, posY_, width_, length_);
   }
- 
 }

@@ -90,9 +90,4 @@ public class character{
   }
   public void playerSwap(char keybind){
   }
-    public void returnHitbox(int pX, int pY, int w, int l) {
-      noFill();
-      stroke(0);
-    rect(pX, pY, w, l);
-  }
 }

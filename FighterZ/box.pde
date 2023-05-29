@@ -3,17 +3,15 @@ public class Box{
   private int wid;
   private int posX;
   private int posY;
-  public boolean display;
   
   public Box(int posX_, int posY_, int width_, int length_){
     len = length_;
     wid = width_;
     posX = posX_;
     posY = posY_;
-    display = false;
   }
   
-  public boolean checkCollides(character other) {
+  public boolean checkCollides(character other){
     for (int i = posX; i < posX + wid; i++) {
       if (i == other.posX) {
         for (int j = posY; i < posY + len; j++) {
@@ -25,5 +23,4 @@ public class Box{
     }
     return false;
   }
-  //there may be more to add in the future
 }

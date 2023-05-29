@@ -18,12 +18,12 @@ public class MyPImage{
     return name;
   }
   
-  public void returnHitbox(int pX, int pY, int w, int l) {
+  public void drawHitbox(int pX, int pY, int w, int l) {
     Hitbox one = new Hitbox(pX, pY, w, l);
     hitboxes.add(one);
     rect(pX, pY, w, l);
   }
-  public void returnHurtbox(int pX, int pY, int w, int l) {
+  public void drawHurtbox(int pX, int pY, int w, int l) {
     Hurtbox one = new Hurtbox(pX, pY, w, l);
     hurtboxes.add(one);
     rect(pX, pY, w, l);

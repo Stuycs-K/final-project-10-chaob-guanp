@@ -1,5 +1,5 @@
 public class Goku extends character {
-  //boxes library?
+  
   public Goku(int PlayerNumber){
     super(PlayerNumber);
     setSprites("Goku");
@@ -7,8 +7,7 @@ public class Goku extends character {
  
   public void update(){
     imageMode(CENTER);
-    PImage img;
-      
+    
     if (!stunned){
       if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Jump
         if (jumpCD == 0){

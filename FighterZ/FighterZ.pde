@@ -9,18 +9,24 @@ public final int LIGHT = 4;
 public final int MEDIUM = 5;
 public final int HEAVY = 6;
 public final int SPECIAL = 7;
+public PImage arena;
 public character Player1;
 public character Player2;
 
 void setup(){
   size(1000, 500);
-  frameRate(21);
+  surface.setResizable(true);
+  createArena();
+  windowResize(arena.width, arena.height);
+  frameRate(20);
   Player1 = new Goku(1);
   Player2 = new Goku(2);
 }
 
 void draw(){
-  background(255);
+  imageMode(CORNER);
+  image(arena, 0, 0);
+  noTint();
   Player1.update();
   Player2.update();
   if (Player1.posX > Player2.posX && Player1.mirror == false){
@@ -34,6 +40,19 @@ void draw(){
 }
 
 public void createArena(){
+  File directory = new File(sketchPath("Mega Pack Extreme Butoden"));
+  
+  FileFilter filter = new FileFilter() {
+    public boolean accept(File directory){
+      return directory.getName().endsWith("png");
+    }
+  };
+  
+  File[] files = directory.listFiles(filter);
+  Arrays.sort(files);
+  
+  MyPImage img = new MyPImage(files[(int) (Math.random() * (files.length) )]);
+  arena = img.getImage();
 }
 
 public void createResult(){

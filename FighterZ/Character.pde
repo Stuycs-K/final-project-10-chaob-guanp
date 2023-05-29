@@ -90,16 +90,16 @@ public class character{
   }
   
   public PImage getMirrorPImage(PImage image) {
-    PImage reverse;
-    reverse = createImage(image.width, image.height, ARGB);
+    PImage mirror;
+    mirror = createImage(image.width, image.height, ARGB);
     for(int i=0; i < image.width; i++){
       for(int j=0; j < image.height; j++){
         int xPixel = image.width - i - 1;
         int yPixel = j;
-        reverse.pixels[yPixel*image.width+xPixel] = image.pixels[j*image.width+i] ;
+        mirror.pixels[yPixel*image.width+xPixel] = image.pixels[j*image.width+i];
       }
     }
-    return reverse;
+    return mirror;
   }
   
   public void setMirrorBoxes(){

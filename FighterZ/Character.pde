@@ -1,13 +1,12 @@
 public class character{
   public char[] keybinds;
-  public Box[] boxLibrary;
   public ArrayList<MyPImage> sprites;
   public boolean up, left, down, right, light, medium, heavy, special;
   public boolean stunned, inAir, jumping, crouching;
   public boolean anim;
   public boolean mirror;
   public int startIndex, endIndex, crouchCD, jumpCD, jumpX;
-  public int posX; // bottom right;
+  public int posX; // bottom left;
   public int posY; // bottom down;
   //Coords stored at bottom right corner
   public int ticks;

@@ -19,7 +19,8 @@ void setup(){
   size(1000, 500);
   surface.setResizable(true);
   createArena();
-  windowResize(arena.width, arena.height);
+  //windowResize(arena.width, arena.height);
+  surface.setSize(arena.width, arena.height);
   frameRate(20);
   Player1 = new Goku(1);
   Player2 = new Goku(2);

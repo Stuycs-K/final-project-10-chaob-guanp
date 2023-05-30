@@ -3,7 +3,6 @@ public class Goku extends character {
   public Goku(int PlayerNumber){
     super(PlayerNumber);
     setSprites("Goku");
-    boxLibrary = new Box[sprites.size()];
     setBoxes();
   }
  
@@ -183,7 +182,8 @@ public class Goku extends character {
   }
   
   private void setBoxes(){
-    for (int i = 0; i < boxLibrary.length; i++){
+    //ADD COMMENTS THAT SHOW THE INDEX OF THE START AND END OF ANIMATIONS SO YOU CAN MANUALLY VIEW AND SET
+    for (int i = 0; i < sprites.size(); i++){
       
     }
   }

@@ -1,8 +1,8 @@
 public class MyPImage{
   private PImage image;
   private String name;
-  private ArrayList<Hitbox> hitboxes;
-  private ArrayList<Hurtbox> hurtboxes;
+  public ArrayList<Hitbox> hitboxes;
+  public ArrayList<Hurtbox> hurtboxes;
   
   public MyPImage(File img){
     String path = img.getAbsolutePath();

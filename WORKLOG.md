@@ -18,6 +18,9 @@ Made the sprite walk with a walking animation. Also created a crouch feature. Ch
 
 Jump feature where the character jumps in a parabolic curve.
 
+### Weekend 5/26 - 5/29
+
+Changed box interface into a class and edited the corresponding classes.
 
 
 ## GROUP MEMBER 2: Phillip Guan
@@ -38,3 +41,7 @@ Created a hitbox around the Goku sprite. Follows the sprite where ever it goes. 
 
 Made it so that the hitboxes aren't reliant on the draw method but the update() method so it can change due to the characters position. This makes it more
 flexible. Need to include collision to this, its a little different.
+
+### Weekend 5/26 - 5/29
+
+Made it so the crouch hitboxes are more aligned. Tried to figure out a way to store the hitboxes locations, but no luck. Redid all current hitboxes.

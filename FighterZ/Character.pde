@@ -101,6 +101,7 @@ public class character{
         mirror.pixels[yPixel*image.width+xPixel] = image.pixels[j*image.width+i];
       }
     }
+
     return mirror;
   }
   

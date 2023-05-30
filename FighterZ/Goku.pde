@@ -9,7 +9,6 @@ public class Goku extends character {
  
   public void update(){
     imageMode(CENTER);
-    
     if (!stunned){
       if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Jump
         if (jumpCD == 0){

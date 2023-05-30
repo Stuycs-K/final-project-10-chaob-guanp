@@ -3,6 +3,8 @@ public class Goku extends character {
   public Goku(int PlayerNumber){
     super(PlayerNumber);
     setSprites("Goku");
+    boxLibrary = new Box[sprites.size()];
+    setBoxes();
   }
  
   public void update(){
@@ -177,6 +179,12 @@ public class Goku extends character {
     if (!down){
       crouchCD = 4;
       crouching = false;
+    }
+  }
+  
+  private void setBoxes(){
+    for (int i = 0; i < boxLibrary.length; i++){
+      
     }
   }
 }

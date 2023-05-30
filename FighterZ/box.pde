@@ -1,20 +1,21 @@
 public class Box{
-  private int len;
-  private int wid;
-  private int posX;
-  private int posY;
+  public Rectangle rectangle;
+  public int ht;
+  public int wid;
+  public int posX; // bottom right
+  public int posY; // bottom down
   
-  public Box(int posX_, int posY_, int width_, int length_){
-    len = length_;
-    wid = width_;
+  public Box(int posX_, int posY_, int width_, int height_){
+    rectangle = new Rectangle(posX_, posY_, width_, height_);
     posX = posX_;
-    posY = posY_;
+    posY = posY_ - (int) rectangle.getHeight();
+    
   }
   
   public boolean checkCollides(character other){
     for (int i = posX; i < posX + wid; i++) {
       if (i == other.posX) {
-        for (int j = posY; i < posY + len; j++) {
+        for (int j = posY; i < posY + ht; j++) {
           if (j == other.posY) {
             return true;
           }

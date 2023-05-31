@@ -11,6 +11,7 @@ public final int MEDIUM = 5;
 public final int HEAVY = 6;
 public final int SPECIAL = 7;
 public boolean display = false;
+
 public PImage arena;
 public character Player1;
 public character Player2;
@@ -33,10 +34,12 @@ void draw(){
   if (Player1.posX > Player2.posX && Player1.mirror == false){
     Player1.mirror = true;
     Player2.mirror = false;
+    Player2.didSwap = false;
   }
   else if (Player1.posX <= Player2.posX && Player1.mirror == true){
     Player1.mirror = false;
     Player2.mirror = true;
+    Player2.didSwap = true;
   }
 }
 

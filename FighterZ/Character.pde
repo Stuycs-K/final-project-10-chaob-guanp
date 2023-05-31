@@ -6,6 +6,7 @@ public class character{
   public boolean stunned, inAir, jumping, crouching;
   public boolean anim;
   public boolean mirror;
+  public boolean didSwap = true;
   public int startIndex, endIndex, crouchCD, jumpCD, jumpX;
   public int posX; // bottom right;
   public int posY; // bottom down;
@@ -26,6 +27,7 @@ public class character{
       keybinds = new char[] {'o', 'k', 'l', ';', 'p', '[', ']', '\\'}; // player 2
       posX = width - 150;
       posY = 0;
+      didSwap = false;
       mirror = true;
     }
   }

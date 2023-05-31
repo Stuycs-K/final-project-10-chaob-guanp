@@ -22,6 +22,10 @@ Jump feature where the character jumps in a parabolic curve.
 
 Changed box interface into a class and edited the corresponding classes.
 
+### 5/30/23
+
+Changed hitboxes to instead of drawing rectangles, it created a rectangle from the built-in rectangle class. This way we can use the built in methods like intersect.
+
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -45,3 +49,7 @@ flexible. Need to include collision to this, its a little different.
 ### Weekend 5/26 - 5/29
 
 Made it so the crouch hitboxes are more aligned. Tried to figure out a way to store the hitboxes locations, but no luck. Redid all current hitboxes.
+
+### 5/30/23
+
+Made the two players distinguishable. Found a problem on the mirroring where it treats the character on the right as player2 always, will fix tomorrow.

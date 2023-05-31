@@ -211,7 +211,6 @@ public class Goku extends character {
         frame.hitboxes.add(new Hitbox(0, 44, 95, 44, "Legs"));
         frame.hitboxes.add(new Hitbox(26, 86, 64, 42, "Torso"));
         frame.hitboxes.add(new Hitbox(60, 96, 23, 20, "Head"));
-        frame.hurtboxes.add(new Hurtbox(70, 70, 23, 20, "Random"));
       }
     }
   }

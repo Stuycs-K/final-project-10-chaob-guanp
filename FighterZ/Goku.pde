@@ -2,7 +2,7 @@ public class Goku extends character {
   
   public Goku(int PlayerNumber){
     super(PlayerNumber);
-    setSprites("Goku");
+    setSprites("Goku", PlayerNumber);
     boxLibrary = new Box[sprites.size()];
     setBoxes();
   }
@@ -69,9 +69,7 @@ public class Goku extends character {
     
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
-      if (didSwap) {
-        changeColor(img);
-      }
+
     //  img = changeColor(img);
       //set mirror hitboxes too
     }
@@ -99,9 +97,7 @@ public class Goku extends character {
     
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
-      if (didSwap) {
-      changeColor(img);
-    }
+
       //img = changeColor(img);
       //set mirror hitboxes too
     }

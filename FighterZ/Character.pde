@@ -32,7 +32,7 @@ public class character{
     }
   }
  
-  public void setSprites(String keyword){
+  public void setSprites(String keyword, int PlayerNumber){
     sprites = new ArrayList<MyPImage>();
     File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
       
@@ -47,7 +47,14 @@ public class character{
       
     for (int i = 0; i < files.length; i++){
       MyPImage img = new MyPImage(files[i]); 
-      sprites.add(img);
+      if (PlayerNumber == 1) {
+        sprites.add(img);
+      }
+      else {
+        MyPImage temp = (changeColor(img));
+        sprites.add(temp);
+      }
+
     }
   }
   
@@ -89,16 +96,20 @@ public class character{
     
   }
   
-  public PImage changeColor(PImage image) {
-       for(int i=0; i < image.width; i++){
-       for(int j=0; j < image.height; j++){
-        if (red(image.get(j, i)) > 98 && green(image.get(j, i)) > 60 && blue(image.get(j, i)) < 50) {
+  public MyPImage changeColor(MyPImage image) {
+    for(int i=0; i < image.getImage().width; i++){
+      for(int j=0; j < image.getImage().height; j++) {
+        if (red(image.getImage().get(j, i)) > 98 && green(image.getImage().get(j, i)) > 60 && blue(image.getImage().get(j, i)) < 50) {
          color gray = color(100, 100, 100);
-          image.set(j, i, gray);
+          image.getImage().set(j, i, gray);
         }
+        /*
+        if (red(image.getImage().get(j, i)) < 200 && green(image.getImage().get(j, i)) < 200 && blue(image.getImage().get(j, i)) < 200 ) {
+          image.getImage().set(j, i, color(red(image.getImage().get(j, i)), green(image.getImage().get(j, i)), 0));
+        } */
       }
-  }
-  return image;
+    }
+    return image;
   }
   
   public PImage getMirrorPImage(PImage image) {

@@ -14,6 +14,8 @@ public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
+public MyPImage currentFrame1;
+public MyPImage currentFrame2;
 
 void setup(){
   size(1000, 500);
@@ -29,8 +31,9 @@ void setup(){
 void draw(){
   imageMode(CORNER);
   image(arena, 0, 0);
-  Player1.update();
-  Player2.update();
+  MyPImage currentFrame1 = Player1.update();
+  MyPImage currentFrame2 = Player2.update();
+  checkCollisions(currentFrame1, currentFrame2);
   if (Player1.posX > Player2.posX && Player1.mirror == false){
     Player1.mirror = true;
     Player2.mirror = false;
@@ -179,4 +182,14 @@ void keyReleased(){
 
 public void toggleHitboxes(){
    display = !display;
+}
+
+public void checkCollisions(MyPImage frame1, MyPImage frame2){
+  for (int i = 0; i < frame1.hitboxes.size(); i++){
+    Hitbox temp1 = frame1.hitboxes.get(i);
+    for (int j = 0; j < frame2.hitboxes.size(); j++){
+      Hitbox temp2 = frame2.hitboxes.get(j);
+      // check if hitboxes intersect, then move them away properly. dont move along the y axis, move along x axis. y axis is bad because it can mess with jump positions.
+    }
+  }
 }

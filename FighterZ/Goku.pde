@@ -2,11 +2,12 @@ public class Goku extends character {
   
   public Goku(int PlayerNumber){
     super(PlayerNumber);
-    setSprites("Goku");
+    setSprites("Goku", PlayerNumber);
     setBoxes();
   }
  
-  public void update(){
+  public MyPImage update(){
+    MyPImage currentFrame = null;
     imageMode(CENTER);
     
     if (!stunned){
@@ -15,7 +16,7 @@ public class Goku extends character {
           jumping = true; 
         }
         else{
-          idle();
+          currentFrame = idle();
         }
       }
       else if(!up && down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Crouch
@@ -23,21 +24,21 @@ public class Goku extends character {
           crouching = true;
         }
         else{
-          idle();
+          currentFrame = idle();
         }
       }
     
       if (jumping){
-        jump();
+        currentFrame = jump();
       }
       else if (crouching){
-        crouch();
+        currentFrame = crouch();
       }
       else if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Idle
-        idle();
+        currentFrame = idle();
       }
       else if(!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching ){ // Left and right walk
-        walk();
+        currentFrame = walk();
       }
     
       if (posY > 0){
@@ -56,6 +57,7 @@ public class Goku extends character {
         
       ticks++;
     }
+    return currentFrame; // temporary for if you somehow arent any of the above booleans
   }
   
   private void updateBoxes(PImage img, int current){
@@ -89,7 +91,7 @@ public class Goku extends character {
     }
   }
   
-  private void idle(){
+  private MyPImage idle(){
     PImage img;
     startIndex = findFirstSprite(0);
     endIndex = findLastSprite(0);
@@ -110,9 +112,10 @@ public class Goku extends character {
     image(img, posX + (img.width/2), posY + (height - img.height/2));
     
     updateBoxes(img, current);
+    return sprites.get(current);
   }
   
-  private void walk(){
+  private MyPImage walk(){
     PImage img;
     if (right){
       posX+=5;
@@ -146,9 +149,10 @@ public class Goku extends character {
     if (posX <= 0){
       posX = 0;
     }
+    return sprites.get(current);
   }
   
-  private void jump(){
+  private MyPImage jump(){
     PImage img;
     if (!anim){
       ticks = 0;
@@ -202,9 +206,10 @@ public class Goku extends character {
       jumping = false;
       anim = false;
     }
+    return sprites.get(current);
   }
   
-  private void crouch(){
+  private MyPImage crouch(){
     PImage img;
     
     int current = findLastSprite(10);
@@ -223,6 +228,7 @@ public class Goku extends character {
       crouchCD = 4;
       crouching = false;
     }
+    return sprites.get(current);
   }
   
   private void setBoxes(){

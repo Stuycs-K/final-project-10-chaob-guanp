@@ -29,7 +29,7 @@ public class character{
     }
   }
  
-  public void setSprites(String keyword){
+  public void setSprites(String keyword, int PlayerNumber){
     sprites = new ArrayList<MyPImage>();
     File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
       
@@ -44,11 +44,7 @@ public class character{
       
     for (int i = 0; i < files.length; i++){
       MyPImage img = new MyPImage(files[i]); 
-    //  Hitbox track = new Hitbox(posX, posY+400, 100, 100);
       sprites.add(img);
-   /*   if (img.getName().substring(0,1).equals("0")) {
-        img.getHitboxes()[i] = track;
-      } */
     }
   }
   
@@ -86,8 +82,8 @@ public class character{
     return -1;
   }
  
-  public void update(){
-    
+  public MyPImage update(){
+    return null;
   }
   
   public PImage getMirrorPImage(PImage image) {

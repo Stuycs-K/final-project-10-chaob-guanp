@@ -17,10 +17,6 @@ public class Box{
   
   public void setLocation(int x, int y){
     rectangle.setLocation(x, y);
-    /*
-    posX = x;
-    posY = y;
-    */
   }
   
   public int getHeight(){

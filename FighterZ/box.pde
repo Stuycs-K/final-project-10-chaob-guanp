@@ -1,15 +1,34 @@
 public class Box{
   public Rectangle rectangle;
-  public int ht;
-  public int wid;
-  public int posX; // bottom left
-  public int posY; // bottom down
+  private String name;
+  public int offsetX; // top left
+  public int offsetY; // top left
   
-  public Box(int posX_, int posY_, int width_, int height_){
-    rectangle = new Rectangle(posX_, posY_, width_, height_);
-    posX = posX_;
-    posY = posY_ - (int) rectangle.getHeight();
-    
+  public Box(int offsetX_, int offsetY_, int width_, int height_, String name_){
+    rectangle = new Rectangle(0, 0, width_, height_);
+    offsetX = offsetX_;
+    offsetY = offsetY_;
+    name = name_;
+  }
+  
+  public String getName(){
+    return name;
+  }
+  
+  public void setLocation(int x, int y){
+    rectangle.setLocation(x, y);
+    /*
+    posX = x;
+    posY = y;
+    */
+  }
+  
+  public int getHeight(){
+    return (int) rectangle.getHeight();
+  }
+  
+  public int getWidth(){
+    return (int) rectangle.getWidth();
   }
   
   /*

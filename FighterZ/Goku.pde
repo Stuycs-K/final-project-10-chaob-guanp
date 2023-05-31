@@ -67,15 +67,36 @@ public class Goku extends character {
       ticks = 0;
     } 
     
+    int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
+    
     if (mirror){
-      img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
+      img = getMirrorPImage(sprites.get(current).getImage());
       //set mirror hitboxes too
     }
     else{
-      img = sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage();
-
+      img = sprites.get(current).getImage();
+      
     }
     image(img, posX + (img.width/2), posY + (height - img.height/2));
+    
+    for (int i = 0; i < sprites.get(current).hitboxes.size(); i++){
+      Hitbox temp = sprites.get(current).hitboxes.get(i);
+      temp.setLocation(posX + temp.offsetX, height - (posY + temp.offsetY));
+      if (display){
+        noFill();
+        stroke(0);
+        rect(posX + temp.offsetX, height - (posY + temp.offsetY), temp.getWidth(), temp.getHeight());
+      }
+    }
+    for (int i = 0; i < sprites.get(current).hurtboxes.size(); i++){
+      Hurtbox temp = sprites.get(current).hurtboxes.get(i);
+      temp.setLocation(posX + temp.offsetX, height - (posY + temp.offsetY));
+      if (display){
+        noFill();
+        stroke(255, 0, 0);
+        rect(posX + temp.offsetX, height - (posY + temp.offsetY), temp.getWidth(), temp.getHeight());
+      }
+    }
   }
   
   private void walk(){
@@ -134,7 +155,7 @@ public class Goku extends character {
      
     int jumpHeight = 150;
     posX += jumpX;
-    posY = -1 * (-1 * (int) (Math.pow( ( (2 * Math.sqrt(jumpHeight) / (double) (endIndex-startIndex) ) * ticks) - Math.sqrt(jumpHeight), 2) ) + jumpHeight);
+    posY = (-1 * (int) (Math.pow( ( (2 * Math.sqrt(jumpHeight) / (double) (endIndex-startIndex) ) * ticks) - Math.sqrt(jumpHeight), 2) ) + jumpHeight);
     
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
@@ -153,7 +174,7 @@ public class Goku extends character {
     if (posY - img.height > height){
       posY = height - img.height;
     }
-    image(img, posX + (img.width/2), posY + (height - img.height/2)); // -25
+    image(img, posX + (img.width/2), (-1 * posY) + (height - img.height/2)); // -25
    // drawHitbox(posX, posY + posY - height + posY, 100, 100);
        
     if (ticks >= endIndex - startIndex){
@@ -182,9 +203,16 @@ public class Goku extends character {
   }
   
   private void setBoxes(){
-    //ADD COMMENTS THAT SHOW THE INDEX OF THE START AND END OF ANIMATIONS SO YOU CAN MANUALLY VIEW AND SET
+    //ADD COMMENTS THAT SHOW THE ANIMATION NUMBERS SO YOU CAN MANUALLY VIEW AND SET
+    //0 idle, 10 crouch, 20 walk, 41 jump
     for (int i = 0; i < sprites.size(); i++){
-      
+      MyPImage frame = sprites.get(i);
+      if (i >= findFirstSprite(0) && i <= findLastSprite(0)){ // Walk
+        frame.hitboxes.add(new Hitbox(0, 44, 95, 44, "Legs"));
+        frame.hitboxes.add(new Hitbox(26, 86, 64, 42, "Torso"));
+        frame.hitboxes.add(new Hitbox(60, 96, 23, 20, "Head"));
+        frame.hurtboxes.add(new Hurtbox(70, 70, 23, 20, "Random"));
+      }
     }
   }
 }

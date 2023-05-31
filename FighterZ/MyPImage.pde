@@ -20,6 +20,7 @@ public class MyPImage{
     return name;
   }
   
+  /*
   public void drawHitbox(int pX, int pY, int w, int l) {
     Hitbox one = new Hitbox(pX, height - pY, pX + w, (height-pY) - l);
     hitboxes.add(one);
@@ -34,5 +35,6 @@ public class MyPImage{
     stroke(100, 100, 100);
     rect(pX, height - pY, pX + w, (height-pY) - l);
   }
+  */
   
 }

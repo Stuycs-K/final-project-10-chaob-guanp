@@ -6,9 +6,9 @@ public class character{
   public boolean anim;
   public boolean mirror;
   public int startIndex, endIndex, crouchCD, jumpCD, jumpX;
-  public int posX; // bottom left;
-  public int posY; // bottom down;
-  //Coords stored at bottom right corner
+  public int posX; // left;
+  public int posY; // down;
+  //Coords stored at bottom left corner
   public int ticks;
   
   public character(int PlayerNumber){
@@ -107,14 +107,5 @@ public class character{
   }
 
   public void playerSwap(char keybind){
-  }
-  
-  public void drawHitbox(int pX, int pY, int w, int l) {
-    Hitbox one = new Hitbox(pX, height - pY, pX + w, (height-pY) - l);
-   // img.hitboxes.add(one); 
-    noFill();
-    stroke(0);
-    rectMode(CORNERS);
-    rect(pX, height - pY, pX + w, (height-pY) - l);
   }
 }

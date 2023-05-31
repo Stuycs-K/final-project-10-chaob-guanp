@@ -93,9 +93,13 @@ public class character{
   
   public PImage getMirrorPImage(PImage image) {
     PImage mirror;
+    color black = color(0);
     mirror = createImage(image.width, image.height, ARGB);
     for(int i=0; i < image.width; i++){
       for(int j=0; j < image.height; j++){
+        if (red(mirror.get(j, i)) > 98 && green(mirror.get(j, i)) > 60 && blue(mirror.get(j, i)) < 50) {
+          mirror.set(j, i, black);
+        }
         int xPixel = image.width - i - 1;
         int yPixel = j;
         mirror.pixels[yPixel*image.width+xPixel] = image.pixels[j*image.width+i];

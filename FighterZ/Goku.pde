@@ -97,7 +97,6 @@ public class Goku extends character {
     
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
-
       //img = changeColor(img);
       //set mirror hitboxes too
     }

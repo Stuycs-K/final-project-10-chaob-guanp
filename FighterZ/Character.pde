@@ -103,10 +103,6 @@ public class character{
          color gray = color(100, 100, 100);
           image.getImage().set(j, i, gray);
         }
-        /*
-        if (red(image.getImage().get(j, i)) < 200 && green(image.getImage().get(j, i)) < 200 && blue(image.getImage().get(j, i)) < 200 ) {
-          image.getImage().set(j, i, color(red(image.getImage().get(j, i)), green(image.getImage().get(j, i)), 0));
-        } */
       }
     }
     return image;

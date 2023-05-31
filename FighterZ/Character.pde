@@ -45,11 +45,7 @@ public class character{
       
     for (int i = 0; i < files.length; i++){
       MyPImage img = new MyPImage(files[i]); 
-    //  Hitbox track = new Hitbox(posX, posY+400, 100, 100);
       sprites.add(img);
-   /*   if (img.getName().substring(0,1).equals("0")) {
-        img.getHitboxes()[i] = track;
-      } */
     }
   }
   
@@ -91,9 +87,20 @@ public class character{
     
   }
   
+  public PImage changeColor(PImage image) {
+       for(int i=0; i < image.width; i++){
+       for(int j=0; j < image.height; j++){
+        if (red(image.get(j, i)) > 98 && green(image.get(j, i)) > 60 && blue(image.get(j, i)) < 50) {
+         color gray = color(100, 100, 100);
+          image.set(j, i, gray);
+        }
+      }
+  }
+  return image;
+  }
+  
   public PImage getMirrorPImage(PImage image) {
     PImage mirror;
-
     mirror = createImage(image.width, image.height, ARGB);
     for(int i=0; i < image.width; i++){
       for(int j=0; j < image.height; j++){
@@ -102,15 +109,6 @@ public class character{
         mirror.pixels[yPixel*image.width+xPixel] = image.pixels[j*image.width+i];
       }
     }
-    for(int i=0; i < image.width; i++){
-       for(int j=0; j < image.height; j++){
-        if (red(mirror.get(j, i)) > 98 && green(mirror.get(j, i)) > 60 && blue(mirror.get(j, i)) < 50) {
-         color gray = color(100, 100, 100);
-          mirror.set(j, i, gray);
-        }
-      }
-    }
-
     return mirror;
   }
   

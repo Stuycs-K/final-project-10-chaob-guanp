@@ -69,6 +69,7 @@ public class Goku extends character {
     
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
+      img = changeColor(img);
       //set mirror hitboxes too
     }
     else{
@@ -94,7 +95,9 @@ public class Goku extends character {
     }
     
     if (mirror){
+      
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
+      img = changeColor(img);
       //set mirror hitboxes too
     }
     else{
@@ -138,6 +141,7 @@ public class Goku extends character {
     
     if (mirror){
       img = getMirrorPImage(sprites.get((ticks % (endIndex - startIndex + 1)) + startIndex).getImage());
+      img = changeColor(img);
       //set mirror hitboxes too
     }
     else{
@@ -167,6 +171,7 @@ public class Goku extends character {
     PImage img;
     if (mirror){
       img = getMirrorPImage(sprites.get(findLastSprite(10)).getImage());
+      img = changeColor(img);
       //set mirror hitboxes too
     }
     else{

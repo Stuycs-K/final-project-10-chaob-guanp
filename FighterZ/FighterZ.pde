@@ -14,8 +14,6 @@ public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
-public MyPImage currentFrame1;
-public MyPImage currentFrame2;
 
 void setup(){
   size(1000, 500);
@@ -186,10 +184,26 @@ public void toggleHitboxes(){
 
 public void checkCollisions(MyPImage frame1, MyPImage frame2){
   for (int i = 0; i < frame1.hitboxes.size(); i++){
-    Hitbox temp1 = frame1.hitboxes.get(i);
+    Rectangle temp1 = frame1.hitboxes.get(i).rectangle;
     for (int j = 0; j < frame2.hitboxes.size(); j++){
-      Hitbox temp2 = frame2.hitboxes.get(j);
+      Rectangle temp2 = frame2.hitboxes.get(j).rectangle;
       // check if hitboxes intersect, then move them away properly. dont move along the y axis, move along x axis. y axis is bad because it can mess with jump positions.
+      if (temp1.intersects(temp2)){
+        Rectangle intersection = temp1.intersection(temp2);
+        if (Player1.posX >= Player2.posX){
+          Player1.posX += Math.ceil(intersection.getWidth() / 2);
+          Player2.posX -= Math.ceil(intersection.getWidth() / 2);
+        }
+        else{
+          Player1.posX -= Math.ceil(intersection.getWidth() / 2);
+          Player2.posX += Math.ceil(intersection.getWidth() / 2);
+        }
+        if (display){
+          stroke(0, 255, 0);
+          fill(255, 255, 0, 160);
+          rect((int) intersection.getX(), (int) intersection.getY(), (int) intersection.getWidth(), (int) intersection.getHeight());
+        }
+      }
     }
   }
 }

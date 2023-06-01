@@ -1,29 +1,30 @@
 public class character{
   public char[] keybinds;
   public ArrayList<MyPImage> sprites;
+  public int health;
   public boolean up, left, down, right, light, medium, heavy, special;
-  public boolean stunned, inAir, jumping, crouching;
+  public boolean stunned, inAir, jumping, crouching, blocking, attacking;
   public boolean anim;
   public boolean mirror;
-  public int startIndex, endIndex, crouchCD, jumpCD, jumpX;
+  public int startIndex, endIndex, crouchCD, jumpCD, lightCD, jumpX, stunTime;
   public int posX; // left;
   public int posY; // down;
   //Coords stored at bottom left corner
   public int ticks;
   
   public character(int PlayerNumber){
-    up = false;left = false;down = false;right = false;light = false;medium = false;heavy = false;special = false;stunned = false;inAir = false;jumping = false;crouching = false;anim = false;
-    startIndex = 0;endIndex = 0;crouchCD = 0;jumpCD = 0;jumpX = 0;
+    up = false;left = false;down = false;right = false;light = false;medium = false;heavy = false;special = false;stunned = false;inAir = false;jumping = false;crouching = false;blocking = false;attacking = false;anim = false;
+    startIndex = 0;endIndex = 0;crouchCD = 0;jumpCD = 0;lightCD = 0;jumpX = 0;stunTime = 0;
     ticks = 0;
     if (PlayerNumber == 1){
       keybinds = new char[] {'w', 'a', 's', 'd', 'e', 'r', 't', 'y'}; // player 1
-      posX = 50;
+      posX = 0;
       posY = 0;
       mirror = false;
     }
     else{
       keybinds = new char[] {'o', 'k', 'l', ';', 'p', '[', ']', '\\'}; // player 2
-      posX = width - 150;
+      posX = width;
       posY = 0;
       mirror = true;
     }

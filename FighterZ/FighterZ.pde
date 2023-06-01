@@ -59,7 +59,7 @@ public void createArena(){
 }
 
 public void createResult(){
- 
+  
 }
 
 void keyPressed(){
@@ -183,6 +183,7 @@ public void toggleHitboxes(){
 }
 
 public void checkCollisions(MyPImage frame1, MyPImage frame2){
+  //Move them away so they dont pass through each other
   for (int i = 0; i < frame1.hitboxes.size(); i++){
     Rectangle temp1 = frame1.hitboxes.get(i).rectangle;
     for (int j = 0; j < frame2.hitboxes.size(); j++){
@@ -198,11 +199,48 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
           Player1.posX -= Math.ceil(intersection.getWidth() / 2);
           Player2.posX += Math.ceil(intersection.getWidth() / 2);
         }
+        
+        if (Player1.posX < 0){
+          Player1.posX = 0;
+        }
+        else if (Player1.posX > width - frame1.getImage().width){
+          Player1.posX = width - frame1.getImage().width;
+        }
+        if (Player2.posX < 0){
+          Player2.posX = 0;
+        }
+        else if (Player2.posX > width - frame2.getImage().width){
+          Player2.posX = width - frame2.getImage().width;
+        }
+        
         if (display){
           stroke(0, 255, 0);
           fill(255, 255, 0, 160);
           rect((int) intersection.getX(), (int) intersection.getY(), (int) intersection.getWidth(), (int) intersection.getHeight());
         }
+      }
+    }
+  }
+  //Now check hurtboxes to deal damage and stun
+  for (int i = 0; i < frame1.hurtboxes.size(); i++){
+    Hurtbox hurt = frame1.hurtboxes.get(i);
+    for (int j = 0; j < frame2.hitboxes.size(); j++){
+      Hitbox recieve = frame2.hitboxes.get(j);
+      if (hurt.rectangle.intersects(recieve.rectangle) && hurt.alreadyHit == false){
+        hurt.alreadyHit = false;
+        Player2.stunTime = hurt.stun;
+        Player2.stunned = true;
+      }
+    }
+  }
+  for (int i = 0; i < frame2.hurtboxes.size(); i++){
+    Hurtbox hurt = frame2.hurtboxes.get(i);
+    for (int j = 0; j < frame1.hitboxes.size(); j++){
+      Hitbox recieve = frame1.hitboxes.get(j);
+      if (hurt.rectangle.intersects(recieve.rectangle) && hurt.alreadyHit == false){
+        hurt.alreadyHit = false;
+        Player1.stunTime = hurt.stun;
+        Player1.stunned = true;
       }
     }
   }

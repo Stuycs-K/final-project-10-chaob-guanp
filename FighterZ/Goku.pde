@@ -2,13 +2,14 @@ public class Goku extends character {
   
   public Goku(int PlayerNumber){
     super(PlayerNumber);
+    health = 100;
     setSprites("Goku", PlayerNumber);
     setBoxes();
   }
  
   public MyPImage update(){
     MyPImage currentFrame = null;
-    imageMode(CENTER);
+    imageMode(CORNER);
     
     if (!stunned){
       if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Jump
@@ -27,37 +28,70 @@ public class Goku extends character {
           currentFrame = idle();
         }
       }
+      else if (!up && !down && light && !medium && !heavy && !special && !inAir && !jumping && !crouching){
+        if (lightCD == 0){
+          attacking = true;
+        }
+        else{
+          currentFrame = idle();
+        }
+      }
     
-      if (jumping){
+      if (jumping && !crouching && !attacking){
         currentFrame = jump();
       }
-      else if (crouching){
+      else if (crouching && !jumping && !attacking){
         currentFrame = crouch();
+      }
+      else if (attacking && !jumping && !crouching){
+        currentFrame = light();
       }
       else if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Idle
         currentFrame = idle();
       }
-      else if(!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching ){ // Left and right walk
+      else if (!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Left and right walk
         currentFrame = walk();
       }
-    
-      if (posY > 0){
-        inAir = true;
+      else if (!inAir){ //if nothing else somehow, or a nothing combo of keys, or locked by bad booleans
+        anim = false;
+        ticks = 0;
+        jumping = false;
+        crouching = false;
+        attacking = false;
+        currentFrame = idle();
       }
-      else{
-        inAir = false;
-      }
-      
-      if (jumpCD > 0){
-        jumpCD--;
-      }
-      if (crouchCD > 0){
-        crouchCD--;
-      }
-        
-      ticks++;
     }
-    return currentFrame; // temporary for if you somehow arent any of the above booleans
+    else{
+    }
+    
+    if (stunTime > 0){
+      stunned = true;
+      stunTime--;
+    }
+    else{
+      stunned = false;
+    }
+    if (posY > 0){
+      inAir = true;
+    }
+    else{
+      inAir = false;
+    }
+    
+    if (jumpCD > 0){
+      jumpCD--;
+    }
+    
+    if (crouchCD > 0){
+      crouchCD--;
+    }
+    
+    if (lightCD > 0){
+      lightCD--;
+    }
+    
+    ticks++;
+    return currentFrame;
   }
   
   private void updateBoxes(PImage img, int current){
@@ -66,7 +100,7 @@ public class Goku extends character {
       int offX = temp.offsetX;
       int offY = temp.offsetY;
       if (mirror){
-        offX = img.width - temp.getWidth() - offX;
+        offX = -temp.getWidth() - offX;
       }
       temp.setLocation(posX + offX, height - (posY + offY));
       if (display){
@@ -104,12 +138,12 @@ public class Goku extends character {
     
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
     }
     else{
       img = sprites.get(current).getImage();
-      
+      image(img, posX, -posY + (height - img.height));
     }
-    image(img, posX + (img.width/2), posY + (height - img.height/2));
     
     updateBoxes(img, current);
     return sprites.get(current);
@@ -134,17 +168,17 @@ public class Goku extends character {
     
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
     }
     else{
       img = sprites.get(current).getImage();
-      
+      image(img, posX, -posY + (height - img.height));
     }
-    image(img, posX + (img.width/2), posY + (height - img.height/2));
     
     updateBoxes(img, current);
 
-    if (posX + img.width >= width){
-      posX = width - img.width;
+    if (posX >= width){
+      posX = width;
     }
     if (posX <= 0){
       posX = 0;
@@ -185,11 +219,10 @@ public class Goku extends character {
     }
     else{
       img = sprites.get(current).getImage();
-      
     }
     
-    if (posX + img.width >= width){
-      posX = width - img.width;
+    if (posX >= width){
+      posX = width;
     }
     if (posX <= 0){
       posX = 0;
@@ -197,7 +230,13 @@ public class Goku extends character {
     if (posY - img.height > height){
       posY = height - img.height;
     }
-    image(img, posX + (img.width/2), -1 * posY + (height - img.height/2));
+    
+    if (mirror){
+      image(img, posX - img.width, -posY + (height - img.height));
+    }
+    else{
+      image(img, posX, -posY + (height - img.height));
+    }
     
     updateBoxes(img, current);
        
@@ -215,13 +254,12 @@ public class Goku extends character {
     int current = findLastSprite(10);
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
-      //set mirror hitboxes too
+      image(img, posX - img.width, -posY + (height - img.height));
     }
     else{
       img = sprites.get(current).getImage();
-      
+      image(img, posX, -posY + (height - img.height));
     }
-    image(img, posX + (img.width/2), posY + (height - img.height/2));
     updateBoxes(img, current);
 
     if (!down){
@@ -231,9 +269,41 @@ public class Goku extends character {
     return sprites.get(current);
   }
   
+  private MyPImage light(){
+    PImage img;
+    
+    if (!anim){
+      ticks = 0;
+      anim = true;
+    }
+          
+    startIndex = findFirstSprite(200);
+    endIndex = findLastSprite(200);
+    
+    int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
+    
+    if (mirror){
+      img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
+    }
+    else{
+      img = sprites.get(current).getImage();
+      image(img, posX, -posY + (height - img.height));
+    }
+    
+    updateBoxes(img, current);
+       
+    if (ticks >= endIndex - startIndex){
+      lightCD = 3;
+      attacking = false;
+      anim = false;
+    }
+    return sprites.get(current);
+  }
+  
   private void setBoxes(){
     //ADD COMMENTS THAT SHOW THE ANIMATION NUMBERS SO YOU CAN MANUALLY VIEW AND SET
-    //0 idle, 10 crouch, 20 walk, 41 jump
+    //0 idle, 10 crouch, 20 walk, 41 jump, 200 light
     // Constructor takes: offsetX from left, offsetY from top, width, height
     for (int i = 0; i < sprites.size(); i++){
       MyPImage frame = sprites.get(i);
@@ -251,6 +321,12 @@ public class Goku extends character {
       }
       else if (i >= findFirstSprite(41) && i <= findLastSprite(41)){
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
+      }
+      else if (i >= findFirstSprite(200) && i <= findLastSprite(200)){
+        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 40, frame.getImage().height, "Whole"));
+        if (i == findFirstSprite(200) + 1){
+          frame.hurtboxes.add(new Hurtbox(110, 90, 40, 8, "Punch", 5, 2));
+        }
       }
     }
   }

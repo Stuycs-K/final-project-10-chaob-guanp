@@ -26,6 +26,10 @@ Changed box interface into a class and edited the corresponding classes.
 
 Changed hitboxes to instead of drawing rectangles, it created a rectangle from the built-in rectangle class. This way we can use the built in methods like intersect.
 
+### 5/31/23
+
+Made collision work, also changed up the hitboxes again.
+
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -53,3 +57,7 @@ Made it so the crouch hitboxes are more aligned. Tried to figure out a way to st
 ### 5/30/23
 
 Made the two players distinguishable. Found a problem on the mirroring where it treats the character on the right as player2 always, will fix tomorrow.
+
+### 5/31/23
+
+made the mirroring with the sprites work accordingly. Experimenting with using different set of sprites for player2.

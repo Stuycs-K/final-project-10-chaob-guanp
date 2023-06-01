@@ -14,8 +14,6 @@ public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
-public MyPImage currentFrame1;
-public MyPImage currentFrame2;
 
 void setup(){
   size(1000, 500);
@@ -23,26 +21,29 @@ void setup(){
   createArena();
   //windowResize(arena.width, arena.height);
   surface.setSize(arena.width, arena.height);
+  surface.setResizable(false);
   frameRate(20);
   Player1 = new Goku(1);
   Player2 = new Goku(2);
-  currentFrame1 = Player1.sprites.get(0);
-  currentFrame2 = Player2.sprites.get(0);
 }
 
 void draw(){
   imageMode(CORNER);
   image(arena, 0, 0);
-  if (Player1.posX > Player2.posX - currentFrame2.getImage().width && Player1.mirror == false){ // problematic; continues to switch mirror as you cross the middle line
-    Player1.mirror = true;
-    Player2.mirror = false;
-  }
-  else if (Player1.posX - currentFrame1.getImage().width <= Player2.posX && Player1.mirror == true){ // same here
-    Player1.mirror = false;
-    Player2.mirror = true;
-  }
   MyPImage currentFrame1 = Player1.update();
   MyPImage currentFrame2 = Player2.update();
+  if (Player1.posX + currentFrame1.getImage().width / 2 > Player2.posX - currentFrame2.getImage().width / 2 && Player1.mirror == false){ 
+    Player1.mirror = true;
+    Player1.posX += currentFrame1.getImage().width;
+    Player2.mirror = false;
+    Player2.posX -= currentFrame2.getImage().width;
+  }
+  else if (Player1.posX - currentFrame1.getImage().width / 2 < Player2.posX + currentFrame2.getImage().width / 2 && Player1.mirror == true){ 
+    Player1.mirror = false;
+    Player1.posX -= currentFrame1.getImage().width;
+    Player2.mirror = true;
+    Player2.posX += currentFrame2.getImage().width;
+  }
   checkCollisions(currentFrame1, currentFrame2);
 }
 

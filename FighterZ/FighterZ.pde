@@ -14,6 +14,8 @@ public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
+public MyPImage currentFrame1;
+public MyPImage currentFrame2;
 
 void setup(){
   size(1000, 500);
@@ -24,22 +26,24 @@ void setup(){
   frameRate(20);
   Player1 = new Goku(1);
   Player2 = new Goku(2);
+  currentFrame1 = Player1.sprites.get(0);
+  currentFrame2 = Player2.sprites.get(0);
 }
 
 void draw(){
   imageMode(CORNER);
   image(arena, 0, 0);
-  MyPImage currentFrame1 = Player1.update();
-  MyPImage currentFrame2 = Player2.update();
-  checkCollisions(currentFrame1, currentFrame2);
-  if (Player1.posX > Player2.posX && Player1.mirror == false){
+  if (Player1.posX > Player2.posX - currentFrame2.getImage().width && Player1.mirror == false){ // problematic; continues to switch mirror as you cross the middle line
     Player1.mirror = true;
     Player2.mirror = false;
   }
-  else if (Player1.posX <= Player2.posX && Player1.mirror == true){
+  else if (Player1.posX - currentFrame1.getImage().width <= Player2.posX && Player1.mirror == true){ // same here
     Player1.mirror = false;
     Player2.mirror = true;
   }
+  MyPImage currentFrame1 = Player1.update();
+  MyPImage currentFrame2 = Player2.update();
+  checkCollisions(currentFrame1, currentFrame2);
 }
 
 public void createArena(){
@@ -191,13 +195,15 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
       // check if hitboxes intersect, then move them away properly. dont move along the y axis, move along x axis. y axis is bad because it can mess with jump positions.
       if (temp1.intersects(temp2)){
         Rectangle intersection = temp1.intersection(temp2);
-        if (Player1.posX >= Player2.posX){
+        int p1posX = Player1.posX;
+        int p2posX = Player2.posX;
+        if (p1posX >= p2posX){
           Player1.posX += Math.ceil(intersection.getWidth() / 2);
           Player2.posX -= Math.ceil(intersection.getWidth() / 2);
         }
         else{
-          Player1.posX -= Math.ceil(intersection.getWidth() / 2);
-          Player2.posX += Math.ceil(intersection.getWidth() / 2);
+          Player1.posX -= Math.ceil(intersection.getWidth() / 2) + 1;
+          Player2.posX += Math.ceil(intersection.getWidth() / 2) + 1;
         }
         
         if (Player1.posX < 0){

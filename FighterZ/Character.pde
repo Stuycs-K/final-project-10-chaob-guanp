@@ -5,7 +5,7 @@ public class character{
   public boolean up, left, down, right, light, medium, heavy, special;
   public boolean stunned, inAir, jumping, crouching, blocking, attacking;
   public boolean anim;
-  public boolean mirror;
+  public boolean mirror; // When mirrored, posX will be the sprite's image's width off. As in, it will be image.width greater than it should be to be representing the left side
   public int startIndex, endIndex, crouchCD, jumpCD, lightCD, jumpX, stunTime;
   public int posX; // left;
   public int posY; // down;

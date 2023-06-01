@@ -10,7 +10,6 @@ public class Goku extends character {
   public MyPImage update(){
     MyPImage currentFrame = null;
     imageMode(CORNER);
-    
     if (!stunned){
       if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Jump
         if (jumpCD == 0){
@@ -114,7 +113,7 @@ public class Goku extends character {
       int offX = temp.offsetX;
       int offY = temp.offsetY;
       if (mirror){
-        offX = img.width - temp.getWidth() - offX;
+        offX = -temp.getWidth() - offX;
       }
       temp.setLocation(posX + offX, height - (posY + offY));
       if (display){
@@ -198,10 +197,10 @@ public class Goku extends character {
   
     if (ticks == 0){
       if (left && !right){
-        jumpX = -18;
+        jumpX = -10;
       }
       else if (right && !left){
-        jumpX = 18;
+        jumpX = 10;
       }
       else{
         jumpX = 0;
@@ -241,7 +240,7 @@ public class Goku extends character {
     updateBoxes(img, current);
        
     if (ticks >= endIndex - startIndex){
-      jumpCD = 4;
+      jumpCD = 10;
       jumping = false;
       anim = false;
     }

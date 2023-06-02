@@ -33,21 +33,40 @@ public class character{
   }
  
   public void setSprites(String keyword, int PlayerNumber){
-    sprites = new ArrayList<MyPImage>();
-    File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
-      
-    FileFilter filter = new FileFilter() {
-      public boolean accept(File directory){
-        return directory.getName().endsWith("png");
+    if (PlayerNumber == 1){
+      sprites = new ArrayList<MyPImage>();
+      File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " EB"));
+        
+      FileFilter filter = new FileFilter() {
+        public boolean accept(File directory){
+          return directory.getName().endsWith("png");
+        }
+      };
+        
+      File[] files = directory.listFiles(filter);
+      Arrays.sort(files);
+        
+      for (int i = 0; i < files.length; i++){
+        MyPImage img = new MyPImage(files[i]); 
+        sprites.add(img);
       }
-    };
-      
-    File[] files = directory.listFiles(filter);
-    Arrays.sort(files);
-      
-    for (int i = 0; i < files.length; i++){
-      MyPImage img = new MyPImage(files[i]); 
-      sprites.add(img);
+    }
+    if (PlayerNumber == 2){
+      sprites = new ArrayList<MyPImage>();
+      File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + keyword + " editedSprites"));
+      FileFilter filter = new FileFilter() {
+        public boolean accept(File directory){
+          return directory.getName().endsWith("png");
+        }
+      };
+        
+      File[] files = directory.listFiles(filter);
+      Arrays.sort(files);
+        
+      for (int i = 0; i < files.length; i++){
+        MyPImage img = new MyPImage(files[i]); 
+        sprites.add(img);
+      }
     }
   }
   

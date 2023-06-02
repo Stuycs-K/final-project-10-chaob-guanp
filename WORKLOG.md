@@ -17,6 +17,12 @@ Made the sprite walk with a walking animation. Also created a crouch feature. Ch
 ### 5/25/23
 
 Jump feature where the character jumps in a parabolic curve.
+<<<<<<< HEAD
+
+### 5/24/23
+
+Made the sprite walk with a walking animation. Also created a crouch feature. Changed the Character interface into a class which Goku extends.
+=======
 
 ### Weekend 5/26 - 5/29
 
@@ -30,6 +36,7 @@ Changed hitboxes to instead of drawing rectangles, it created a rectangle from t
 
 Made collision work, also changed up the hitboxes again.
 
+>>>>>>> 3656f10900fff444d130f6a4a08f8a27a4657006
 
 ## GROUP MEMBER 2: Phillip Guan
 

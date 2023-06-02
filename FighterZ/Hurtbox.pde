@@ -1,32 +1,17 @@
-public class Hurtbox implements box{
-  private int len;
-  private int wid;
-  private int posX;
-  private int posY;
-  public boolean display;
+public class Hurtbox extends Box{
   
-  public Hurtbox(int posX_, int posY_, int width_, int length_) {
+  public int damage;
+  public int stun;
+  
+  public Hurtbox(int offsetX_, int offsetY_, int width_, int height_, String name_, int damage_, int stun_) {
+    super(offsetX_, offsetY_, width_, height_, name_);
+    damage = damage_;
+    stun = stun_;
+    /*
     noFill();
+    rectMode(CORNERS);
     stroke(255, 0, 0);
     rect(posX_, posY_, width_, length_);
-    len = length_;
-    wid = width_;
-    posX = posX_;
-    posY = posY_;
-    display = false;
+    */
   }
-  
-  public boolean checkCollides(box other, int otherXpos, int otherYpos, int Xpos, int Ypos) {
-    for (int i = Xpos; i < Xpos + wid; i++) {
-      if (i == otherXpos) {
-        for (int j = Ypos; i < Ypos + len; j++) {
-          if (j == otherYpos) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-  
 }

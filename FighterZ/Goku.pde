@@ -2,7 +2,7 @@ public class Goku extends character {
   
   public Goku(int PlayerNumber){
     super(PlayerNumber);
-    health = 100;maxHealth = 100;
+    health = 150;maxHealth = 150;
     setSprites("Goku", PlayerNumber);
     setBoxes();
   }
@@ -439,7 +439,7 @@ public class Goku extends character {
   private MyPImage fall(){
     PImage img;
     
-    int current = findLastSprite(10);
+    int current = findLastSprite(41) - 2;
     
     if (!anim){
       ticks = 0;

@@ -30,8 +30,18 @@ void setup(){
 void draw(){
   imageMode(CORNER);
   image(arena, 0, 0);
-  MyPImage currentFrame1 = Player1.update();
-  MyPImage currentFrame2 = Player2.update();
+  MyPImage currentFrame1;
+  MyPImage currentFrame2;
+  if (Player1.stunned){ // overlap proper sprite if doing a combo/attack
+    currentFrame2 = Player2.update();
+    currentFrame1 = Player1.update();
+  }
+  else{
+    currentFrame1 = Player1.update();
+    currentFrame2 = Player2.update();
+  }
+  
+  //Mirror
   if (Player1.posX + currentFrame1.getImage().width / 2 > Player2.posX - currentFrame2.getImage().width / 2 && Player1.mirror == false){ 
     Player1.mirror = true;
     Player1.posX += currentFrame1.getImage().width;
@@ -45,6 +55,36 @@ void draw(){
     Player2.posX += currentFrame2.getImage().width;
   }
   checkCollisions(currentFrame1, currentFrame2);
+  drawHealth();
+  if (Player1.health <= 0 || Player2.health <= 0){
+    createResult();
+  }
+}
+
+public void drawHealth(){
+  int outline = 4;
+  rectMode(CORNERS); // rect(x middle, y top, x left/right, y bottom)
+  stroke(0);
+  //Player1 health outline
+  strokeWeight(outline);
+  noFill();
+  rect((width - outline)/ 2, 0, 0, 30);
+  //Player2 health outline
+  strokeWeight(outline);
+  noFill();
+  rect((width + outline) / 2, 0, width, 30);
+  //Player1 health
+  strokeWeight(0);
+  fill(0, 255, 0);
+  if (Player1.health >= 0){
+    rect((width - outline) / 2, outline / 2, (width/2) - ( (float) Player1.health/Player1.maxHealth * (width/2) ) - (outline / 2), 30);
+  }
+  //Player2 health
+  strokeWeight(0);
+  fill(0, 255, 0);
+  if (Player2.health >= 0){
+    rect((width + outline)/ 2, outline / 2, (width/2) + ( (float) Player2.health/Player2.maxHealth * (width/2) ) + (outline / 2), 30);
+  }
 }
 
 public void createArena(){
@@ -64,7 +104,7 @@ public void createArena(){
 }
 
 public void createResult(){
-  
+  print("OVER");
 }
 
 void keyPressed(){
@@ -210,14 +250,14 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
         if (Player1.posX < 0){
           Player1.posX = 0;
         }
-        else if (Player1.posX > width - frame1.getImage().width){
-          Player1.posX = width - frame1.getImage().width;
+        else if (Player1.posX > width){
+          Player1.posX = width;
         }
         if (Player2.posX < 0){
           Player2.posX = 0;
         }
-        else if (Player2.posX > width - frame2.getImage().width){
-          Player2.posX = width - frame2.getImage().width;
+        else if (Player2.posX > width){
+          Player2.posX = width;
         }
         
         if (display){
@@ -233,8 +273,9 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
     Hurtbox hurt = frame1.hurtboxes.get(i);
     for (int j = 0; j < frame2.hitboxes.size(); j++){
       Hitbox recieve = frame2.hitboxes.get(j);
-      if (hurt.rectangle.intersects(recieve.rectangle) && hurt.alreadyHit == false){
-        hurt.alreadyHit = false;
+      if (hurt.rectangle.intersects(recieve.rectangle) && Player1.alreadyHit == false){
+        Player1.alreadyHit = true;
+        Player2.health -= hurt.damage;
         Player2.stunTime = hurt.stun;
         Player2.stunned = true;
       }
@@ -244,8 +285,9 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
     Hurtbox hurt = frame2.hurtboxes.get(i);
     for (int j = 0; j < frame1.hitboxes.size(); j++){
       Hitbox recieve = frame1.hitboxes.get(j);
-      if (hurt.rectangle.intersects(recieve.rectangle) && hurt.alreadyHit == false){
-        hurt.alreadyHit = false;
+      if (hurt.rectangle.intersects(recieve.rectangle) && Player2.alreadyHit == false){
+        Player2.alreadyHit = true;
+        Player1.health -= hurt.damage;
         Player1.stunTime = hurt.stun;
         Player1.stunned = true;
       }

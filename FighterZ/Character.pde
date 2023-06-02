@@ -1,20 +1,22 @@
 public class character{
   public char[] keybinds;
   public ArrayList<MyPImage> sprites;
-  public int health;
+  public int health, maxHealth;
   public boolean up, left, down, right, light, medium, heavy, special;
-  public boolean stunned, inAir, jumping, crouching, blocking, attacking;
+  public boolean stunned, inAir, jumping, crouching, blocking, lightIng, mediumIng, heavyIng;
   public boolean anim;
   public boolean mirror; // When mirrored, posX will be the sprite's image's width off. As in, it will be image.width greater than it should be to be representing the left side. so the posX should be treated like it's right-sided when mirrored.
-  public int startIndex, endIndex, crouchCD, jumpCD, lightCD, jumpX, stunTime;
+  public int startIndex, endIndex, crouchCD, jumpCD, lightCD, mediumCD, heavyCD, jumpX, stunTime;
   public int posX; // left;
   public int posY; // down;
+  public boolean alreadyHit; // As in already attacked the opponent. for attacks such a beams where you want constant hits, you can set this to false at the end of the attack's method in update
   //Coords stored at bottom left corner
   public int ticks;
   
   public character(int PlayerNumber){
-    up = false;left = false;down = false;right = false;light = false;medium = false;heavy = false;special = false;stunned = false;inAir = false;jumping = false;crouching = false;blocking = false;attacking = false;anim = false;
-    startIndex = 0;endIndex = 0;crouchCD = 0;jumpCD = 0;lightCD = 0;jumpX = 0;stunTime = 0;
+    up = false;left = false;down = false;right = false;light = false;medium = false;heavy = false;special = false;stunned = false;inAir = false;jumping = false;crouching = false;blocking = false;lightIng = false;mediumIng=false;heavyIng=false;anim = false;
+    startIndex = 0;endIndex = 0;crouchCD = 0;jumpCD = 0;lightCD = 0;mediumCD = 0;heavyCD = 0;jumpX = 0;stunTime = 0;
+    alreadyHit = false;
     ticks = 0;
     if (PlayerNumber == 1){
       keybinds = new char[] {'w', 'a', 's', 'd', 'e', 'r', 't', 'y'}; // player 1

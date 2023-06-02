@@ -9,8 +9,6 @@ Began the process on implementing the sprites into processing. Got the sprites t
 ### 5/23/23
 
 Began working on the implementation of a moving sprite.
-<<<<<<< HEAD
-=======
 
 ### 5/24/23
 
@@ -19,14 +17,26 @@ Made the sprite walk with a walking animation. Also created a crouch feature. Ch
 ### 5/25/23
 
 Jump feature where the character jumps in a parabolic curve.
->>>>>>> 7b7ca7a2c5e1501a2f1a5b0a60333fbdd9597c28
+<<<<<<< HEAD
 
 ### 5/24/23
 
-<<<<<<< HEAD
 Made the sprite walk with a walking animation. Also created a crouch feature. Changed the Character interface into a class which Goku extends.
 =======
->>>>>>> 7b7ca7a2c5e1501a2f1a5b0a60333fbdd9597c28
+
+### Weekend 5/26 - 5/29
+
+Changed box interface into a class and edited the corresponding classes.
+
+### 5/30/23
+
+Changed hitboxes to instead of drawing rectangles, it created a rectangle from the built-in rectangle class. This way we can use the built in methods like intersect.
+
+### 5/31/23
+
+Made collision work, also changed up the hitboxes again.
+
+>>>>>>> 3656f10900fff444d130f6a4a08f8a27a4657006
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -41,11 +51,20 @@ Began the implementation of hitboxes and hurtboxes. Tested the checkCollides() m
 ### 5/24/23
 
 Created a hitbox around the Goku sprite. Follows the sprite where ever it goes. Working on the implentation of two sprites not being able to walk through each other.
-<<<<<<< HEAD
-=======
 
 ### 5/25/23
 
 Made it so that the hitboxes aren't reliant on the draw method but the update() method so it can change due to the characters position. This makes it more
 flexible. Need to include collision to this, its a little different.
->>>>>>> 7b7ca7a2c5e1501a2f1a5b0a60333fbdd9597c28
+
+### Weekend 5/26 - 5/29
+
+Made it so the crouch hitboxes are more aligned. Tried to figure out a way to store the hitboxes locations, but no luck. Redid all current hitboxes.
+
+### 5/30/23
+
+Made the two players distinguishable. Found a problem on the mirroring where it treats the character on the right as player2 always, will fix tomorrow.
+
+### 5/31/23
+
+made the mirroring with the sprites work accordingly. Experimenting with using different set of sprites for player2.

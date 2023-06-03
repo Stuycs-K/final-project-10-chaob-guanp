@@ -36,7 +36,10 @@ Changed hitboxes to instead of drawing rectangles, it created a rectangle from t
 
 Made collision work, also changed up the hitboxes again.
 
->>>>>>> 3656f10900fff444d130f6a4a08f8a27a4657006
+
+### 6/1/23
+
+Created collisions for top down and also added a light hit and medium hit.
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -68,3 +71,7 @@ Made the two players distinguishable. Found a problem on the mirroring where it 
 ### 5/31/23
 
 made the mirroring with the sprites work accordingly. Experimenting with using different set of sprites for player2.
+
+### 6/1/23
+
+Sprites for different players working, can clearly distinguish between player one and two.

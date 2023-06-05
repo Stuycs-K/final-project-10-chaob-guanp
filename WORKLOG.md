@@ -53,7 +53,7 @@ Began the implementation of hitboxes and hurtboxes. Tested the checkCollides() m
 
 ### 5/24/23
 
-Created a hitbox around the Goku sprite. Follows the sprite where ever it goes. Working on the implentation of two sprites not being able to walk through each other.
+Created a hitbox around the Goku sprite. Follows the sprite where ever it goes. Working on the implemetation of two sprites not being able to walk through each other.
 
 ### 5/25/23
 
@@ -75,3 +75,8 @@ made the mirroring with the sprites work accordingly. Experimenting with using d
 ### 6/1/23
 
 Sprites for different players working, can clearly distinguish between player one and two.
+
+### Weekend 6/2 - 6/4
+
+Created end screen for after one player reaches 0 hp. Added two new image files that are for when one player or the other player wins. Right now it only has text on the top left which says who won
+and some "funny" stuff. Planning on adding some stats and making it look cleaner. Maybe a highest combo reached. Want to add a rematch button.

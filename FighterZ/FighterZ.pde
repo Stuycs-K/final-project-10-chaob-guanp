@@ -56,8 +56,11 @@ void draw(){
   }
   checkCollisions(currentFrame1, currentFrame2);
   drawHealth();
-  if (Player1.health <= 0 || Player2.health <= 0){
-    createResult();
+  if (Player1.health <= 0){
+    createResult(2);
+  }
+  if ( Player2.health <= 0) {
+    createResult(1);
   }
 }
 
@@ -103,8 +106,17 @@ public void createArena(){
   arena = img.getImage();
 }
 
-public void createResult(){
-  print("OVER");
+public void createResult(int PlayerNumber){
+  if (PlayerNumber == 1) {
+    background(0);
+    textSize(27);
+    text("Player 1 is the bestest player everer", 0, 30);
+  }
+  if (PlayerNumber == 2) {
+    background(0);
+    textSize(27);
+    text("Player 2 is the better in every way", 0, 30);
+  }
 }
 
 void keyPressed(){

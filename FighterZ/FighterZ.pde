@@ -110,11 +110,17 @@ public void createResult(int PlayerNumber){
   if (PlayerNumber == 1) {
     background(0);
     textSize(27);
+    PImage img = loadImage("Player1winScreen.jpg");
+    img.resize(1000, 500);
+    image(img, 0, 0);
     text("Player 1 is the bestest player everer", 0, 30);
   }
   if (PlayerNumber == 2) {
     background(0);
     textSize(27);
+    PImage img = loadImage("Player2winScreen.jpg");
+    img.resize(1000, 500);
+    image(img, 0, 0);
     text("Player 2 is the better in every way", 0, 30);
   }
 }

@@ -14,6 +14,11 @@ public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
+public boolean restartOver = false;
+private int restartX;
+private int restartY;
+private int restartX2;
+private int restartY2;
 
 void setup(){
   size(1000, 500);
@@ -25,6 +30,10 @@ void setup(){
   frameRate(20);
   Player1 = new Goku(1);
   Player2 = new Goku(2);
+  restartX = 25;
+  restartY = height-50;
+  restartX2 = 140;
+  restartY2 = height-100;
 }
 
 void draw(){
@@ -113,7 +122,12 @@ public void createResult(int PlayerNumber){
     PImage img = loadImage("Player1winScreen.jpg");
     img.resize(1000, 500);
     image(img, 0, 0);
+    fill(255);
     text("Player 1 is the bestest player everer", 0, 30);
+    updatePos(mouseX, mouseY);
+    rect(restartX, restartY, restartX2, restartY2);
+    fill(0);
+    text("REMATCH", 26, height-65);
   }
   if (PlayerNumber == 2) {
     background(0);
@@ -121,7 +135,43 @@ public void createResult(int PlayerNumber){
     PImage img = loadImage("Player2winScreen.jpg");
     img.resize(1000, 500);
     image(img, 0, 0);
+    fill(255);
     text("Player 2 is the better in every way", 0, 30);
+    rectMode(CORNERS);
+    updatePos(mouseX, mouseY);
+    rect(restartX, restartY, restartX2, restartY2);
+    fill(0);
+    text("REMATCH", 26, height-65);
+  }
+}
+
+void updatePos(int x, int y) {
+  if (overRestart(restartX, restartY, restartX2, restartY2)) {
+    restartOver = true;
+    fill(255, 255, 0);
+  }
+  else {
+    restartOver = false;
+  }
+}
+
+boolean overRestart(int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && mouseY <= y && mouseY >= height-y) {
+    return true;
+  } 
+  else {
+    return false;
+  }
+}
+
+void mousePressed(){
+  if (overRestart(25, height-50, 140, height-100)) {
+    Player1.health = Player1.maxHealth;
+    Player2.health = Player2.maxHealth;
+    Player1.posX = 50;
+    Player1.posY = 0;
+    Player2.posX = width-50;
+    Player2.posY = 0;
   }
 }
 

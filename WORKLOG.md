@@ -80,3 +80,8 @@ Sprites for different players working, can clearly distinguish between player on
 
 Created end screen for after one player reaches 0 hp. Added two new image files that are for when one player or the other player wins. Right now it only has text on the top left which says who won
 and some "funny" stuff. Planning on adding some stats and making it look cleaner. Maybe a highest combo reached. Want to add a rematch button.
+
+### 6/5/23
+
+Created a rematch button on the endscreen where when hovered over highlights yellow to indicate it. When you press your mouse while hovering over the "rematch" box, it resets players health
+and sets their positions to their original positions, or 50 pixels away form their respective sides, instead of them spawning right next to each other.

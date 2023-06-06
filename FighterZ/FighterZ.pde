@@ -38,6 +38,15 @@ void setup(){
 
 void draw(){
   imageMode(CORNER);
+  if (Player1.health <= 0 || Player2.health <= 0){
+    if ( Player1.health <= 0){
+      createResult(2);
+    }
+    else if ( Player2.health <= 0) {
+      createResult(1);
+    }
+  }
+  else{
   image(arena, 0, 0);
   MyPImage currentFrame1;
   MyPImage currentFrame2;
@@ -65,11 +74,6 @@ void draw(){
   }
   checkCollisions(currentFrame1, currentFrame2);
   drawHealth();
-  if (Player1.health <= 0){
-    createResult(2);
-  }
-  if ( Player2.health <= 0) {
-    createResult(1);
   }
 }
 

@@ -10,10 +10,14 @@ public final int LIGHT = 4;
 public final int MEDIUM = 5;
 public final int HEAVY = 6;
 public final int SPECIAL = 7;
+
 public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
+public boolean gameStart;
+public double timer;
+
 public boolean restartOver = false;
 private int restartX;
 private int restartY;
@@ -22,12 +26,17 @@ private int restartY2;
 
 void setup(){
   size(1000, 500);
+  
   surface.setResizable(true);
   createArena();
-  //windowResize(arena.width, arena.height);
   surface.setSize(arena.width, arena.height);
   surface.setResizable(false);
   frameRate(20);
+  
+  //gameStart = false;
+  gameStart = true;
+  timer = 5; // in seconds
+  
   Player1 = new Goku(1);
   Player2 = new Goku(2);
   restartX = 25;
@@ -37,70 +46,86 @@ void setup(){
 }
 
 void draw(){
-  imageMode(CORNER);
-  if (Player1.health <= 0 || Player2.health <= 0){
-    if ( Player1.health <= 0){
-      createResult(2);
-    }
-    else if ( Player2.health <= 0) {
-      createResult(1);
-    }
+  
+  if (Player1 != null && Player2 != null && !(Player1.health <= 0 || Player2.health <= 0) && timer > 0){
+    gameStart = true;
   }
   else{
-  image(arena, 0, 0);
-  MyPImage currentFrame1;
-  MyPImage currentFrame2;
-  if (Player1.stunned){ // overlap proper sprite if doing a combo/attack
-    currentFrame2 = Player2.update();
-    currentFrame1 = Player1.update();
-  }
-  else{
-    currentFrame1 = Player1.update();
-    currentFrame2 = Player2.update();
+    gameStart = false;
   }
   
-  //Mirror
-  if (Player1.posX + currentFrame1.getImage().width / 2 > Player2.posX - currentFrame2.getImage().width / 2 && Player1.mirror == false){ 
-    Player1.mirror = true;
-    Player1.posX += currentFrame1.getImage().width;
-    Player2.mirror = false;
-    Player2.posX -= currentFrame2.getImage().width;
+  if (gameStart){ // In a round
+    imageMode(CORNER);
+    image(arena, 0, 0);
+    MyPImage currentFrame1;
+    MyPImage currentFrame2;
+    if (Player1.stunned){ // overlap proper sprite if doing a combo/attack
+      currentFrame2 = Player2.update();
+      currentFrame1 = Player1.update();
+    }
+    else{
+      currentFrame1 = Player1.update();
+      currentFrame2 = Player2.update();
+    }
+    
+    //Mirror
+    if (Player1.posX + currentFrame1.getImage().width / 2 > Player2.posX - currentFrame2.getImage().width / 2 && Player1.mirror == false){ 
+      Player1.mirror = true;
+      Player1.posX += currentFrame1.getImage().width;
+      Player2.mirror = false;
+      Player2.posX -= currentFrame2.getImage().width;
+    }
+    else if (Player1.posX - currentFrame1.getImage().width / 2 < Player2.posX + currentFrame2.getImage().width / 2 && Player1.mirror == true){ 
+      Player1.mirror = false;
+      Player1.posX -= currentFrame1.getImage().width;
+      Player2.mirror = true;
+      Player2.posX += currentFrame2.getImage().width;
+    }
+    checkCollisions(currentFrame1, currentFrame2);
+    drawHealth();
+    timer -= ((float) 1 / (float) 20); // subtract 1/framerate
   }
-  else if (Player1.posX - currentFrame1.getImage().width / 2 < Player2.posX + currentFrame2.getImage().width / 2 && Player1.mirror == true){ 
-    Player1.mirror = false;
-    Player1.posX -= currentFrame1.getImage().width;
-    Player2.mirror = true;
-    Player2.posX += currentFrame2.getImage().width;
-  }
-  checkCollisions(currentFrame1, currentFrame2);
-  drawHealth();
+  else{ // create result then character select
+    if (Player1 != null && Player2 != null){
+      createResult();
+    }
+    else{
+      
+    }
   }
 }
 
 public void drawHealth(){
+  int timerSpace = 40;
   int outline = 4;
   rectMode(CORNERS); // rect(x middle, y top, x left/right, y bottom)
   stroke(0);
   //Player1 health outline
   strokeWeight(outline);
   noFill();
-  rect((width - outline)/ 2, 0, 0, 30);
+  rect((width - outline - timerSpace)/ 2, 0, 0, 30); 
   //Player2 health outline
   strokeWeight(outline);
   noFill();
-  rect((width + outline) / 2, 0, width, 30);
+  rect((width + outline + timerSpace) / 2, 0, width, 30); 
   //Player1 health
   strokeWeight(0);
   fill(0, 255, 0);
   if (Player1.health >= 0){
-    rect((width - outline) / 2, outline / 2, (width/2) - ( (float) Player1.health/Player1.maxHealth * (width/2) ) - (outline / 2), 30);
+    rect((width - outline - timerSpace) / 2, outline / 2, (width/2) - ( (float) Player1.health/Player1.maxHealth * (width/2) ) - (outline / 2), 30);
   }
   //Player2 health
   strokeWeight(0);
   fill(0, 255, 0);
   if (Player2.health >= 0){
-    rect((width + outline)/ 2, outline / 2, (width/2) + ( (float) Player2.health/Player2.maxHealth * (width/2) ) + (outline / 2), 30);
+    rect((width + outline + timerSpace)/ 2, outline / 2, (width/2) + ( (float) Player2.health/Player2.maxHealth * (width/2) ) + (outline / 2), 30);
   }
+  //Timer
+  int textSize = 30;
+  textAlign(CENTER);
+  textSize(textSize);
+  fill(0);
+  text((int) timer, width / 2, textSize);
 }
 
 public void createArena(){
@@ -119,8 +144,8 @@ public void createArena(){
   arena = img.getImage();
 }
 
-public void createResult(int PlayerNumber){
-  if (PlayerNumber == 1) {
+public void createResult(){ // change to fit more results
+  if (Player2.health <= 0) {
     background(0);
     textSize(27);
     PImage img = loadImage("Player1winScreen.jpg");
@@ -133,7 +158,7 @@ public void createResult(int PlayerNumber){
     fill(0);
     text("REMATCH", 26, height-65);
   }
-  if (PlayerNumber == 2) {
+  if (Player1.health <= 0) {
     background(0);
     textSize(27);
     PImage img = loadImage("Player2winScreen.jpg");

@@ -109,7 +109,7 @@ public class Goku extends character {
           currentFrame = victory();
         }
         else{
-          //faint animation
+          currentFrame = defeat();
         }
       }
     }
@@ -204,7 +204,7 @@ public class Goku extends character {
       
     if (ticks > endIndex - startIndex){
       ticks = 0;
-    } 
+    }
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -463,8 +463,9 @@ public class Goku extends character {
       current = findLastSprite(5070);
     }
     
-    if (!anim){
+    if (!anim || jumping){
       ticks = 0;
+      jumping = false;
       anim = true;
     }
     
@@ -514,6 +515,23 @@ public class Goku extends character {
       image(img, posX, -posY + (height - img.height));
     }
     
+    updateBoxes(img, current);
+    
+    return sprites.get(current);
+  }
+  
+  private MyPImage defeat(){
+    PImage img;
+    
+    int current = findFirstSprite(5120);
+    if (mirror){
+      img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
+    }
+    else{
+      img = sprites.get(current).getImage();
+      image(img, posX, -posY + (height - img.height));
+    }
     updateBoxes(img, current);
     
     return sprites.get(current);

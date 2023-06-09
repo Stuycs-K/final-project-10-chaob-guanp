@@ -35,7 +35,7 @@ void setup(){
   
   //gameStart = false;
   gameStart = true;
-  timer = 5; // in seconds
+  timer = 90; // in seconds
   
   Player1 = new Goku(1);
   Player2 = new Goku(2);
@@ -46,7 +46,6 @@ void setup(){
 }
 
 void draw(){
-  
   if (Player1 != null && Player2 != null && !(Player1.health <= 0 || Player2.health <= 0) && timer > 0){
     gameStart = true;
   }
@@ -112,13 +111,13 @@ public void drawHealth(){
   strokeWeight(0);
   fill(0, 255, 0);
   if (Player1.health >= 0){
-    rect((width - outline - timerSpace) / 2, outline / 2, (width/2) - ( (float) Player1.health/Player1.maxHealth * (width/2) ) - (outline / 2), 30);
+    rect((width - outline - timerSpace) / 2, outline / 2, ((width - timerSpace)/2) - ( (float) Player1.health/Player1.maxHealth * ((width - timerSpace)/2) ) - (outline / 2), 30);
   }
   //Player2 health
   strokeWeight(0);
   fill(0, 255, 0);
   if (Player2.health >= 0){
-    rect((width + outline + timerSpace)/ 2, outline / 2, (width/2) + ( (float) Player2.health/Player2.maxHealth * (width/2) ) + (outline / 2), 30);
+    rect((width + outline + timerSpace) / 2, outline / 2, ((width + timerSpace)/2) + ( (float) Player2.health/Player2.maxHealth * ((width - timerSpace)/2) ) + (outline / 2), 30);
   }
   //Timer
   int textSize = 30;
@@ -174,6 +173,7 @@ public void createResult(){ // change to fit more results
   checkCollisions(currentFrame1, currentFrame2);
   drawHealth();
   
+  /*
   if (Player2.health <= 0) {
     background(0);
     textSize(27);
@@ -201,6 +201,7 @@ public void createResult(){ // change to fit more results
     fill(0);
     text("REMATCH", 26, height-65);
   }
+  */
 }
 
 void updatePos(int x, int y) {

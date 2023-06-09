@@ -10,6 +10,7 @@ public final int LIGHT = 4;
 public final int MEDIUM = 5;
 public final int HEAVY = 6;
 public final int SPECIAL = 7;
+public final int ROSTER = 1;
 
 public boolean display = false;
 public PImage arena;
@@ -26,11 +27,7 @@ private int restartY2;
 
 void setup(){
   size(1000, 500);
-  
   surface.setResizable(true);
-  createArena();
-  surface.setSize(arena.width, arena.height);
-  surface.setResizable(false);
   frameRate(20);
   
   //gameStart = false;
@@ -48,6 +45,10 @@ void setup(){
 void draw(){
   if (Player1 != null && Player2 != null && !(Player1.health <= 0 || Player2.health <= 0) && timer > 0){
     gameStart = true;
+    if (arena == null){
+      createArena();
+      surface.setSize(arena.width, arena.height);
+    }
   }
   else{
     gameStart = false;
@@ -89,7 +90,7 @@ void draw(){
       createResult();
     }
     else{
-      
+      createSelect();
     }
   }
 }
@@ -148,7 +149,7 @@ public void createResult(){ // change to fit more results
   image(arena, 0, 0);
   MyPImage currentFrame1;
   MyPImage currentFrame2;
-  if (Player1.stunned){ // overlap proper sprite if doing a combo/attack
+  if (Player1.health > 0){ // overlap proper sprite if alive
     currentFrame2 = Player2.update();
     currentFrame1 = Player1.update();
   }
@@ -202,6 +203,18 @@ public void createResult(){ // change to fit more results
     text("REMATCH", 26, height-65);
   }
   */
+}
+
+public void createSelect(){
+  if (arena != null){
+    arena = null;
+  }
+  
+  if (width != 1000 || height != 500){
+    surface.setSize(1000, 500);
+  }
+  
+  
 }
 
 void updatePos(int x, int y) {

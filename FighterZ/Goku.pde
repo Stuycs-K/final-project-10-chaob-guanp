@@ -97,7 +97,7 @@ public class Goku extends character {
         lightIng = false;
         mediumIng = false;
         heavyIng = false;
-        currentFrame = stun(); // placeholder
+        currentFrame = stun();
       }
     }
     else{
@@ -120,7 +120,12 @@ public class Goku extends character {
     }
     else{
       stunned = false;
+      alreadyHit = false;
+      anim = false;
     }
+    
+    if (stunTime > 0
+    
     if (posY > 0){
       inAir = true;
     }
@@ -331,13 +336,14 @@ public class Goku extends character {
   private MyPImage light(){
     PImage img;
     
+    startIndex = findFirstSprite(200);
+    endIndex = findLastSprite(200);
+    
     if (!anim){
       ticks = 0;
       anim = true;
+      lightCD = 4 + (endIndex - startIndex);
     }
-    
-    startIndex = findFirstSprite(200);
-    endIndex = findLastSprite(200);
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -353,7 +359,6 @@ public class Goku extends character {
     updateBoxes(img, current);
        
     if (ticks >= endIndex - startIndex){
-      lightCD = 4;
       lightIng = false;
       anim = false;
       alreadyHit = false;
@@ -364,13 +369,14 @@ public class Goku extends character {
   private MyPImage medium(){
     PImage img;
     
+    startIndex = findFirstSprite(220);
+    endIndex = findLastSprite(220);
+    
     if (!anim){
       ticks = 0;
       anim = true;
+      mediumCD = 7 + (endIndex - startIndex);
     }
-    
-    startIndex = findFirstSprite(220);
-    endIndex = findLastSprite(220);
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -386,7 +392,6 @@ public class Goku extends character {
     updateBoxes(img, current);
        
     if (ticks >= endIndex - startIndex){
-      mediumCD = 7;
       mediumIng = false;
       anim = false;
       alreadyHit = false;
@@ -397,13 +402,14 @@ public class Goku extends character {
   private MyPImage heavy(){
     PImage img;
     
+    startIndex = findFirstSprite(240);
+    endIndex = findLastSprite(240);
+    
     if (!anim){
       ticks = 0;
       anim = true;
+      heavyCD = 10 + (endIndex - startIndex);
     }
-          
-    startIndex = findFirstSprite(240);
-    endIndex = findLastSprite(240);
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -419,7 +425,6 @@ public class Goku extends character {
     updateBoxes(img, current);
        
     if (ticks >= endIndex - startIndex){
-      heavyCD = 10;
       heavyIng = false;
       anim = false;
       alreadyHit = false;
@@ -431,10 +436,16 @@ public class Goku extends character {
     PImage img;
     
     startIndex = findFirstSprite(5000);
-    endIndex = findLastSprite(5000) - 1;
-      
-    if (ticks > endIndex - startIndex){
+    endIndex = findLastSprite(5000);
+    
+    if (!anim){
       ticks = 0;
+      anim = true;
+    }
+    
+    if (ticks >= endIndex - startIndex){
+      ticks = endIndex- startIndex;
+      alreadyHit = false;
     }
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
@@ -539,7 +550,7 @@ public class Goku extends character {
   
   private void setBoxes(){
     //ADD COMMENTS THAT SHOW THE ANIMATION NUMBERS SO YOU CAN MANUALLY VIEW AND SET
-    //0 idle, 10 crouch, 20 walk, 41 jump, 200 light
+    //0 idle, 10 crouch, 20 walk, 41 jump, 200 light, 220 medium, 240 heavy
     // Constructor takes: offsetX from left, offsetY from top, width, height
     for (int i = 0; i < sprites.size(); i++){
       MyPImage frame = sprites.get(i);
@@ -547,7 +558,6 @@ public class Goku extends character {
         frame.hitboxes.add(new Hitbox(0, 44, 95, 44, "Legs"));
         frame.hitboxes.add(new Hitbox(26, 86, 64, 42, "Torso"));
         frame.hitboxes.add(new Hitbox(60, 96, 23, 20, "Head"));
-        //frame.hurtboxes.add(new Hurtbox(50, 50, 30, 30, "Temp"));
       }
       else if (i == findLastSprite(10)){
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));

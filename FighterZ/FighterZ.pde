@@ -145,6 +145,35 @@ public void createArena(){
 }
 
 public void createResult(){ // change to fit more results
+  imageMode(CORNER);
+  image(arena, 0, 0);
+  MyPImage currentFrame1;
+  MyPImage currentFrame2;
+  if (Player1.stunned){ // overlap proper sprite if doing a combo/attack
+    currentFrame2 = Player2.update();
+    currentFrame1 = Player1.update();
+  }
+  else{
+    currentFrame1 = Player1.update();
+    currentFrame2 = Player2.update();
+  }
+  
+  //Mirror
+  if (Player1.posX + currentFrame1.getImage().width / 2 > Player2.posX - currentFrame2.getImage().width / 2 && Player1.mirror == false){ 
+    Player1.mirror = true;
+    Player1.posX += currentFrame1.getImage().width;
+    Player2.mirror = false;
+    Player2.posX -= currentFrame2.getImage().width;
+  }
+  else if (Player1.posX - currentFrame1.getImage().width / 2 < Player2.posX + currentFrame2.getImage().width / 2 && Player1.mirror == true){ 
+    Player1.mirror = false;
+    Player1.posX -= currentFrame1.getImage().width;
+    Player2.mirror = true;
+    Player2.posX += currentFrame2.getImage().width;
+  }
+  checkCollisions(currentFrame1, currentFrame2);
+  drawHealth();
+  
   if (Player2.health <= 0) {
     background(0);
     textSize(27);

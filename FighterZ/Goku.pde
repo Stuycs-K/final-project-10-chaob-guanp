@@ -10,70 +10,86 @@ public class Goku extends character {
   public MyPImage update(){
     MyPImage currentFrame = null;
     imageMode(CORNER);
-    if (!stunned){
-      if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Jump
-        if (jumpCD == 0){
-          jumping = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if(!up && down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Crouch
-        if (crouchCD == 0){
-          crouching = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if (!up && !down && light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        if (lightCD == 0){
-          lightIng = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if (!up && !down && !light && medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        if (mediumCD == 0){
-          mediumIng = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if (!up && !down && !light && !medium && heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        if (heavyCD == 0){
-          heavyIng = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
     
-      if (jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        currentFrame = jump();
+    if (gameStart){
+      if (!stunned){
+        if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Jump
+          if (jumpCD == 0){
+            jumping = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if(!up && down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Crouch
+          if (crouchCD == 0){
+            crouching = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if (!up && !down && light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          if (lightCD == 0){
+            lightIng = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if (!up && !down && !light && medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          if (mediumCD == 0){
+            mediumIng = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if (!up && !down && !light && !medium && heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          if (heavyCD == 0){
+            heavyIng = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+    
+        if (jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          currentFrame = jump();
+        }
+        else if (crouching && !jumping && !lightIng && !mediumIng && !heavyIng){
+          currentFrame = crouch();
+        }
+        else if (lightIng && !jumping && !crouching && !mediumIng && !heavyIng){
+          currentFrame = light();
+        }
+        else if (mediumIng && !jumping && !crouching && !lightIng && !heavyIng){
+          currentFrame = medium();
+        }
+        else if (heavyIng && !jumping && !crouching && !lightIng && !mediumIng){
+          currentFrame = heavy();
+        }
+        else if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Idle
+          currentFrame = idle();
+        }
+        else if (!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Left and right walk
+          currentFrame = walk();
+        }
+        else if (!inAir){ //if nothing else somehow, or a nothing combo of keys, or locked by bad booleans
+          anim = false;
+          ticks = 0;
+          jumping = false;
+          crouching = false;
+          lightIng = false;
+          mediumIng = false;
+          heavyIng = false;
+          currentFrame = idle();
+        }
+        else if (inAir){
+          currentFrame = fall();
+        }
       }
-      else if (crouching && !jumping && !lightIng && !mediumIng && !heavyIng){
-        currentFrame = crouch();
-      }
-      else if (lightIng && !jumping && !crouching && !mediumIng && !heavyIng){
-        currentFrame = light();
-      }
-      else if (mediumIng && !jumping && !crouching && !lightIng && !heavyIng){
-        currentFrame = medium();
-      }
-      else if (heavyIng && !jumping && !crouching && !lightIng && !mediumIng){
-        currentFrame = heavy();
-      }
-      else if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Idle
-        currentFrame = idle();
-      }
-      else if (!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Left and right walk
-        currentFrame = walk();
-      }
-      else if (!inAir){ //if nothing else somehow, or a nothing combo of keys, or locked by bad booleans
+      else{
         anim = false;
         ticks = 0;
         jumping = false;
@@ -81,21 +97,21 @@ public class Goku extends character {
         lightIng = false;
         mediumIng = false;
         heavyIng = false;
-        currentFrame = idle();
-      }
-      else if (inAir){
-        currentFrame = fall();
+        currentFrame = stun(); // placeholder
       }
     }
     else{
-      anim = false;
-      ticks = 0;
-      jumping = false;
-      crouching = false;
-      lightIng = false;
-      mediumIng = false;
-      heavyIng = false;
-      currentFrame = stun(); // placeholder
+      if (inAir){
+        currentFrame = fall();
+      }
+      else{
+        if (health > 0){
+          currentFrame = victory();
+        }
+        else{
+          //faint animation
+        }
+      }
     }
     
     if (stunTime > 0){
@@ -438,8 +454,14 @@ public class Goku extends character {
   
   private MyPImage fall(){
     PImage img;
+    int current;
     
-    int current = findLastSprite(41) - 2;
+    if (health > 0){
+      current = findLastSprite(41) - 2;
+    }
+    else{
+      current = findLastSprite(5070);
+    }
     
     if (!anim){
       ticks = 0;
@@ -462,6 +484,37 @@ public class Goku extends character {
     if (posY <= 0){
       anim = false;
     }
+    
+    return sprites.get(current);
+  }
+  
+  private MyPImage victory(){
+    PImage img;
+    
+    startIndex = findFirstSprite(180);
+    endIndex = findLastSprite(180);
+    
+    if (!anim){
+      ticks = 0;
+      anim = true;
+    }
+    
+    if (ticks > endIndex - startIndex){
+      ticks = endIndex- startIndex;
+    }
+    
+    int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
+    
+    if (mirror){
+      img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
+    }
+    else{
+      img = sprites.get(current).getImage();
+      image(img, posX, -posY + (height - img.height));
+    }
+    
+    updateBoxes(img, current);
     
     return sprites.get(current);
   }

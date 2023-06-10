@@ -32,7 +32,7 @@ void setup(){
   
   //gameStart = false;
   gameStart = true;
-  timer = 90; // in seconds
+  timer = 10000000; // in seconds
   
   Player1 = new Goku(1);
   Player2 = new Goku(2);
@@ -415,9 +415,14 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
       Hitbox recieve = frame2.hitboxes.get(j);
       if (hurt.rectangle.intersects(recieve.rectangle) && Player1.alreadyHit == false){
         Player1.alreadyHit = true;
-        Player2.health -= hurt.damage;
-        Player2.stunTime = hurt.stun;
-        Player2.stunned = true;
+        if (Player2.blocking){
+          Player2.health -= Math.ceil((float) hurt.damage / 10);
+        }
+        else{
+          Player2.health -= hurt.damage;
+          Player2.stunTime = hurt.stun;
+          Player2.stunned = true;
+        }
       }
     }
   }
@@ -427,9 +432,14 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
       Hitbox recieve = frame1.hitboxes.get(j);
       if (hurt.rectangle.intersects(recieve.rectangle) && Player2.alreadyHit == false){
         Player2.alreadyHit = true;
-        Player1.health -= hurt.damage;
-        Player1.stunTime = hurt.stun;
-        Player1.stunned = true;
+        if (Player1.blocking){
+          Player1.health -= Math.ceil((float) hurt.damage / 10);
+        }
+        else{
+          Player1.health -= hurt.damage;
+          Player1.stunTime = hurt.stun;
+          Player1.stunned = true;
+        }
       }
     }
   }

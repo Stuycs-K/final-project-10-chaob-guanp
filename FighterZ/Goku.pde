@@ -76,8 +76,6 @@ public class Goku extends character {
           currentFrame = walk();
         }
         else if (!inAir){ //if nothing else somehow, or a nothing combo of keys, or locked by bad booleans
-          anim = false;
-          ticks = 0;
           jumping = false;
           crouching = false;
           lightIng = false;
@@ -90,8 +88,6 @@ public class Goku extends character {
         }
       }
       else{
-        anim = false;
-        ticks = 0;
         jumping = false;
         crouching = false;
         lightIng = false;
@@ -114,17 +110,17 @@ public class Goku extends character {
       }
     }
     
-    if (stunTime > 0){
-      stunned = true;
-      stunTime--;
+    if (stunned){
+      if (stunTime > 0){
+        stunned = true;
+        stunTime--;
+      }
+      else{
+        stunned = false;
+        alreadyHit = false;
+        anim = false;
+      }
     }
-    else{
-      stunned = false;
-      alreadyHit = false;
-      anim = false;
-    }
-    
-    if (stunTime > 0
     
     if (posY > 0){
       inAir = true;
@@ -315,6 +311,8 @@ public class Goku extends character {
   private MyPImage crouch(){
     PImage img;
     
+    blocking = true; // temporary
+    
     int current = findLastSprite(10);
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
@@ -329,6 +327,8 @@ public class Goku extends character {
     if (!down){
       crouchCD = 4;
       crouching = false;
+      
+      blocking = false; //  temporary
     }
     return sprites.get(current);
   }
@@ -551,7 +551,7 @@ public class Goku extends character {
   private void setBoxes(){
     //ADD COMMENTS THAT SHOW THE ANIMATION NUMBERS SO YOU CAN MANUALLY VIEW AND SET
     //0 idle, 10 crouch, 20 walk, 41 jump, 200 light, 220 medium, 240 heavy
-    // Constructor takes: offsetX from left, offsetY from top, width, height
+    // Constructor takes: offsetX from left, offsetY from bottom (at top of box, from bottom of sprite), width, height
     for (int i = 0; i < sprites.size(); i++){
       MyPImage frame = sprites.get(i);
       if (i >= findFirstSprite(0) && i <= findLastSprite(0)){ // Walk
@@ -559,28 +559,30 @@ public class Goku extends character {
         frame.hitboxes.add(new Hitbox(26, 86, 64, 42, "Torso"));
         frame.hitboxes.add(new Hitbox(60, 96, 23, 20, "Head"));
       }
-      else if (i == findLastSprite(10)){
+      else if (i == findLastSprite(10)){ // Crouch
+        frame.hitboxes.add(new Hitbox(15, 46, 78, 42, "Legs"));
+        frame.hitboxes.add(new Hitbox(35, 88, 44, 42, "Torso"));
+        frame.hitboxes.add(new Hitbox(10, 100, 40, 25, "Hand"));
+      }
+      else if (i >= findFirstSprite(20) && i <= findLastSprite(20)){ // Walk
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
-      else if (i >= findFirstSprite(20) && i <= findLastSprite(20)){
+      else if (i >= findFirstSprite(41) && i <= findLastSprite(41)){ // Jump
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
-      else if (i >= findFirstSprite(41) && i <= findLastSprite(41)){
-        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
-      }
-      else if (i >= findFirstSprite(200) && i <= findLastSprite(200)){
+      else if (i >= findFirstSprite(200) && i <= findLastSprite(200)){ // Light
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 40, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(200) + 1){
           frame.hurtboxes.add(new Hurtbox(110, 90, 36, 15, "Punch", 3, 2));
         }
       }
-      else if (i >= findFirstSprite(220) && i <= findLastSprite(220)){
+      else if (i >= findFirstSprite(220) && i <= findLastSprite(220)){ // Medium
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 50, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(220) + 2 || i == findFirstSprite(220) + 3){
           frame.hurtboxes.add(new Hurtbox(100, 80, 40, 20, "Punch", 5, 3));
         }
       }
-      else if (i >= findFirstSprite(240) && i <= findLastSprite(240)){
+      else if (i >= findFirstSprite(240) && i <= findLastSprite(240)){ // Heavy
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 60, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(240) + 2){
           frame.hurtboxes.add(new Hurtbox(110, 135, 40, 40, "Kick", 7, 4));

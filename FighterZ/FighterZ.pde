@@ -12,42 +12,73 @@ public final int HEAVY = 6;
 public final int SPECIAL = 7;
 public final int ROSTER = 1;
 
+public ArrayList<PImage> characterFaces;
 public boolean display = false;
 public PImage arena;
 public character Player1;
 public character Player2;
 public boolean gameStart;
 public double timer;
+public ArrayList<Button> buttons;
 
+/*
 public boolean restartOver = false;
 private int restartX;
 private int restartY;
 private int restartX2;
 private int restartY2;
+*/
 
 void setup(){
   size(1000, 500);
   surface.setResizable(true);
   frameRate(20);
+  buttons = new ArrayList<Button>(1 + ROSTER);
+  characterFaces = new ArrayList<PImage>(ROSTER);
+  gameStart = false;
+  timer = 90; // in seconds
   
-  //gameStart = false;
-  gameStart = true;
-  timer = 10000000; // in seconds
+  for(int i = 0; i < 1 + ROSTER; i++){
+    buttons.add(new Button(new Rectangle(0, 0, 0, 0), "NULL"));
+  }
   
-  Player1 = new Goku(1);
-  Player2 = new Goku(2);
+  File directory = new File(sketchPath("Mega Pack Extreme Butoden" + File.separator + "Character Faces"));
+  FileFilter filter = new FileFilter() {
+    public boolean accept(File directory){
+      return directory.getName().endsWith("png");
+    }
+  };
+  File[] files = directory.listFiles(filter);
+  Arrays.sort(files);
+  
+  for (int i = 0; i < files.length; i++){
+    characterFaces.add(loadImage(files[i].getAbsolutePath()));
+  }
+  /*
   restartX = 25;
   restartY = height-50;
   restartX2 = 140;
   restartY2 = height-100;
+  */
 }
 
 void draw(){
-  if (Player1 != null && Player2 != null && !(Player1.health <= 0 || Player2.health <= 0) && timer > 0){
-    gameStart = true;
-    if (arena == null){
-      createArena();
-      surface.setSize(arena.width, arena.height);
+  surface.setResizable(true);
+  
+  for (int i = 0; i < buttons.size(); i++){
+    buttons.set(i, new Button(new Rectangle(0, 0, 0, 0), "NULL"));
+  }
+  
+  if (Player1 != null && Player2 != null && timer > 0){
+    if (!(Player1.health <= 0 || Player2.health <= 0)){
+      gameStart = true;
+      if (arena == null){
+        createArena();
+        surface.setSize(arena.width, arena.height);
+      }
+    }
+    else{
+      gameStart = false;
     }
   }
   else{
@@ -92,6 +123,9 @@ void draw(){
     else{
       createSelect();
     }
+  }
+  for (int i = 0; i < buttons.size(); i++){
+    buttons.get(i).drawRect();
   }
 }
 
@@ -174,6 +208,9 @@ public void createResult(){ // change to fit more results
   checkCollisions(currentFrame1, currentFrame2);
   drawHealth();
   
+  int buttonWidth = 90;
+  buttons.set(0, new Button(new Rectangle((width / 2) - (buttonWidth / 2), 50, buttonWidth, buttonWidth / 2), "Menu"));
+  
   /*
   if (Player2.health <= 0) {
     background(0);
@@ -206,6 +243,14 @@ public void createResult(){ // change to fit more results
 }
 
 public void createSelect(){
+  background(0);
+  timer = 90;
+  int buttonWidth = 70;
+  
+  for (int i = 1; i <= ROSTER; i++){
+    buttons.set(i, new Button(new Rectangle( (width / (int) (Math.pow(2, ROSTER))) - (buttonWidth / 2), height / 2, buttonWidth, buttonWidth), "Goku", characterFaces.get(i - 1)));
+  }
+  
   if (arena != null){
     arena = null;
   }
@@ -214,9 +259,19 @@ public void createSelect(){
     surface.setSize(1000, 500);
   }
   
-  
+  int textSize = 50;
+  fill(255);
+  textSize(textSize);
+  textAlign(CENTER);
+  if (Player1 == null){
+    text("Select character for Player 1", width / 2, textSize + 20); 
+  }
+  else{
+    text("Select character for Player 2", width / 2, textSize + 20); 
+  }
 }
 
+/*
 void updatePos(int x, int y) {
   if (overRestart(restartX, restartY, restartX2, restartY2)) {
     restartOver = true;
@@ -244,6 +299,29 @@ void mousePressed(){
     Player1.posY = 0;
     Player2.posX = width-50;
     Player2.posY = 0;
+  }
+}
+*/
+
+void mousePressed(){
+  for (int i = 0; i < buttons.size(); i++){
+    Button current = buttons.get(i);
+    if (!(current.name.equals("NULL"))){
+      if (current.contains(mouseX, mouseY)){
+        if (current.name.equals("Menu")){
+          Player1 = null;
+          Player2 = null;
+        }
+        else if (current.name.equals("Goku")){
+          if (Player1 == null){
+            Player1 = new Goku(1);
+          }
+          else if (Player2 == null){
+            Player2 = new Goku(2);
+          }
+        }
+      }
+    }
   }
 }
 

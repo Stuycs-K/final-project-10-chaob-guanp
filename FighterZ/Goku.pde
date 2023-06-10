@@ -342,7 +342,9 @@ public class Goku extends character {
     if (!anim){
       ticks = 0;
       anim = true;
-      lightCD = 4 + (endIndex - startIndex);
+      lightCD = 6 + (endIndex - startIndex); // 6 + 4
+      mediumCD += (endIndex - startIndex);
+      heavyCD += (endIndex - startIndex);
     }
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
@@ -375,7 +377,9 @@ public class Goku extends character {
     if (!anim){
       ticks = 0;
       anim = true;
-      mediumCD = 7 + (endIndex - startIndex);
+      mediumCD = 9 + (endIndex - startIndex); // 9 + 6
+      lightCD += (endIndex - startIndex);
+      heavyCD += (endIndex - startIndex);
     }
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
@@ -408,7 +412,9 @@ public class Goku extends character {
     if (!anim){
       ticks = 0;
       anim = true;
-      heavyCD = 10 + (endIndex - startIndex);
+      heavyCD = 12 + (endIndex - startIndex); // 12 + 5
+      lightCD += (endIndex - startIndex);
+      mediumCD += (endIndex - startIndex);
     }
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
@@ -552,6 +558,7 @@ public class Goku extends character {
     //ADD COMMENTS THAT SHOW THE ANIMATION NUMBERS SO YOU CAN MANUALLY VIEW AND SET
     //0 idle, 10 crouch, 20 walk, 41 jump, 200 light, 220 medium, 240 heavy
     // Constructor takes: offsetX from left, offsetY from bottom (at top of box, from bottom of sprite), width, height
+    // 6 is minimum stun time for combo use
     for (int i = 0; i < sprites.size(); i++){
       MyPImage frame = sprites.get(i);
       if (i >= findFirstSprite(0) && i <= findLastSprite(0)){ // Walk
@@ -573,13 +580,13 @@ public class Goku extends character {
       else if (i >= findFirstSprite(200) && i <= findLastSprite(200)){ // Light
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 40, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(200) + 1){
-          frame.hurtboxes.add(new Hurtbox(110, 90, 36, 15, "Punch", 3, 2));
+          frame.hurtboxes.add(new Hurtbox(110, 90, 36, 15, "Punch", 3, 7));
         }
       }
       else if (i >= findFirstSprite(220) && i <= findLastSprite(220)){ // Medium
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 50, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(220) + 2 || i == findFirstSprite(220) + 3){
-          frame.hurtboxes.add(new Hurtbox(100, 80, 40, 20, "Punch", 5, 3));
+          frame.hurtboxes.add(new Hurtbox(100, 80, 40, 20, "Punch", 5, 6));
         }
       }
       else if (i >= findFirstSprite(240) && i <= findLastSprite(240)){ // Heavy
@@ -587,6 +594,9 @@ public class Goku extends character {
         if (i == findFirstSprite(240) + 2){
           frame.hurtboxes.add(new Hurtbox(110, 135, 40, 40, "Kick", 7, 4));
         }
+      }
+      else if (i == findLastSprite(5000)){
+        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
     }
   }

@@ -26,19 +26,4 @@ public class Box{
   public int getWidth(){
     return (int) rectangle.getWidth();
   }
-  
-  /*
-  public boolean checkCollides(character other){
-    for (int i = posX; i < posX + wid; i++) {
-      if (i == other.posX) {
-        for (int j = posY; i < posY + ht; j++) {
-          if (j == other.posY) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-  */
 }

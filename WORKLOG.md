@@ -41,6 +41,24 @@ Made collision work, also changed up the hitboxes again.
 
 Created collisions for top down and also added a light hit and medium hit.
 
+### 6/2 - 6/4
+
+Brainstormed how to fix the bugs in the current version. One bug was when both characters hit at the same time, they would both be unable to do anything for one move. Another thing brainstormed
+was how to implement the stun time for combos.
+
+### 6/6/23
+
+Fixed bug where in the endScreen there players would still be able to attack and subsequently kill the other resulting in a different win screen. Thinking about making a character select screen
+instead of win screen.
+
+### 6/8/23
+
+Added a timer and separated the health bars to make space for timers. New animations for when the round ends. Added victory poses. Scrapped the endScreen idea. 
+
+### 6/9/23
+
+Fixed bugs with falling and stun. Made combos possible, just have to adjust the stun durations to our fit. Added block while crouching.
+
 ## GROUP MEMBER 2: Phillip Guan
 
 ### 5/22/23
@@ -85,3 +103,7 @@ and some "funny" stuff. Planning on adding some stats and making it look cleaner
 
 Created a rematch button on the endscreen where when hovered over highlights yellow to indicate it. When you press your mouse while hovering over the "rematch" box, it resets players health
 and sets their positions to their original positions, or 50 pixels away form their respective sides, instead of them spawning right next to each other.
+
+### 6/9/23
+
+Made it so the health bar changes colors to reflect the amount of health a player has. Turns red from the range of 50-25 and dark red from 25-0.

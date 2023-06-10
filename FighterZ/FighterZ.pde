@@ -145,31 +145,31 @@ public void drawHealth(){
   //Player1 health
   strokeWeight(0);
   fill(0, 255, 0);
-  if (Player1.health >= 50){
-    rect((width - outline - timerSpace) / 2, outline / 2, ((width - timerSpace)/2) - ( (float) Player1.health/Player1.maxHealth * ((width - timerSpace)/2) ) - (outline / 2), 30);
+  
+  if (Player1.health > 25 && Player1.health < (Player1.maxHealth / 2)) {
+    fill(255, 195, 0);
   }
-  if (Player1.health > 25 && Player1.health < 50) {
-    fill(255, 0, 0);
-    rect((width - outline - timerSpace) / 2, outline / 2, ((width - timerSpace)/2) - ( (float) Player1.health/Player1.maxHealth * ((width - timerSpace)/2) ) - (outline / 2), 30);
+  else if (Player1.health <= 25){
+    fill(243, 58, 106);
   }
-  if (Player1.health <= 25 && Player1.health >= 0) {
-    fill(139, 0, 0);
+  
+  if (Player1.health >= 0){
     rect((width - outline - timerSpace) / 2, outline / 2, ((width - timerSpace)/2) - ( (float) Player1.health/Player1.maxHealth * ((width - timerSpace)/2) ) - (outline / 2), 30);
   }
   //Player2 health
   strokeWeight(0);
   fill(0, 255, 0);
-  if (Player2.health >= 50){
+  if (Player2.health > 25 && Player2.health < (Player2.maxHealth / 2)) {
+    fill(255, 195, 0);
+  }
+  else if (Player2.health <= 25){
+    fill(243, 58, 106);
+  }
+  
+  if (Player2.health >= 0){
     rect((width + outline + timerSpace) / 2, outline / 2, ((width + timerSpace)/2) + ( (float) Player2.health/Player2.maxHealth * ((width - timerSpace)/2) ) + (outline / 2), 30);
   }
-  if (Player2.health > 25 && Player2.health < 50) {
-    fill(255, 0, 0);
-    rect((width + outline + timerSpace) / 2, outline / 2, ((width + timerSpace)/2) + ( (float) Player2.health/Player2.maxHealth * ((width - timerSpace)/2) ) + (outline / 2), 30);
-  }
-  if (Player2.health <= 25 && Player2.health >= 0) {
-    fill(139, 0, 0);
-    rect((width + outline + timerSpace) / 2, outline / 2, ((width + timerSpace)/2) + ( (float) Player2.health/Player2.maxHealth * ((width - timerSpace)/2) ) + (outline / 2), 30);
-  }
+  
   //Timer
   int textSize = 30;
   textAlign(CENTER);

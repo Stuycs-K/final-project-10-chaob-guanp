@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 import java.awt.*;
+import processing.sound.*;
 
 public final int UP = 0;
 public final int LEFT = 1;
@@ -20,6 +21,7 @@ public character Player2;
 public boolean gameStart;
 public double timer;
 public ArrayList<Button> buttons;
+public SoundFile backMusic, getHit;
 
 /*
 public boolean restartOver = false;
@@ -37,7 +39,6 @@ void setup(){
   characterFaces = new ArrayList<PImage>(ROSTER);
   gameStart = false;
   timer = 90; // in seconds
-  
   for(int i = 0; i < 1 + ROSTER; i++){
     buttons.add(new Button(new Rectangle(0, 0, 0, 0), "NULL"));
   }
@@ -150,7 +151,7 @@ public void drawHealth(){
     fill(255, 195, 0);
   }
   else if (Player1.health <= 25){
-    fill(243, 58, 106);
+    fill(164, 42, 4);
   }
   
   if (Player1.health >= 0){
@@ -163,7 +164,7 @@ public void drawHealth(){
     fill(255, 195, 0);
   }
   else if (Player2.health <= 25){
-    fill(243, 58, 106);
+    fill(164, 42, 4);
   }
   
   if (Player2.health >= 0){
@@ -503,6 +504,8 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
     }
   }
   //Now check hurtboxes to deal damage and stun
+  getHit = new SoundFile(this, "gkn_v_003.wav");
+
   for (int i = 0; i < frame1.hurtboxes.size(); i++){
     Hurtbox hurt = frame1.hurtboxes.get(i);
     for (int j = 0; j < frame2.hitboxes.size(); j++){
@@ -516,6 +519,7 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
           Player2.health -= hurt.damage;
           Player2.stunTime = hurt.stun;
           Player2.stunned = true;
+          getHit.play();
         }
       }
     }
@@ -533,6 +537,7 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
           Player1.health -= hurt.damage;
           Player1.stunTime = hurt.stun;
           Player1.stunned = true;
+          getHit.play();
         }
       }
     }

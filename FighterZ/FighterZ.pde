@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.*;
 import java.awt.*;
-import processing.sound.*;
+//import processing.sound.*;
+import ddf.minim.*;
 
 public final int UP = 0;
 public final int LEFT = 1;
@@ -21,7 +22,9 @@ public character Player2;
 public boolean gameStart;
 public double timer;
 public ArrayList<Button> buttons;
-public SoundFile backMusic, getHit;
+public Minim minim;
+public AudioPlayer getHit, background, characterSelect; 
+//public SoundFile backMusic, getHit;
 
 /*
 public boolean restartOver = false;
@@ -33,6 +36,10 @@ private int restartY2;
 
 void setup(){
   size(1000, 500);
+  minim = new Minim(this);
+  getHit = minim.loadFile("getHitSound.wav");
+  background = minim.loadFile("backgroundSound.mp3");
+  characterSelect = minim.loadFile("characterSelectSound.mp3");
   surface.setResizable(true);
   frameRate(20);
   buttons = new ArrayList<Button>(1 + ROSTER);
@@ -65,7 +72,6 @@ void setup(){
 
 void draw(){
   surface.setResizable(true);
-  
   for (int i = 0; i < buttons.size(); i++){
     buttons.set(i, new Button(new Rectangle(0, 0, 0, 0), "NULL"));
   }
@@ -89,6 +95,9 @@ void draw(){
   if (gameStart){ // In a round
     imageMode(CORNER);
     image(arena, 0, 0);
+    characterSelect.pause();
+   // characterSelect.rewind();
+    background.play();
     MyPImage currentFrame1;
     MyPImage currentFrame2;
     if (Player1.stunned){ // overlap proper sprite if doing a combo/attack
@@ -122,7 +131,10 @@ void draw(){
       createResult();
     }
     else{
+      background.pause();
+    //  background.rewind();
       createSelect();
+      characterSelect.play();
     }
   }
   for (int i = 0; i < buttons.size(); i++){
@@ -504,7 +516,7 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
     }
   }
   //Now check hurtboxes to deal damage and stun
-  getHit = new SoundFile(this, "gkn_v_003.wav");
+
 
   for (int i = 0; i < frame1.hurtboxes.size(); i++){
     Hurtbox hurt = frame1.hurtboxes.get(i);
@@ -516,10 +528,13 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
           Player2.health -= Math.ceil((float) hurt.damage / 10);
         }
         else{
+          if (!getHit.isPlaying()) {
+            getHit.rewind();
+            getHit.play();
+          }
           Player2.health -= hurt.damage;
           Player2.stunTime = hurt.stun;
           Player2.stunned = true;
-          getHit.play();
         }
       }
     }
@@ -534,10 +549,13 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
           Player1.health -= Math.ceil((float) hurt.damage / 10);
         }
         else{
+          if (!getHit.isPlaying()) {
+            getHit.rewind();
+            getHit.play();
+          }
           Player1.health -= hurt.damage;
           Player1.stunTime = hurt.stun;
           Player1.stunned = true;
-          getHit.play();
         }
       }
     }

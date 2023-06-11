@@ -7,11 +7,5 @@ public class Hurtbox extends Box{
     super(offsetX_, offsetY_, width_, height_, name_);
     damage = damage_;
     stun = stun_;
-    /*
-    noFill();
-    rectMode(CORNERS);
-    stroke(255, 0, 0);
-    rect(posX_, posY_, width_, length_);
-    */
   }
 }

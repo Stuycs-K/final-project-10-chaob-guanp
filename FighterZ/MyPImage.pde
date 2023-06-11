@@ -20,21 +20,4 @@ public class MyPImage{
     return name;
   }
   
-  /*
-  public void drawHitbox(int pX, int pY, int w, int l) {
-    Hitbox one = new Hitbox(pX, height - pY, pX + w, (height-pY) - l);
-    hitboxes.add(one);
-    noFill();
-    stroke(255, 0, 0);
-    rect(pX, height - pY, pX + w, (height-pY) - l);
-  }
-  public void drawHurtbox(int pX, int pY, int w, int l) {
-    Hurtbox one = new Hurtbox(pX, height - pY, pX + w, (height-pY) - l);
-    hurtboxes.add(one);
-    noFill();
-    stroke(100, 100, 100);
-    rect(pX, height - pY, pX + w, (height-pY) - l);
-  }
-  */
-  
 }

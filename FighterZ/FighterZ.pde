@@ -13,6 +13,9 @@ public final int MEDIUM = 5;
 public final int HEAVY = 6;
 public final int SPECIAL = 7;
 public final int ROSTER = 1;
+public final int CHARACTERSELECT = 0;
+public final int GAMESTART = 1;
+public final int GAMERESULT = 2;
 
 public ArrayList<PImage> characterFaces;
 public boolean display = false;
@@ -23,7 +26,8 @@ public boolean gameStart;
 public double timer;
 public ArrayList<Button> buttons;
 public Minim minim;
-public AudioPlayer getHit, background, characterSelect; 
+public AudioPlayer getHit, background, characterSelect, resultSound; 
+public int Mode;
 //public SoundFile backMusic, getHit;
 
 /*
@@ -40,6 +44,9 @@ void setup(){
   getHit = minim.loadFile("getHitSound.wav");
   background = minim.loadFile("backgroundSound.mp3");
   characterSelect = minim.loadFile("characterSelectSound.mp3");
+  resultSound = minim.loadFile("resultSound.mp3");
+ 
+  
   surface.setResizable(true);
   frameRate(20);
   buttons = new ArrayList<Button>(1 + ROSTER);
@@ -95,6 +102,7 @@ void draw(){
   if (gameStart){ // In a round
     imageMode(CORNER);
     image(arena, 0, 0);
+    Mode = GAMESTART;
     characterSelect.pause();
    // characterSelect.rewind();
     background.play();
@@ -142,6 +150,27 @@ void draw(){
   }
 }
 
+public void mode(){
+  if (Mode == CHARACTERSELECT) {
+    background.pause();
+    resultSound.pause();
+    characterSelect.rewind();
+    characterSelect.loop();
+  }
+  else if (Mode == GAMESTART) {
+    characterSelect.pause();
+    resultSound.pause();
+    background.rewind();
+    background.loop();
+  }
+  else if (Mode == GAMERESULT) {
+    characterSelect.pause();
+    background.pause();
+    resultSound.rewind();
+    resultSound.loop();
+  }
+}
+
 public void drawHealth(){
   int timerSpace = 40;
   int outline = 4;
@@ -165,7 +194,9 @@ public void drawHealth(){
   else if (Player1.health <= 25){
     fill(164, 42, 4);
   }
-  
+  else if (Player1.health == 0) {
+    Mode = GAMERESULT;
+  }
   if (Player1.health >= 0){
     rect((width - outline - timerSpace) / 2, outline / 2, ((width - timerSpace)/2) - ( (float) Player1.health/Player1.maxHealth * ((width - timerSpace)/2) ) - (outline / 2), 30);
   }
@@ -178,7 +209,9 @@ public void drawHealth(){
   else if (Player2.health <= 25){
     fill(164, 42, 4);
   }
-  
+  else if (Player2.health == 0) {
+    Mode = GAMERESULT;
+  }
   if (Player2.health >= 0){
     rect((width + outline + timerSpace) / 2, outline / 2, ((width + timerSpace)/2) + ( (float) Player2.health/Player2.maxHealth * ((width - timerSpace)/2) ) + (outline / 2), 30);
   }
@@ -210,6 +243,7 @@ public void createArena(){
 public void createResult(){ // change to fit more results
   imageMode(CORNER);
   image(arena, 0, 0);
+  Mode = GAMERESULT;
   MyPImage currentFrame1;
   MyPImage currentFrame2;
   if (Player1.health > 0){ // overlap proper sprite if alive
@@ -273,6 +307,7 @@ public void createResult(){ // change to fit more results
 
 public void createSelect(){
   background(0);
+  Mode = CHARACTERSELECT;
   timer = 90;
   int buttonWidth = 70;
   

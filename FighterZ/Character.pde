@@ -5,7 +5,7 @@ public class character{
   public boolean up, left, down, right, light, medium, heavy, special;
   public boolean stunned, inAir, jumping, crouching, blocking, lightIng, mediumIng, heavyIng;
   public boolean anim;
-  public boolean mirror; // When mirrored, posX will be the sprite's image's width off. As in, it will be image.width greater than it should be to be representing the left side. so the posX should be treated like it's right-sided when mirrored.
+  public boolean mirror; 
   public int startIndex, endIndex, crouchCD, jumpCD, lightCD, mediumCD, heavyCD, jumpX, stunTime;
   public int posX; // left;
   public int posY; // down;
@@ -20,13 +20,13 @@ public class character{
     ticks = 0;
     if (PlayerNumber == 1){
       keybinds = new char[] {'w', 'a', 's', 'd', 'e', 'r', 't', 'y'}; // player 1
-      posX = 0;
+      posX = 30;
       posY = 0;
       mirror = false;
     }
     else{
       keybinds = new char[] {'o', 'k', 'l', ';', 'p', '[', ']', '\\'}; // player 2
-      posX = width;
+      posX = width - 30;
       posY = 0;
       mirror = true;
     }

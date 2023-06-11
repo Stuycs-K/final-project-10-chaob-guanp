@@ -10,101 +10,118 @@ public class Goku extends character {
   public MyPImage update(){
     MyPImage currentFrame = null;
     imageMode(CORNER);
-    if (!stunned){
-      if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Jump
-        if (jumpCD == 0){
-          jumping = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if(!up && down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Crouch
-        if (crouchCD == 0){
-          crouching = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if (!up && !down && light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        if (lightCD == 0){
-          lightIng = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if (!up && !down && !light && medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        if (mediumCD == 0){
-          mediumIng = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
-      else if (!up && !down && !light && !medium && heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        if (heavyCD == 0){
-          heavyIng = true;
-        }
-        else{
-          currentFrame = idle();
-        }
-      }
     
-      if (jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
-        currentFrame = jump();
+    if (gameStart){
+      if (!stunned){
+        if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Jump
+          if (jumpCD == 0){
+            jumping = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if(!up && down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Crouch
+          if (crouchCD == 0){
+            crouching = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if (!up && !down && light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          if (lightCD == 0){
+            lightIng = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if (!up && !down && !light && medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          if (mediumCD == 0){
+            mediumIng = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+        else if (!up && !down && !light && !medium && heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          if (heavyCD == 0){
+            heavyIng = true;
+          }
+          else{
+            currentFrame = idle();
+          }
+        }
+    
+        if (jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+          currentFrame = jump();
+        }
+        else if (crouching && !jumping && !lightIng && !mediumIng && !heavyIng){
+          currentFrame = crouch();
+        }
+        else if (lightIng && !jumping && !crouching && !mediumIng && !heavyIng){
+          currentFrame = light();
+        }
+        else if (mediumIng && !jumping && !crouching && !lightIng && !heavyIng){
+          currentFrame = medium();
+        }
+        else if (heavyIng && !jumping && !crouching && !lightIng && !mediumIng){
+          currentFrame = heavy();
+        }
+        else if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Idle
+          currentFrame = idle();
+        }
+        else if (!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Left and right walk
+          currentFrame = walk();
+        }
+        else if (!inAir){ //if nothing else somehow, or a nothing combo of keys, or locked by bad booleans
+          jumping = false;
+          crouching = false;
+          lightIng = false;
+          mediumIng = false;
+          heavyIng = false;
+          currentFrame = idle();
+        }
+        else if (inAir){
+          currentFrame = fall();
+        }
       }
-      else if (crouching && !jumping && !lightIng && !mediumIng && !heavyIng){
-        currentFrame = crouch();
-      }
-      else if (lightIng && !jumping && !crouching && !mediumIng && !heavyIng){
-        currentFrame = light();
-      }
-      else if (mediumIng && !jumping && !crouching && !lightIng && !heavyIng){
-        currentFrame = medium();
-      }
-      else if (heavyIng && !jumping && !crouching && !lightIng && !mediumIng){
-        currentFrame = heavy();
-      }
-      else if (!(up ^ down) && !(right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Idle
-        currentFrame = idle();
-      }
-      else if (!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Left and right walk
-        currentFrame = walk();
-      }
-      else if (!inAir){ //if nothing else somehow, or a nothing combo of keys, or locked by bad booleans
-        anim = false;
-        ticks = 0;
+      else{
         jumping = false;
         crouching = false;
         lightIng = false;
         mediumIng = false;
         heavyIng = false;
-        currentFrame = idle();
+        currentFrame = stun();
       }
-      else if (inAir){
+    }
+    else{
+      if (inAir){
         currentFrame = fall();
       }
-    }
-    else{
-      anim = false;
-      ticks = 0;
-      jumping = false;
-      crouching = false;
-      lightIng = false;
-      mediumIng = false;
-      heavyIng = false;
-      currentFrame = stun(); // placeholder
+      else{
+        if (health > 0){
+          currentFrame = victory();
+        }
+        else{
+          currentFrame = defeat();
+        }
+      }
     }
     
-    if (stunTime > 0){
-      stunned = true;
-      stunTime--;
+    if (stunned){
+      if (stunTime > 0){
+        stunned = true;
+        stunTime--;
+      }
+      else{
+        stunned = false;
+        alreadyHit = false;
+        anim = false;
+      }
     }
-    else{
-      stunned = false;
-    }
+    
     if (posY > 0){
       inAir = true;
     }
@@ -188,7 +205,7 @@ public class Goku extends character {
       
     if (ticks > endIndex - startIndex){
       ticks = 0;
-    } 
+    }
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -294,6 +311,8 @@ public class Goku extends character {
   private MyPImage crouch(){
     PImage img;
     
+    blocking = true; // temporary
+    
     int current = findLastSprite(10);
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
@@ -308,6 +327,8 @@ public class Goku extends character {
     if (!down){
       crouchCD = 4;
       crouching = false;
+      
+      blocking = false; //  temporary
     }
     return sprites.get(current);
   }
@@ -315,13 +336,16 @@ public class Goku extends character {
   private MyPImage light(){
     PImage img;
     
+    startIndex = findFirstSprite(200);
+    endIndex = findLastSprite(200);
+    
     if (!anim){
       ticks = 0;
       anim = true;
+      lightCD = 6 + (endIndex - startIndex); // 6 + 4
+      mediumCD += (endIndex - startIndex);
+      heavyCD += (endIndex - startIndex);
     }
-    
-    startIndex = findFirstSprite(200);
-    endIndex = findLastSprite(200);
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -337,7 +361,6 @@ public class Goku extends character {
     updateBoxes(img, current);
        
     if (ticks >= endIndex - startIndex){
-      lightCD = 4;
       lightIng = false;
       anim = false;
       alreadyHit = false;
@@ -348,13 +371,16 @@ public class Goku extends character {
   private MyPImage medium(){
     PImage img;
     
+    startIndex = findFirstSprite(220);
+    endIndex = findLastSprite(220);
+    
     if (!anim){
       ticks = 0;
       anim = true;
+      mediumCD = 9 + (endIndex - startIndex); // 9 + 6
+      lightCD += (endIndex - startIndex);
+      heavyCD += (endIndex - startIndex);
     }
-    
-    startIndex = findFirstSprite(220);
-    endIndex = findLastSprite(220);
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -370,7 +396,6 @@ public class Goku extends character {
     updateBoxes(img, current);
        
     if (ticks >= endIndex - startIndex){
-      mediumCD = 7;
       mediumIng = false;
       anim = false;
       alreadyHit = false;
@@ -381,13 +406,16 @@ public class Goku extends character {
   private MyPImage heavy(){
     PImage img;
     
+    startIndex = findFirstSprite(240);
+    endIndex = findLastSprite(240);
+    
     if (!anim){
       ticks = 0;
       anim = true;
+      heavyCD = 12 + (endIndex - startIndex); // 12 + 5
+      lightCD += (endIndex - startIndex);
+      mediumCD += (endIndex - startIndex);
     }
-          
-    startIndex = findFirstSprite(240);
-    endIndex = findLastSprite(240);
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
     
@@ -403,7 +431,6 @@ public class Goku extends character {
     updateBoxes(img, current);
        
     if (ticks >= endIndex - startIndex){
-      heavyCD = 10;
       heavyIng = false;
       anim = false;
       alreadyHit = false;
@@ -415,10 +442,16 @@ public class Goku extends character {
     PImage img;
     
     startIndex = findFirstSprite(5000);
-    endIndex = findLastSprite(5000) - 1;
-      
-    if (ticks > endIndex - startIndex){
+    endIndex = findLastSprite(5000);
+    
+    if (!anim){
       ticks = 0;
+      anim = true;
+    }
+    
+    if (ticks >= endIndex - startIndex){
+      ticks = endIndex- startIndex;
+      alreadyHit = false;
     }
     
     int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
@@ -438,11 +471,18 @@ public class Goku extends character {
   
   private MyPImage fall(){
     PImage img;
+    int current;
     
-    int current = findLastSprite(41) - 2;
+    if (health > 0){
+      current = findLastSprite(41) - 2;
+    }
+    else{
+      current = findLastSprite(5070);
+    }
     
-    if (!anim){
+    if (!anim || jumping){
       ticks = 0;
+      jumping = false;
       anim = true;
     }
     
@@ -466,44 +506,97 @@ public class Goku extends character {
     return sprites.get(current);
   }
   
+  private MyPImage victory(){
+    PImage img;
+    
+    startIndex = findFirstSprite(180);
+    endIndex = findLastSprite(180);
+    
+    if (!anim){
+      ticks = 0;
+      anim = true;
+    }
+    
+    if (ticks > endIndex - startIndex){
+      ticks = endIndex- startIndex;
+    }
+    
+    int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
+    
+    if (mirror){
+      img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
+    }
+    else{
+      img = sprites.get(current).getImage();
+      image(img, posX, -posY + (height - img.height));
+    }
+    
+    updateBoxes(img, current);
+    
+    return sprites.get(current);
+  }
+  
+  private MyPImage defeat(){
+    PImage img;
+    
+    int current = findFirstSprite(5120);
+    if (mirror){
+      img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
+    }
+    else{
+      img = sprites.get(current).getImage();
+      image(img, posX, -posY + (height - img.height));
+    }
+    updateBoxes(img, current);
+    
+    return sprites.get(current);
+  }
+  
   private void setBoxes(){
     //ADD COMMENTS THAT SHOW THE ANIMATION NUMBERS SO YOU CAN MANUALLY VIEW AND SET
-    //0 idle, 10 crouch, 20 walk, 41 jump, 200 light
-    // Constructor takes: offsetX from left, offsetY from top, width, height
+    //0 idle, 10 crouch, 20 walk, 41 jump, 200 light, 220 medium, 240 heavy
+    // Constructor takes: offsetX from left, offsetY from bottom (at top of box, from bottom of sprite), width, height
+    // 6 is minimum stun time for combo use
     for (int i = 0; i < sprites.size(); i++){
       MyPImage frame = sprites.get(i);
       if (i >= findFirstSprite(0) && i <= findLastSprite(0)){ // Walk
         frame.hitboxes.add(new Hitbox(0, 44, 95, 44, "Legs"));
         frame.hitboxes.add(new Hitbox(26, 86, 64, 42, "Torso"));
         frame.hitboxes.add(new Hitbox(60, 96, 23, 20, "Head"));
-        //frame.hurtboxes.add(new Hurtbox(50, 50, 30, 30, "Temp"));
       }
-      else if (i == findLastSprite(10)){
+      else if (i == findLastSprite(10)){ // Crouch
+        frame.hitboxes.add(new Hitbox(15, 46, 78, 42, "Legs"));
+        frame.hitboxes.add(new Hitbox(35, 88, 44, 42, "Torso"));
+        frame.hitboxes.add(new Hitbox(10, 100, 40, 25, "Hand"));
+      }
+      else if (i >= findFirstSprite(20) && i <= findLastSprite(20)){ // Walk
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
-      else if (i >= findFirstSprite(20) && i <= findLastSprite(20)){
+      else if (i >= findFirstSprite(41) && i <= findLastSprite(41)){ // Jump
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
-      else if (i >= findFirstSprite(41) && i <= findLastSprite(41)){
-        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
-      }
-      else if (i >= findFirstSprite(200) && i <= findLastSprite(200)){
+      else if (i >= findFirstSprite(200) && i <= findLastSprite(200)){ // Light
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 40, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(200) + 1){
-          frame.hurtboxes.add(new Hurtbox(110, 90, 36, 15, "Punch", 3, 2));
+          frame.hurtboxes.add(new Hurtbox(110, 90, 36, 15, "Punch", 3, 7));
         }
       }
-      else if (i >= findFirstSprite(220) && i <= findLastSprite(220)){
+      else if (i >= findFirstSprite(220) && i <= findLastSprite(220)){ // Medium
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 50, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(220) + 2 || i == findFirstSprite(220) + 3){
-          frame.hurtboxes.add(new Hurtbox(100, 80, 40, 20, "Punch", 5, 3));
+          frame.hurtboxes.add(new Hurtbox(100, 80, 40, 20, "Punch", 5, 6));
         }
       }
-      else if (i >= findFirstSprite(240) && i <= findLastSprite(240)){
+      else if (i >= findFirstSprite(240) && i <= findLastSprite(240)){ // Heavy
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 60, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(240) + 2){
           frame.hurtboxes.add(new Hurtbox(110, 135, 40, 40, "Kick", 7, 4));
         }
+      }
+      else if (i == findLastSprite(5000)){
+        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
     }
   }

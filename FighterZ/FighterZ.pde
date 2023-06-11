@@ -26,7 +26,7 @@ public boolean gameStart;
 public double timer;
 public ArrayList<Button> buttons;
 public Minim minim;
-public AudioPlayer getHit, background, characterSelect, resultSound; 
+public AudioPlayer getHit1, getHit2, background, characterSelect, resultSound; 
 public int Mode;
 //public SoundFile backMusic, getHit;
 
@@ -41,7 +41,8 @@ private int restartY2;
 void setup(){
   size(1000, 500);
   minim = new Minim(this);
-  getHit = minim.loadFile("getHitSound.wav");
+  getHit1 = minim.loadFile("getHitSound.wav");
+  getHit2 = minim.loadFile("getHitSound2.wav");
   background = minim.loadFile("backgroundSound.mp3");
   characterSelect = minim.loadFile("characterSelectSound.mp3");
   resultSound = minim.loadFile("resultMusic.mp3");
@@ -577,9 +578,9 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
           Player2.health -= Math.ceil((float) hurt.damage / 10);
         }
         else{
-          if (!getHit.isPlaying()) {
-            getHit.rewind();
-            getHit.play();
+          if (!getHit2.isPlaying()) {
+            getHit2.rewind();
+            getHit2.play();
           }
           Player2.health -= hurt.damage;
           Player2.stunTime = hurt.stun;
@@ -598,9 +599,9 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
           Player1.health -= Math.ceil((float) hurt.damage / 10);
         }
         else{
-          if (!getHit.isPlaying()) {
-            getHit.rewind();
-            getHit.play();
+          if (!getHit1.isPlaying()) {
+            getHit1.rewind();
+            getHit1.play();
           }
           Player1.health -= hurt.damage;
           Player1.stunTime = hurt.stun;

@@ -44,7 +44,7 @@ void setup(){
   getHit = minim.loadFile("getHitSound.wav");
   background = minim.loadFile("backgroundSound.mp3");
   characterSelect = minim.loadFile("characterSelectSound.mp3");
-  resultSound = minim.loadFile("resultSound.mp3");
+  resultSound = minim.loadFile("resultMusic.mp3");
  
   
   surface.setResizable(true);
@@ -93,10 +93,12 @@ void draw(){
     }
     else{
       gameStart = false;
+      Mode = GAMERESULT;
     }
   }
   else{
     gameStart = false;
+    Mode = GAMERESULT;
   }
   
   if (gameStart){ // In a round
@@ -215,6 +217,18 @@ public void drawHealth(){
   if (Player2.health >= 0){
     rect((width + outline + timerSpace) / 2, outline / 2, ((width + timerSpace)/2) + ( (float) Player2.health/Player2.maxHealth * ((width - timerSpace)/2) ) + (outline / 2), 30);
   }
+  
+  //PlayerNames:
+  //Player 1
+  textAlign(LEFT);
+  textSize(15);
+  fill(255);
+  text("Player 1", 3, 45);
+  //Player 2
+  textAlign(RIGHT);
+  textSize(15);
+  fill(255);
+  text("Player 2", width-28, 45);
   
   //Timer
   int textSize = 30;

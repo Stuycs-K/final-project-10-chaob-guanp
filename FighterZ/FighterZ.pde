@@ -12,12 +12,14 @@ public final int LIGHT = 4;
 public final int MEDIUM = 5;
 public final int HEAVY = 6;
 public final int SPECIAL = 7;
-public final int ROSTER = 1;
+public final int ROSTER = 2;
+public final int TIMER = 90;
+
 public final int CHARACTERSELECT = 0;
 public final int GAMESTART = 1;
 public final int GAMERESULT = 2;
 
-public ArrayList<PImage> characterFaces;
+public ArrayList<MyPImage> characterFaces;
 public boolean display = false;
 public PImage arena;
 public character Player1;
@@ -30,13 +32,6 @@ public AudioPlayer getHit1, getHit2, background, characterSelect, resultSound;
 public int Mode;
 //public SoundFile backMusic, getHit;
 
-/*
-public boolean restartOver = false;
-private int restartX;
-private int restartY;
-private int restartX2;
-private int restartY2;
-*/
 
 void setup(){
   size(1000, 500);
@@ -51,9 +46,9 @@ void setup(){
   surface.setResizable(true);
   frameRate(20);
   buttons = new ArrayList<Button>(1 + ROSTER);
-  characterFaces = new ArrayList<PImage>(ROSTER);
+  characterFaces = new ArrayList<MyPImage>(ROSTER);
   gameStart = false;
-  timer = 90; // in seconds
+  timer = TIMER; // in seconds
   for(int i = 0; i < 1 + ROSTER; i++){
     buttons.add(new Button(new Rectangle(0, 0, 0, 0), "NULL"));
   }
@@ -68,14 +63,8 @@ void setup(){
   Arrays.sort(files);
   
   for (int i = 0; i < files.length; i++){
-    characterFaces.add(loadImage(files[i].getAbsolutePath()));
+    characterFaces.add(new MyPImage(files[i]));
   }
-  /*
-  restartX = 25;
-  restartY = height-50;
-  restartX2 = 140;
-  restartY2 = height-100;
-  */
 }
 
 void draw(){
@@ -150,27 +139,6 @@ void draw(){
   }
   for (int i = 0; i < buttons.size(); i++){
     buttons.get(i).drawRect();
-  }
-}
-
-public void mode(){
-  if (Mode == CHARACTERSELECT) {
-    background.pause();
-    resultSound.pause();
-    characterSelect.rewind();
-    characterSelect.loop();
-  }
-  else if (Mode == GAMESTART) {
-    characterSelect.pause();
-    resultSound.pause();
-    background.rewind();
-    background.loop();
-  }
-  else if (Mode == GAMERESULT) {
-    characterSelect.pause();
-    background.pause();
-    resultSound.rewind();
-    resultSound.loop();
   }
 }
 
@@ -288,46 +256,16 @@ public void createResult(){ // change to fit more results
   
   int buttonWidth = 90;
   buttons.set(0, new Button(new Rectangle((width / 2) - (buttonWidth / 2), 50, buttonWidth, buttonWidth / 2), "Menu"));
-  
-  /*
-  if (Player2.health <= 0) {
-    background(0);
-    textSize(27);
-    PImage img = loadImage("Player1winScreen.jpg");
-    img.resize(1000, 500);
-    image(img, 0, 0);
-    fill(255);
-    text("Player 1 is the bestest player everer", 0, 30);
-    updatePos(mouseX, mouseY);
-    rect(restartX, restartY, restartX2, restartY2);
-    fill(0);
-    text("REMATCH", 26, height-65);
-  }
-  if (Player1.health <= 0) {
-    background(0);
-    textSize(27);
-    PImage img = loadImage("Player2winScreen.jpg");
-    img.resize(1000, 500);
-    image(img, 0, 0);
-    fill(255);
-    text("Player 2 is the better in every way", 0, 30);
-    rectMode(CORNERS);
-    updatePos(mouseX, mouseY);
-    rect(restartX, restartY, restartX2, restartY2);
-    fill(0);
-    text("REMATCH", 26, height-65);
-  }
-  */
 }
 
 public void createSelect(){
   background(0);
   Mode = CHARACTERSELECT;
-  timer = 90;
+  timer = TIMER;
   int buttonWidth = 70;
   
   for (int i = 1; i <= ROSTER; i++){
-    buttons.set(i, new Button(new Rectangle( (width / (int) (Math.pow(2, ROSTER))) - (buttonWidth / 2), height / 2, buttonWidth, buttonWidth), "Goku", characterFaces.get(i - 1)));
+    buttons.set(i, new Button(new Rectangle( (i * (width / (1 + ROSTER)) ) - (buttonWidth / 2), height / 2, buttonWidth, buttonWidth), characterFaces.get(i - 1).getName().substring(0, characterFaces.get(i - 1).getName().length() - 4), characterFaces.get(i - 1).getImage()));
   }
   
   if (arena != null){
@@ -397,6 +335,14 @@ void mousePressed(){
           }
           else if (Player2 == null){
             Player2 = new Goku(2);
+          }
+        }
+        else if (current.name.equals("Vegeta")){
+          if (Player1 == null){
+            //Player1 = new Vegeta(1);
+          }
+          else if (Player2 == null){
+            //Player2 = new Vegeta(2);
           }
         }
       }

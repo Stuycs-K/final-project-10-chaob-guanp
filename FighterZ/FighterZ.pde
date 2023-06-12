@@ -339,7 +339,7 @@ void mousePressed(){
         }
         else if (current.name.equals("Vegeta")){
           if (Player1 == null){
-            //Player1 = new Vegeta(1);
+            Player1 = new Vegeta(1);
           }
           else if (Player2 == null){
             //Player2 = new Vegeta(2);
@@ -522,6 +522,8 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
         Player1.alreadyHit = true;
         if (Player2.blocking){
           Player2.health -= Math.ceil((float) hurt.damage / 10);
+          Player2.stunTime = 3;
+          Player2.stunned = true;
         }
         else{
           if (!getHit2.isPlaying()) {
@@ -543,6 +545,8 @@ public void checkCollisions(MyPImage frame1, MyPImage frame2){
         Player2.alreadyHit = true;
         if (Player1.blocking){
           Player1.health -= Math.ceil((float) hurt.damage / 10);
+          Player1.stunTime = 3;
+          Player1.stunned = true;
         }
         else{
           if (!getHit1.isPlaying()) {

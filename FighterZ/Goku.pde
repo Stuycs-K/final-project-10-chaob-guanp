@@ -12,8 +12,8 @@ public class Goku extends character {
     imageMode(CORNER);
     
     if (gameStart){
-      if (!stunned){
-        if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){ // Jump
+      if (!stunned || blocking){
+        if(up && !down && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng && !stunned){ // Jump
           if (jumpCD == 0){
             jumping = true;
           }
@@ -29,7 +29,7 @@ public class Goku extends character {
             currentFrame = idle();
           }
         }
-        else if (!up && !down && light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+        else if (!up && !down && light && !medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng && !stunned){
           if (lightCD == 0){
             lightIng = true;
           }
@@ -37,7 +37,7 @@ public class Goku extends character {
             currentFrame = idle();
           }
         }
-        else if (!up && !down && !light && medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng){
+        else if (!up && !down && !light && medium && !heavy && !special && !inAir && !jumping && !crouching && !lightIng && !mediumIng && !heavyIng && !stunned){
           if (mediumCD == 0){
             mediumIng = true;
           }
@@ -73,7 +73,12 @@ public class Goku extends character {
           currentFrame = idle();
         }
         else if (!(up ^ down) && (right ^ left) && !light && !medium && !heavy && !special && !inAir && !jumping && !crouching){ // Left and right walk
-          currentFrame = walk();
+          if (!blocking || !stunned){
+            currentFrame = walk();
+          }
+          else{
+            currentFrame = block();
+          }
         }
         else if (!inAir){ //if nothing else somehow, or a nothing combo of keys, or locked by bad booleans
           jumping = false;
@@ -226,9 +231,21 @@ public class Goku extends character {
     PImage img;
     if (right){
       posX+=5;
+      if (mirror){
+        blocking = true;
+      }
+      else{
+        blocking = false;
+      }
     }
     else{
       posX-=5;
+      if (mirror){
+        blocking = false;
+      }
+      else{
+        blocking = true;
+      }
     }
     startIndex = findFirstSprite(20);
     endIndex = findLastSprite(20);
@@ -249,6 +266,24 @@ public class Goku extends character {
     }
     
     updateBoxes(img, current);
+    return sprites.get(current);
+  }
+  
+  private MyPImage block(){
+    PImage img;
+    
+    int current = findFirstSprite(120) + 1;
+    
+    if (mirror){
+      img = getMirrorPImage(sprites.get(current).getImage());
+      image(img, posX - img.width, -posY + (height - img.height));
+    }
+    else{
+      img = sprites.get(current).getImage();
+      image(img, posX, -posY + (height - img.height));
+    }
+    updateBoxes(img, current);
+    
     return sprites.get(current);
   }
   
@@ -310,10 +345,16 @@ public class Goku extends character {
   
   private MyPImage crouch(){
     PImage img;
-    
     blocking = true; // temporary
     
-    int current = findLastSprite(10);
+    int current;
+    if (stunned){
+      current = findLastSprite(130);
+    }
+    else{
+      current = findLastSprite(10);
+    }
+    
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
       image(img, posX - img.width, -posY + (height - img.height));

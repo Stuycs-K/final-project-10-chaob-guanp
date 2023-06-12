@@ -227,14 +227,14 @@ public class Vegeta extends character {
     return sprites.get(current);
   }
   
-  private MyPImage walk(){\
+  private MyPImage walk(){
     int current;
     PImage img;
     if (right){
       posX+=5;
       if (mirror){
         blocking = true;
-        current = findLastSprite(105);
+        current = findLastSprite(221);
       }
       else{
         blocking = false;
@@ -249,7 +249,7 @@ public class Vegeta extends character {
       }
       else{
         blocking = true;
-        current = findLastSprite(105);
+        current = findLastSprite(221);
       }
     }
     startIndex = findFirstSprite(221);
@@ -354,7 +354,7 @@ public class Vegeta extends character {
     
     int current;
     if (stunned){
-      current = findLastSprite(130);
+      current = findLastSprite(121);
     }
     else{
       current = findLastSprite(10);
@@ -452,8 +452,8 @@ public class Vegeta extends character {
   private MyPImage heavy(){
     PImage img;
     
-    startIndex = findFirstSprite(240);
-    endIndex = findLastSprite(240);
+    startIndex = findFirstSprite(430);
+    endIndex = findLastSprite(430);
     
     if (!anim){
       ticks = 0;
@@ -586,7 +586,7 @@ public class Vegeta extends character {
   private MyPImage defeat(){
     PImage img;
     
-    int current = findFirstSprite(5120);
+    int current = findFirstSprite(5040);
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
       image(img, posX - img.width, -posY + (height - img.height));
@@ -608,40 +608,45 @@ public class Vegeta extends character {
     for (int i = 0; i < sprites.size(); i++){
       MyPImage frame = sprites.get(i);
       if (i >= findFirstSprite(0) && i <= findLastSprite(0)){ // Idle
-        frame.hitboxes.add(new Hitbox(0, 44, 95, 44, "Legs"));
-        frame.hitboxes.add(new Hitbox(26, 86, 64, 42, "Torso"));
-        frame.hitboxes.add(new Hitbox(60, 96, 23, 20, "Head"));
+        frame.hitboxes.add(new Hitbox(55, 44, 90, 44, "Legs"));
+        frame.hitboxes.add(new Hitbox(80, 95, 55, 50, "Torso"));
+        frame.hitboxes.add(new Hitbox(90, 115, 23, 20, "Head"));
       }
       else if (i == findLastSprite(10)){ // Crouch
-        frame.hitboxes.add(new Hitbox(15, 46, 78, 42, "Legs"));
-        frame.hitboxes.add(new Hitbox(35, 88, 44, 42, "Torso"));
-        frame.hitboxes.add(new Hitbox(10, 100, 40, 25, "Hand"));
+        frame.hitboxes.add(new Hitbox(70, 46, 78, 42, "Legs"));
+        frame.hitboxes.add(new Hitbox(90, 88, 44, 42, "Torso"));
+        //frame.hitboxes.add(new Hitbox(10, 100, 40, 25, "Hand"));
       }
-      else if (i >= findFirstSprite(221)){ // Walk
-        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
+      else if (i >= findFirstSprite(221)/*  || i >= findFirstSprite(105)*/){ // Walk
+        frame.hitboxes.add(new Hitbox(50, frame.getImage().height-30, 95, frame.getImage().height, "Whole"));
+        if (i == findFirstSprite(430) +3){
+          frame.hurtboxes.add(new Hurtbox(120, 120, 70, 30, "Kick", 10, 5));
+        }
       }
       else if (i >= findFirstSprite(41) && i <= findLastSprite(41)){ // Jump
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
       else if (i >= findFirstSprite(200) && i <= findLastSprite(200)){ // Light
-        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 40, frame.getImage().height, "Whole"));
+        frame.hitboxes.add(new Hitbox(50, frame.getImage().height-30, 95, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(200) + 1){
-          frame.hurtboxes.add(new Hurtbox(110, 90, 36, 15, "Punch", 3, 7));
+          frame.hurtboxes.add(new Hurtbox(124, 95, 47, 15, "Punch", 3, 7));
         }
       }
       else if (i >= findFirstSprite(220) && i <= findLastSprite(220)){ // Medium
-        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 50, frame.getImage().height, "Whole"));
+        frame.hitboxes.add(new Hitbox(50, frame.getImage().height-30, 95, frame.getImage().height, "Whole"));
         if (i == findFirstSprite(220) + 2 || i == findFirstSprite(220) + 3){
-          frame.hurtboxes.add(new Hurtbox(100, 80, 40, 20, "Punch", 5, 6));
+          frame.hurtboxes.add(new Hurtbox(120, 115, 50, 20, "Punch", 7, 6));
         }
       }
-      else if (i >= findFirstSprite(240) && i <= findLastSprite(240)){ // Heavy
-        frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width - 60, frame.getImage().height, "Whole"));
-        if (i == findFirstSprite(240) + 2){
-          frame.hurtboxes.add(new Hurtbox(110, 135, 40, 40, "Kick", 7, 4));
+      else if (i >= findFirstSprite(430)){ // Heavy
+        frame.hitboxes.add(new Hitbox(100, frame.getImage().height, frame.getImage().width - 60, frame.getImage().height, "Whole"));
+        if (i == findFirstSprite(430)){
+          frame.hurtboxes.add(new Hurtbox(120, 120, 50, 20, "Kick", 10, 5));
         }
       }
-      else if (i == findLastSprite(5000)){
+    
+      
+      else if (i == findLastSprite(5040)){
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
     }

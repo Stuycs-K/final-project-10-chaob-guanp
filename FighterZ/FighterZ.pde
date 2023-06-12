@@ -96,7 +96,7 @@ void draw(){
     image(arena, 0, 0);
     Mode = GAMESTART;
     characterSelect.pause();
-   // characterSelect.rewind();
+    characterSelect.rewind();
     background.play();
     MyPImage currentFrame1;
     MyPImage currentFrame2;
@@ -132,7 +132,7 @@ void draw(){
     }
     else{
       background.pause();
-    //  background.rewind();
+      background.rewind();
       createSelect();
       characterSelect.play();
     }
@@ -141,6 +141,7 @@ void draw(){
     buttons.get(i).drawRect();
   }
 }
+
 
 public void drawHealth(){
   int timerSpace = 40;

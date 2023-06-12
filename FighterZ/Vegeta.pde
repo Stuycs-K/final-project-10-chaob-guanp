@@ -227,34 +227,39 @@ public class Vegeta extends character {
     return sprites.get(current);
   }
   
-  private MyPImage walk(){
+  private MyPImage walk(){\
+    int current;
     PImage img;
     if (right){
       posX+=5;
       if (mirror){
         blocking = true;
+        current = findLastSprite(105);
       }
       else{
         blocking = false;
+        current = findFirstSprite(221);
       }
     }
     else{
       posX-=5;
       if (mirror){
         blocking = false;
+        current = findFirstSprite(221);
       }
       else{
         blocking = true;
+        current = findLastSprite(105);
       }
     }
-    startIndex = findFirstSprite(20);
-    endIndex = findLastSprite(20);
+    startIndex = findFirstSprite(221);
+    //endIndex = findLastSprite(20);
       
     if (ticks > endIndex - startIndex){
       ticks = 0;
     }
     
-    int current = (ticks % (endIndex - startIndex + 1)) + startIndex;
+ 
     
     if (mirror){
       img = getMirrorPImage(sprites.get(current).getImage());
@@ -602,7 +607,7 @@ public class Vegeta extends character {
     // 6 is minimum stun time for combo use
     for (int i = 0; i < sprites.size(); i++){
       MyPImage frame = sprites.get(i);
-      if (i >= findFirstSprite(0) && i <= findLastSprite(0)){ // Walk
+      if (i >= findFirstSprite(0) && i <= findLastSprite(0)){ // Idle
         frame.hitboxes.add(new Hitbox(0, 44, 95, 44, "Legs"));
         frame.hitboxes.add(new Hitbox(26, 86, 64, 42, "Torso"));
         frame.hitboxes.add(new Hitbox(60, 96, 23, 20, "Head"));
@@ -612,7 +617,7 @@ public class Vegeta extends character {
         frame.hitboxes.add(new Hitbox(35, 88, 44, 42, "Torso"));
         frame.hitboxes.add(new Hitbox(10, 100, 40, 25, "Hand"));
       }
-      else if (i >= findFirstSprite(20) && i <= findLastSprite(20)){ // Walk
+      else if (i >= findFirstSprite(221)){ // Walk
         frame.hitboxes.add(new Hitbox(0, frame.getImage().height, frame.getImage().width, frame.getImage().height, "Whole"));
       }
       else if (i >= findFirstSprite(41) && i <= findLastSprite(41)){ // Jump

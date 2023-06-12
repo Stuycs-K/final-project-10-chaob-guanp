@@ -343,7 +343,7 @@ void mousePressed(){
             Player1 = new Vegeta(1);
           }
           else if (Player2 == null){
-            //Player2 = new Vegeta(2);
+            Player2 = new Vegeta(2);
           }
         }
       }

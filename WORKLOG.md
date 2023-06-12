@@ -53,11 +53,17 @@ instead of win screen.
 
 ### 6/8/23
 
-Added a timer and separated the health bars to make space for timers. New animations for when the round ends. Added victory poses. Scrapped the endScreen idea. 
+Added a timer and separated the health bars to make space for timers. New animations for when the round ends. Added victory poses. Scrapped the endScreen idea.
 
 ### 6/9/23
 
 Fixed bugs with falling and stun. Made combos possible, just have to adjust the stun durations to our fit. Added block while crouching.
+
+### Weekend 6/9 - 6/11
+
+Created button class so we can make interactive buttons. Edited sprites for vegeta. Found that the sprite list is
+missing some sprites and cannot find suitable replacement so we have to improvise and use an attack animations for
+his walking. Might look off, but its the best we can do. 
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -107,3 +113,7 @@ and sets their positions to their original positions, or 50 pixels away form the
 ### 6/9/23
 
 Made it so the health bar changes colors to reflect the amount of health a player has. Turns red from the range of 50-25 and dark red from 25-0.
+
+### Weekend 6/9 - 6/11
+
+Added sounds for getting hit, music for the character select screen, and music for while you are fighting. Added hitboxes for vegeta character, mostly aligned with the character.

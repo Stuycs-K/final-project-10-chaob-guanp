@@ -17,12 +17,6 @@ Made the sprite walk with a walking animation. Also created a crouch feature. Ch
 ### 5/25/23
 
 Jump feature where the character jumps in a parabolic curve.
-<<<<<<< HEAD
-
-### 5/24/23
-
-Made the sprite walk with a walking animation. Also created a crouch feature. Changed the Character interface into a class which Goku extends.
-=======
 
 ### Weekend 5/26 - 5/29
 

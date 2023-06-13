@@ -131,4 +131,4 @@ Added sounds for getting hit, music for the character select screen, and music f
 
 ## Resources
 - For the audio, I used this YouTube video to learn: https://youtu.be/LcX36OxgZgg
-- Processing reference
+- Processing reference 

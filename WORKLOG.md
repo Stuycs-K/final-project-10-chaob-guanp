@@ -63,7 +63,7 @@ Fixed bugs with falling and stun. Made combos possible, just have to adjust the 
 
 Created button class so we can make interactive buttons. Edited sprites for vegeta. Found that the sprite list is
 missing some sprites and cannot find suitable replacement so we have to improvise and use an attack animations for
-his walking. Might look off, but its the best we can do. 
+his walking. Might look off, but its the best we can do.
 
 ## GROUP MEMBER 2: Phillip Guan
 
@@ -117,3 +117,18 @@ Made it so the health bar changes colors to reflect the amount of health a playe
 ### Weekend 6/9 - 6/11
 
 Added sounds for getting hit, music for the character select screen, and music for while you are fighting. Added hitboxes for vegeta character, mostly aligned with the character.
+
+## Working Features:
+- Character selection screen
+- Two characters to pick from: Goku or Vegeta
+- Light/Medium/Heavy attacks that do different damage and have different stun times
+- Ability to walk around and jump
+- A menu button that serves as a rematch, prompts you to character selection screen
+- Music and hit sound effects
+
+## Broken Features/Bugs
+- Vegeta's hitboxes are a little off due to the fact that the sprites that we downloaded for him actually missed a couple crucial ones and we weren't able to find a suitable replacement for them.
+
+## Resources
+- For the audio, I used this YouTube video to learn: https://youtu.be/LcX36OxgZgg
+- Processing reference

@@ -126,3 +126,5 @@ Added sounds for getting hit, music for the character select screen, and music f
 ## Resources
 - For the audio, I used this YouTube video to learn: https://youtu.be/LcX36OxgZgg
 - Processing reference 
+- Java Oracle
+- DragonBall FighterZ / DragonBall gmaes in general
